@@ -1,0 +1,40 @@
+<div class="columns is-centered">
+    <div class="column is-one-third-desktop is-half-tablet mx-6 mt-6">
+      
+      <form class="form-card box py-5" (ngSubmit)="clickLogin()" [formGroup]="loginForm">
+        <div class="msg has-text-centered pb-4">
+          <p [ngClass]="{'is-success': msg_status === 'success', 'is-danger': msg_status === 'error'}">{{ msg }} </p>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="input is-size-5 mb-3" formControlName="email" type="text"
+              placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+          </div>
+          <div class="help is-danger" *ngIf="loginForm?.get('email')?.invalid && showErrors">
+            <div *ngIf="loginForm?.get('email')?.errors?.['required']">Email is required.</div>
+            <div *ngIf="loginForm?.get('email')?.errors?.['email']">Invalid email format.</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="input is-size-5 mb-3" formControlName="password" type="password"
+              placeholder="Password" minlength="8" maxlength="64" required>
+          </div>
+          <div class="help is-danger" *ngIf="loginForm?.get('password')?.invalid && showErrors">
+            <div *ngIf="loginForm?.get('password')?.errors?.['required']">Password is required.</div>
+            <div *ngIf="loginForm?.get('password')?.errors?.['minlength']">Invalid password.</div>
+          </div>
+        </div>
+        <div class="is-flex is-justify-content-flex-end">
+          <a href="#" class="mb-4 mt-3 is-size-7">Forgot Password</a>
+        </div>
+        <div class="btn py-3 is-flex is-justify-content-center">
+          <button class="button primary-button" type="submit">Login</button>
+        </div>
+        <div class="is-flex is-justify-content-center">
+          <p class="mb-4 mt-3 is-size-7">Create an Account<a (click)="toRegister()"> SignUp</a></p>
+        </div>
+        
+      </form>
+    </div>
+  </div> 

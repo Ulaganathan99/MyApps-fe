@@ -1,0 +1,25 @@
+@import "../../styles.scss";
+nav {
+    background-color: $grey-nav;
+    .logo{
+        max-width: 100px
+    }
+    menu{
+        a{
+            color: $primary;
+            padding: 0px 10px;
+        }
+        a:hover{
+            color: rgb(187, 140, 12);
+        }
+    }
+    .is-active {
+        .a{
+          font-weight: 600;
+          color: rgb(187, 140, 12);
+        }
+      }
+}
+.logo-mobile{
+    max-width: 80px
+}

@@ -1,0 +1,28 @@
+<div class="is-flex is-justify-content-center mt-6 pad-20">
+    <div class="box w-50 w-100-mobile">
+        <img class="edit-img is-clickable" (click)="clickEdit()" src="../../../assets/img/edit.png" alt="">
+        <div class="field is-flex is-justify-content-center">
+            <div class="profile-container">
+                <img *ngIf="user_info.avatar" [src]="imageData" alt="Profile Picture" class="profile-picture" style="border: 1px solid black;">
+              </div>
+              
+        </div>
+            <div class="columns is-mobile">
+                <div class="column is-narrow ">
+                    <p>Name : </p>
+                </div>
+                <div class="column">
+                    <p>{{user_info.name}}</p>
+                </div>
+            </div>
+        
+            <div class="columns is-mobile">
+                <div class="column is-narrow ">
+                    <p>Email : </p>
+                </div>
+                <div class="column">
+                    <p>{{user_info.email}}</p>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="columns is-centered">
+  <div class="column is-one-third-desktop is-half-tablet mx-6 mt-6">
+    <form class="form-card box py-5" (ngSubmit)="clickSignUp()" [formGroup]="signupForm">
+      <div class="msg has-text-centered pb-4">
+        <p [ngClass]="{'is-success': msg_status === 'success', 'is-danger': msg_status === 'error'}">{{ msg }} </p>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="input is-size-5 mb-3" formControlName="name" type="text"
+            placeholder="Name" minlength="3" maxlength="15" required>
+        </div>
+        <div class="help is-danger" *ngIf="signupForm?.get('name')?.invalid && showErrors">
+          <div *ngIf="signupForm?.get('name')?.errors?.['required']">Name is required.</div>
+          <div *ngIf="signupForm?.get('name')?.errors?.['minlength'] || signupForm?.get('name')?.errors?.['maxlength']">Name must between 6 to 15 characters.</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="input is-size-5 mb-3" formControlName="email" type="text"
+            placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        </div>
+        <div class="help is-danger" *ngIf="signupForm?.get('email')?.invalid && showErrors">
+          <div *ngIf="signupForm?.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="signupForm?.get('email')?.errors?.['email']">Invalid email format.</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="input is-size-5 mb-3" formControlName="password" type="password"
+            placeholder="Password" minlength="8" maxlength="64" required>
+        </div>
+        <div class="help is-danger" *ngIf="signupForm?.get('password')?.invalid && showErrors">
+          <div *ngIf="signupForm?.get('password')?.errors?.['required']">Password is required.</div>
+          <div *ngIf="signupForm?.get('password')?.errors?.['minlength']">Invalid password.</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="input is-size-5 mb-3" formControlName="confirmPassword" type="password"
+            placeholder="Confirm-Password" required>
+        </div>
+        <div class="help is-danger" *ngIf="showErrors">
+          <div *ngIf="signupForm?.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
+         
+          <div *ngIf="this.signupForm.value.password !== this.signupForm.value.confirmPassword">Confirm Password must be same.</div>
+          
+        </div>
+      </div>
+      
+      <div class="btn py-3 is-flex is-justify-content-center">
+        <button type="submit" class="button primary-button">SignUp</button>
+      </div>
+      <div class="is-flex is-justify-content-center">
+        <p class="mb-4 mt-3 is-size-7">Already have an Account<a (click)="toLogin()"> Login</a></p>
+      </div>
+      
+    </form>
+  </div>
+</div> 

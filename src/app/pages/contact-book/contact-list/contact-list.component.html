@@ -1,0 +1,53 @@
+<div class="column is-full">
+    <div class="layout">
+      <div class="table-container">
+        <table
+          class="table is-fullwidth is-striped is-narrow is-hoverable has-sticky-header has-sticky-column has-sticky-footer"
+          id="demo-table">
+          <thead>
+            <tr>
+            <th>Contact Name</th>
+            <th>Mobile Number</th>
+            <th>Action</th>
+            </tr>
+            
+          </thead>
+          <tbody >
+            <tr *ngFor="let item of contactList">
+              <td class="has-text-centered">
+               {{item.name}}
+              </td>
+              <td class="has-text-centered"> 
+                {{item.number}}
+
+              </td>
+              <td class="has-text-centered">
+                <!-- <button mat-icon-button  [matMenuTriggerFor]="menu" >
+                  <mat-icon>more_vert</mat-icon>
+                </button> -->
+                <!-- <img mat-buttonsrc="/assets/img/action.png" alt="Image"> -->
+              <!-- <mat-menu #menu="matMenu">
+                <button mat-menu-item>Reschedule</button>
+                <button mat-menu-item >Cancel</button>
+              </mat-menu> -->
+              <button mat-button [matMenuTriggerFor]="fileMenu">File</button>
+  <mat-menu #fileMenu="matMenu">
+    <button mat-menu-item>Hello</button>
+  </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <div class="columns">
+          <div class="column is-flex is-justify-content-center">
+            <div *ngIf="job_summary?.length > 0" style>
+              <app-table-pagination [garageListLength]="jobs_list_length" [garageRecordsCount]="job_summary.length"
+                [page_records_count]="records_count" [searchLength]="search_length"
+                (pageEventData)="onPaginate($event)"></app-table-pagination>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+    </div>
+  </div>

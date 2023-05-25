@@ -1,1 +1,159 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bulma/sass/utilities/initial-variables.sass";
+@import "../node_modules/bulma/sass/utilities/functions.sass";
+@import "../node_modules/bulma/sass/base/_all.sass";
+@import "../node_modules/bulma/sass/elements/_all.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
+@import "../node_modules/bulma/sass/components/_all.sass";
+@import "../node_modules/bulma/sass/grid/_all.sass";
+@import "../node_modules/bulma/sass/helpers/_all.sass";
+@import "../node_modules/bulma/sass/layout/_all.sass";
+@import "../node_modules/bulma/sass/utilities/_all.sass";
+@import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma-extensions/bulma-calendar/src/sass/index.sass";
+
+
+//Font-Size
+
+$font-desktop : 0.9rem;    
+$font-mobile-wide : 0.875rem;   //14px
+$font-mobile : 0.75rem;  //12px
+$font-big: 1rem;   //16px
+$font-widescreen: 1.125rem; //18px
+
+  
+
+//Colors
+
+
+$primary: #207178;
+$black: #000000;
+$white: #ffffff;
+$grey: #676767;
+$grey-1: #E1E1E1;
+$grey-2: #2F2E2E;
+$grey-3: #F1F1F1;
+$grey-4: #EDEDED;
+$grey-5: #929292;
+$grey-6: #3B4243;
+$grey-7: #E8E8E8;
+$grey-8: #FAFAFA;
+$grey-9: #fdfdfd;
+$grey-10: #F5F5F5;
+$grey-11: #2d2a2b;
+$grey-12:#EEEEEE;
+$grey-13:#CBCBCB;
+$grey-14: #5A5A5A;
+$grey-15: #DDDDDD;
+$grey-16: #C4C4C4;
+$grey-17: #BBBBBB;
+$grey-18: #F3F3F3;
+$grey-19: #FBFBFB;
+
+$grey-nav: rgb(226, 226, 226);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+}
+.button{
+  background-color: $primary;
+  color: $white;
+  font-family: 'Oswald', sans-serif;
+
+}
+.button:hover{
+  color: $white;
+  font-weight: 500;
+}
+.pad-20 {
+  padding: 0px 20px;
+}
+.w-50{
+  width: 50%
+}
+.w-100{
+  width: 100%
+}
+
+@media screen and (max-width: 2000px) {
+  html,
+  body {
+    font-size: $font-widescreen !important;
+    .side-nav{
+      padding: 0px 15px;
+    }
+   
+  }
+}
+@media screen and (max-width: 1500px) {
+  html,
+  body {
+    
+    font-size: $font-desktop !important;
+    .side-nav{
+      padding: 0px 15px;
+    }
+   
+  }
+}
+@media screen and (max-width: 1024px) {
+  html,
+  body {
+    
+    font-size: $font-desktop !important;
+    .side-nav{
+      padding: 0px 15px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  
+  html,
+  body {
+    
+    font-size: $font-mobile-wide !important;
+    .w-100-mobile{
+      width: 100%
+    }
+    .side-nav{
+      padding: 0px 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  
+  html,
+  body {
+    
+    font-size: $font-mobile !important;
+    .w-100-mobile{
+      width: 100%
+    }
+    .side-nav{
+      padding: 0px 4px;
+      .menulist{
+        padding: 5px 0px !important;
+      }
+    }
+    .is-mobile{
+      display: block;
+    }
+    .pad-20{
+      padding: 0px 5px;
+    }
+  }
+}
+@media screen and (max-width: 320px) {
+  body {
+    font-size: 0.6rem;
+  }
+  
+}

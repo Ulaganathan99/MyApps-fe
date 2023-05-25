@@ -1,0 +1,27 @@
+.box {
+  position: relative;
+  .edit-img {
+    position: absolute;
+    right: 5%;
+  }
+  .profile-container {
+    position: relative;
+    width: 50%;
+    display: inline-block;
+    max-width: 250px;
+  }
+
+  .profile-picture {
+    border-radius: 50%;
+    width: 100%;
+  }
+}
+// @media screen and (max-width: 400px) { 
+//     .box{
+//         .profile-container {
+//             width: 100%;
+//             max-width: 10px;
+//         } 
+//     }
+    
+//   }

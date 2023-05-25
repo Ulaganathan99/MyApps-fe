@@ -1,0 +1,44 @@
+
+.form-card {
+    .msg {
+      min-height: 35px;
+      .is-danger {
+        color: red;
+      }
+  
+      .is-success {
+        color: green;
+      }
+    }
+  
+    border: 1px solid rgb(212, 212, 212);
+    border-radius: 5px;
+    padding: 20px;
+  
+    .field {
+        .help{
+            width: 80%;
+        }
+      input {
+        width: 80%;
+        border-bottom: 1px solid rgb(212, 212, 212);
+      }
+      input:hover {
+        border: none;
+        border-bottom: 1px solid rgb(212, 212, 212);
+      }
+     
+      
+    }
+    .btn {
+      button {
+        width: 50%;
+        font-family: "Oswald", sans-serif;
+        letter-spacing: 2px;
+        background-color: #207178;
+        color: white;
+        font-weight: 600;
+        
+      }
+    }
+  }

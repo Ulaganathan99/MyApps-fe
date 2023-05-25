@@ -1,0 +1,11 @@
+<div>
+    <div class="columns is-mobile is-gapless">
+      <div class="column is-3">
+        <app-side-nav (menu_changed)="menuChanged($event)"></app-side-nav>
+      </div>
+        <div class="column is-fluid">
+          <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  

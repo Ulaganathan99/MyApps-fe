@@ -1,0 +1,27 @@
+
+@import "../../../node_modules/bulma/sass/utilities/initial-variables.sass";
+@import "../../../node_modules/bulma/sass/utilities/functions.sass";
+@import "../../../node_modules/bulma/sass/base/_all.sass";
+@import "../../../node_modules/bulma/sass/elements/_all.sass";
+@import "../../../node_modules/bulma/sass/form/_all.sass";
+@import "../../../node_modules/bulma/sass/components/_all.sass";
+@import "../../../node_modules/bulma/sass/grid/_all.sass";
+@import "../../../node_modules/bulma/sass/helpers/_all.sass";
+@import "../../../node_modules/bulma/sass/layout/_all.sass";
+@import "../../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../../node_modules/bulma/sass/elements/button.sass";
+@import "../../../node_modules/bulma-extensions/bulma-calendar/src/sass/index.sass";
+
+$primary: #207178;
+
+$grey-nav: rgb(182, 182, 182);
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+}

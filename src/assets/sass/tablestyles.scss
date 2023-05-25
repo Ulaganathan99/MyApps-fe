@@ -1,0 +1,82 @@
+@import "../../styles.scss";
+
+.layout {
+  border-style: inherit;
+  border-top: solid;
+  border-left: solid;
+  border-width: 2px;
+  box-shadow: 0px 2px 6px grey-16;
+  border-color: $grey-9;
+}
+
+.table-container {
+  overflow: visible;
+  overflow-y: visible;
+  border: 1px solid black;
+
+  thead {
+    tr {
+      th {
+        padding: 10px 5px;
+        background-color: #20717815;
+        text-align: center;
+        border-right: 5px solid $white;
+        color: $primary;
+        vertical-align: middle !important;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $grey-13;
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    td {
+      border-right: 5px solid $white;
+      padding: 10px 5px;
+      vertical-align: middle !important;
+      &:last-child {
+        border-right: none;
+      }
+      a {
+        color: $primary;
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .table-container {
+    thead {
+      tr {
+        th {
+          border-right: 2px solid $white;
+          padding: 5px 2px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border-right: 2px solid $white;
+          padding: 5px 2px;
+          &:last-child {
+            border-right: none;
+          }
+        }
+        
+      }
+    }
+  }
+}

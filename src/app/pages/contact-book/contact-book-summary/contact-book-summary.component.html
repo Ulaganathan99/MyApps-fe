@@ -1,0 +1,17 @@
+
+<div>
+    <div class="columns is-mobile mt-4 px-5">
+        <div class="column">
+            <div>
+                {{userDetails.user_name}} <br> 
+                {{userDetails.user_email}}
+            </div>
+        </div>
+        <div class="column is-flex is-justify-content-end">
+            <button class="button is-size-7" (click)="addContact()"> 
+                <p>Add New Contact</p>
+            </button>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

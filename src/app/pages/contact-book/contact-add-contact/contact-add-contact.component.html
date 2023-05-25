@@ -1,0 +1,81 @@
+<div class="is-flex is-justify-content-center mt-3 pad-10">
+    <div class="column is-8-desktop is-10-tablet is-full-mobile mt-6">
+      <form
+        class="form-card box py-5"
+        (ngSubmit)="clickAdd()"
+        [formGroup]="addContactForm"
+      >
+        <div class="msg has-text-centered pb-4">
+          <p
+            [ngClass]="{
+              'is-success': msg_status === 'success',
+              'is-danger': msg_status === 'error'
+            }"
+          >
+            {{ msg }}
+          </p>
+        </div>
+        <div class="field">
+            <div class="control is-flex is-justify-content-center">
+              <input
+                class="input is-size-5 mb-3"
+                formControlName="name"
+                type="text"
+                autocomplete="off"
+                placeholder="Contact Name"
+                name="name"
+                required
+              />
+            </div>
+            <div class="help-container is-flex is-justify-content-center">
+              <div
+                class="help is-danger"
+                *ngIf="addContactForm?.get('name')?.invalid && showErrors"
+              >
+                <div *ngIf="addContactForm?.get('name')?.errors?.['required']">
+                  Name is required.
+                </div>
+                <div
+                  *ngIf="addContactForm?.get('name')?.errors?.['minlength'] || addContactForm?.get('name')?.errors?.['maxlength']"
+                >
+                  Name must between 6 to 15 characters.
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        <div class="field">
+          <div class="control is-flex is-justify-content-center">
+            <input
+              class="input is-size-5 mb-3"
+              formControlName="mobileNumber"
+              type="text"
+              autocomplete="off"
+              placeholder="Mobile Number"
+              name="mobileNumber"
+              required
+            />
+          </div>
+          <div class="help-container is-flex is-justify-content-center">
+            <div
+              class="help is-danger"
+              *ngIf="addContactForm?.get('mobileNumber')?.invalid && showErrors"
+            >
+              <div *ngIf="addContactForm?.get('mobileNumber')?.errors?.['required']">
+                Mobile Number is required.
+              </div>
+              <div
+                *ngIf="addContactForm?.get('mobileNumber')?.errors?.['minlength'] || addContactForm?.get('mobileNumber')?.errors?.['maxlength']"
+              >
+                Mobile Number must be 10 Numbers.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn mt-6 is-flex is-justify-content-center">
+          <button class="button py-5" type="submit"><p>Add Contact</p></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

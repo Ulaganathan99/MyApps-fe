@@ -1,0 +1,12 @@
+<div
+  class="dropdown-head p-2 is-flex is-justify-content-space-between is-align-items-center is-clickable"
+  (click)="showOptions()"
+>
+  <p class="select_input has-text-weight-medium">{{ selected_option }}</p>
+  <i class="fas fa-angle-down" aria-hidden="true"></i>
+  <div class="options" *ngIf="options">
+    <div *ngFor="let option of option_list">
+      <p (click)="selectOption(option)" [ngClass]="getOptionBackgroundColor(option) == true ? 'is-active' : 'in-active'">{{ option }}</p>
+    </div>
+  </div>
+</div>
