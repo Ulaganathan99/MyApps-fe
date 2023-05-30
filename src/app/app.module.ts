@@ -10,7 +10,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import {MatSliderModule} from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -40,6 +41,17 @@ import { LocalStorageService } from './services/local-storage.service';
 import { AuthGuard } from './services/auth.guard';
 import { ContactAddContactComponent } from './pages/contact-book/contact-add-contact/contact-add-contact.component';
 import { ContactListComponent } from './pages/contact-book/contact-list/contact-list.component';
+import { ContactEditComponent } from './pages/contact-book/contact-edit/contact-edit.component';
+import { ContactDeleteComponent } from './pages/contact-book/contact-delete/contact-delete.component';
+import { TabComponent } from './components/tab/tab.component';
+import { SearchComponent } from './components/search/search.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
+import { ChatBoxSummaryComponent } from './pages/chat-box/chat-box-summary/chat-box-summary.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
+import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
+import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 
 
 @NgModule({
@@ -63,6 +75,17 @@ import { ContactListComponent } from './pages/contact-book/contact-list/contact-
     ProfileEditComponent,
     ContactAddContactComponent,
     ContactListComponent,
+    ContactEditComponent,
+    ContactDeleteComponent,
+    TabComponent,
+    SearchComponent,
+    CheckboxComponent,
+    PhoneNumberPipe,
+    ChatBoxSummaryComponent,
+    TabsComponent,
+    ChatBoxChatsComponent,
+    ChatBoxHistoryComponent,
+    ChatBoxInviteComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +100,9 @@ import { ContactListComponent } from './pages/contact-book/contact-list/contact-
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSliderModule,
+    MatCheckboxModule
     
 
 

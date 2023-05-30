@@ -12,6 +12,10 @@ import { ProfileEditComponent } from './pages/profile/profile-edit/profile-edit.
 import { AuthGuard } from './services/auth.guard';
 import { ContactAddContactComponent } from './pages/contact-book/contact-add-contact/contact-add-contact.component';
 import { ContactListComponent } from './pages/contact-book/contact-list/contact-list.component';
+import { ChatBoxSummaryComponent } from './pages/chat-box/chat-box-summary/chat-box-summary.component';
+import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
+import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
+import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 
 const routes: Routes = [
   {
@@ -40,6 +44,16 @@ const routes: Routes = [
               { path: 'add-contact', component: ContactAddContactComponent },
             ],
           },
+          {
+            path: 'chat-box',
+            component: ChatBoxSummaryComponent,
+            children: [
+              { path: '', pathMatch: 'full', redirectTo: 'chat-box-chats' },
+              { path: 'chat-box-chats', component: ChatBoxChatsComponent },
+              { path: 'chat-box-history', component: ChatBoxHistoryComponent },
+              { path: 'chat-box-invite', component: ChatBoxInviteComponent },
+            ],
+          }
         ],
       },
     ],

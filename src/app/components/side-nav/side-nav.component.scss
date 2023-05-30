@@ -1,22 +1,9 @@
 @import "../../../styles.scss";
 
 .side-nav {
-  min-width: 100%;
-  height: 100vh; 
+  width: 100%;
+  min-height: calc(100vh - 50px);
   background-color: $primary;
-  .brand-logo {
-    text-align: center;
-    img {
-      width: 81px;
-    }
-  }
-  .side-nav-links {
-    .menu-icon {
-      width: 14px;
-      background-size: contain;
-    }
-  }
-  
 }
 
 .a {
@@ -27,9 +14,9 @@
 $a-color: $primary;
 .menulist:hover{
   border-radius: 2px;
-  background-color: $white;
+  border: 1px solid $white;
   .a{
-    color: $black;
+    color: $white;
   }
 }
 .is-active {
@@ -37,6 +24,11 @@ $a-color: $primary;
     background-color: $white;
     .a{
       font-weight: 500;
+      color: $black;
+    }
+  }
+  .is-active:hover{
+    .a{
       color: $black;
     }
   }

@@ -1,0 +1,27 @@
+
+.search {
+    border-bottom: 1px solid #9e9e9e;
+    position: relative;
+    input {
+      &:hover,
+      &:active,
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+      border: none;
+      box-shadow: none;
+    }
+    &:after {
+      background: url(../../.././assets/img/search.webp);
+      display: inline-block;
+      height: 28px;
+      width: 28px;
+      content: "";
+      background-size: contain;
+      position: absolute;
+      right: 0;
+      top: 10px;
+    }
+  }
+  

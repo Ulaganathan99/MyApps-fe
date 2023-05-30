@@ -1,0 +1,20 @@
+@import '../../../styles.scss';
+
+.tab_container{
+    background-color: $primary;
+    color: $white;
+    border-radius: 5px;
+    padding: 5px;
+    a{
+        color: $white;
+    }
+    .tab_head:hover{
+        background-color: $white;
+        cursor: pointer;
+        color: black;
+        border-radius: 5px;
+        a{
+            color: $black;
+        }
+    }
+}

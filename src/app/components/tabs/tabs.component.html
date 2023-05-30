@@ -1,0 +1,7 @@
+<div class="columns is-gapless is-mobile tab_container">
+  <div class="column is-4" *ngFor="let tab of tab_list">
+    <div class="tab_head has-text-centered p-2">
+      <a *ngIf="tab.route" routerLink="{{ tab.route }}">{{ tab.label }}</a>
+    </div>
+  </div>
+</div>

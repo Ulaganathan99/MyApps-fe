@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "../node_modules/bulma/sass/utilities/functions.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
@@ -16,11 +17,20 @@
 
 //Font-Size
 
-$font-desktop : 0.9rem;    
-$font-mobile-wide : 0.875rem;   //14px
-$font-mobile : 0.75rem;  //12px
-$font-big: 1rem;   //16px
 $font-widescreen: 1.125rem; //18px
+$font-widescreen-sub-heading: 1.55rem;
+$font-widescreen-heading: 1.8rem;
+$font-desktop : 0.9rem;  
+$font-desktop-sub-heading: 1.5rem;
+$font-desktop-heading: 1.75rem;  
+$font-mobile-wide : 0.875rem;   //14px
+$font-mobile-wide-sub-heading: 1.225rem;
+$font-mobile-wide-heading: 1.65rem;
+$font-mobile : 0.78rem;  //12px
+$font-mobile-sub-heading : 1.125rem;
+$font-mobile-heading: 1.5rem;
+
+
 
   
 
@@ -61,17 +71,22 @@ body {
   box-sizing: border-box;
   font-family: 'Oswald', sans-serif;
   letter-spacing: 1px;
+  .mat-menu-item {
+    padding: 20px 10px;
+    font-family: 'Oswald', sans-serif!important;
+    font-size: $font-desktop !important;
+    line-height: 0;
+    height: 20px;
+  }
+  .is-font-primary{
+    color: $primary;
+  }
 }
 .button{
-  background-color: $primary;
-  color: $white;
   font-family: 'Oswald', sans-serif;
+  font-size: $font-desktop !important;
+}
 
-}
-.button:hover{
-  color: $white;
-  font-weight: 500;
-}
 .pad-20 {
   padding: 0px 20px;
 }
@@ -81,13 +96,25 @@ body {
 .w-100{
   width: 100%
 }
+.mat-checkbox-checked.mat-accent .mat-checkbox-background{
+  background-color: $primary;
+}
 
 @media screen and (max-width: 2000px) {
   html,
   body {
     font-size: $font-widescreen !important;
+    .font-sub{
+      font-size: $font-widescreen-sub-heading !important;
+    }
+    .font-head{
+      font-size: $font-widescreen-heading !important;
+    }
     .side-nav{
       padding: 0px 15px;
+    }
+    .button{
+      font-size: $font-widescreen !important;
     }
    
   }
@@ -97,8 +124,17 @@ body {
   body {
     
     font-size: $font-desktop !important;
+    .font-sub{
+      font-size: $font-desktop-sub-heading !important;
+    }
+    .font-head{
+      font-size: $font-desktop-heading !important;
+    }
     .side-nav{
       padding: 0px 15px;
+    }
+    .button{
+      font-size: $font-desktop !important;
     }
    
   }
@@ -108,8 +144,12 @@ body {
   body {
     
     font-size: $font-desktop !important;
+   
     .side-nav{
       padding: 0px 15px;
+    }
+    .button{
+      font-size: $font-desktop !important;
     }
   }
 }
@@ -119,11 +159,20 @@ body {
   body {
     
     font-size: $font-mobile-wide !important;
+    .font-sub{
+      font-size: $font-mobile-wide-sub-heading !important;
+    }
+    .font-head{
+      font-size: $font-mobile-wide-heading !important;
+    }
     .w-100-mobile{
       width: 100%
     }
     .side-nav{
       padding: 0px 10px;
+    }
+    .button{
+      font-size: $font-mobile-wide !important;
     }
   }
 }
@@ -134,6 +183,12 @@ body {
   body {
     
     font-size: $font-mobile !important;
+    .font-sub{
+      font-size: $font-mobile-sub-heading !important;
+    }
+    .font-head{
+      font-size: $font-mobile-heading !important;
+    }
     .w-100-mobile{
       width: 100%
     }
@@ -148,6 +203,27 @@ body {
     }
     .pad-20{
       padding: 0px 5px;
+    }
+    .mat-menu-item {
+      padding: 10px 10px;
+      font-family: 'Oswald', sans-serif!important;
+      font-size: $font-mobile !important;
+      line-height: 0;
+      min-height: fit-content;
+      min-width: fit-content;
+    }
+    .mat-menu-panel {
+      min-width: auto;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      min-height: auto;
+    }
+    .mat-checkbox-inner-container {
+      height: 10px;
+      width: 10px;
+    }
+    .button{
+      font-size: $font-mobile !important;
     }
   }
 }

@@ -22,4 +22,23 @@ export class ContactService {
       userID
     });
   }
+  deleteContact(userID: string, contactNumber: string): Observable<any>{
+    return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CONTACT, {
+      userID,
+      contactNumber
+    })
+  }
+  editContact(userID: string,contactName: string, contactNumber: string): Observable<any>{
+    return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CONTACT, {
+      userID,
+      contactName,
+      contactNumber
+    })
+  }
+  deleteAllContacts(userID: string, contactNumbers: any): Observable<any>{
+    return this.http.post(Constants.BASE_URL + Constants.API.DELETE_ALL_CONTACT, {
+      userID,
+      contactNumbers
+    })
+  }
 }

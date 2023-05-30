@@ -1,0 +1,19 @@
+<div class="modal is-active">
+    <div class="modal-card">
+      <div class="modal-card-body mx-5">
+         <div class="column">
+           Contact Name: <span class="is-font-primary">{{contactDetail.name}}</span>  <br>
+           Contact Number: <span class="is-font-primary">{{contactDetail.number}}</span>
+         </div>
+         <div>
+          <div>
+            <p class="has-text-centered pb-5 font-sub">Delete contact detail. Are you sure ?</p>
+            <div class="has-text-centered">
+              <button class="button mx-2" (click)="close()" >Cancel</button>
+              <button class="button is-danger mx-2" (click)="clickDelete(contactDetail.number)">Delete</button>
+            </div>       
+          </div>  
+         </div>      
+      </div>
+  </div>  
+</div>

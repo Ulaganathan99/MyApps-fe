@@ -13,6 +13,7 @@ export class LayoutComponent implements OnInit {
 
   is_loggedIn: any = false;
   selected_top_menu: any;
+  show_dropdown_menu: boolean = false;
 
   topmenu_list: any = [
     { name: 'Home', route: '/index/home/', permission: true },
@@ -62,11 +63,8 @@ export class LayoutComponent implements OnInit {
   }
   ham_menu() {}
   logout(): void {
-    // Clear any user-related data
     localStorage.clear();
-  
-  // Update the value in local storage
-  this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Login');
+    this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Login');
     this.router.navigate(['/login']);
   }
 
@@ -79,6 +77,5 @@ export class LayoutComponent implements OnInit {
       this.selected_top_menu
     );
     localStorage.removeItem(Constants.APP.SELECTED_TAB);
-   
   }
 }

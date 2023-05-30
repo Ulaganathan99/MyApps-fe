@@ -1,0 +1,11 @@
+<div class="search">
+    <input
+      class="form-control input is-normal"
+      type="text"
+      name="search"
+      [(ngModel)]="searchText"
+      (ngModelChange)="searchChange($event)"
+      autocomplete="off"
+      placeholder="{{ placeHolder }}"
+    />
+  </div>

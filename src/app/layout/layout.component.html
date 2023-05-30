@@ -1,10 +1,10 @@
-<nav class="is-hidden-mobile">
-    <div class="columns m-0 px-3 is-flex is-align-items-center">
-        <div class="column is-2">
+<nav class="is-flex is-align-items-center">
+    <div class="column m-0 px-3 is-flex is-align-items-center">
+        <div class="column py-0 is-narrow">
             <img class="logo" src="../../../assets/img/my_app_logo.png" alt="">
         </div>
-        <div class="column is-size-6 is-fluid is-flex is-justify-content-end">
-            <menu class="is-flex m-0">
+        <div class="column is-size-6 py-0 is-fluid is-flex is-justify-content-end is-hidden-mobile">
+            <menu class="is-flex m-0 is-align-items-center">
                 <div *ngFor="let menu of topmenu_list">
                     <div *ngIf="(is_loggedIn && menu.permission) || (!is_loggedIn && !menu.permission)" class="py-3 is-clickable menulist" (click)="changeMenu(menu)" [ngClass]="{ 'is-active': selected_top_menu === menu.name, 'has-text-black': selected_top_menu !== menu.name }" routerLink="{{ menu.route }}">
                         <div class="is-flex is-justify-content-center">
@@ -12,25 +12,17 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="is_loggedIn === true" class="py-3 is-clickable menulist" (click)="logout()" >
+                <div *ngIf="is_loggedIn === true" class="is-clickable menulist" (click)="logout()" >
                     <div class="is-flex is-justify-content-center">
                     <a class="a px-5">Logout</a>
                     </div>
                 </div>
             </menu>
         </div>
-    </div>
-</nav>
-<nav class="is-hidden-tablet">
-    <div class="columns m-0 px-3 is-flex is-align-items-center">
-        <div class="column is-2">
-            <img class="logo-mobile" src="../../../assets/img/my_app_logo.png" alt="">
-        </div>
-        <div class="column is-size-6 is-fluid is-flex is-justify-content-end">
+        <div class="column is-size-6 is-fluid is-flex is-justify-content-end is-hidden-tablet">
             <img class="logo is-clickable" (click)="ham_menu()" src="../../../assets/img/menu.png" alt="">
         </div>
     </div>
-    
 </nav>
 
 <router-outlet></router-outlet>

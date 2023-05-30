@@ -1,8 +1,7 @@
 <div class="side-nav py-3">
-    <div *ngFor="let menu of menu_list" class="side-nav-links">
+    <div *ngFor="let menu of menu_list" class="side-nav-links my-2">
       <div class="py-3 is-clickable menulist" (click)="clear(menu)" [ngClass]="(selected_side_nav == menu.name) ? 'is-active' : 'has-text-black'" routerLink="{{ menu.route }}">
         <div class="is-flex is-justify-content-center">
-          <!-- <img class="menu-icon mr-4" [src]="menu.icon" /> -->
         <a class="a">{{ menu.name }}</a>
         </div>
       </div>

@@ -46,7 +46,11 @@ export class SignupComponent implements OnInit {
       confirmPassword: ['', Validators.required],
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.localStorageService.getItem(Constants.APP.SESSION_ID)){
+      this.router.navigate(['/index'])
+    }
+  }
   clickSignUp() {
     const name = this.signupForm.value.name;
     const email = this.signupForm.value.email;

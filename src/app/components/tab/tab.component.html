@@ -1,0 +1,13 @@
+<div class="{{ getClass() }}" *ngIf="tab_list">
+    <ul>
+      <li
+        *ngFor="let tab of tab_list; let i = index"
+        [ngClass]="{ 'is-active': selected_tab === tab.key, note: tab?.alert }"
+        (click)="tabChange(tab.key)"
+      >
+        <a *ngIf="tab.route" [routerLink]="tab.route">{{ tab.label }}</a>
+        <a *ngIf="tab.type">{{ tab.label }}</a>
+        <span *ngIf="tab.alert" class="alert">{{ tab.alert }}</span>
+      </li>
+    </ul>
+  </div>

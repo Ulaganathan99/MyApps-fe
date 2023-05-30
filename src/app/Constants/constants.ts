@@ -13,6 +13,8 @@ export class Constants {
 
     ADD_CONTACT: 'contact/addContact',
     FETCH_CONTACT_INFO: 'contact/getContacts',
+    DELETE_CONTACT: 'contact/delete',
+    DELETE_ALL_CONTACT: 'contact/deleteAll'
     
   }
 

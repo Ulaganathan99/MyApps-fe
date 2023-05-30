@@ -10,6 +10,7 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class ContactAddContactComponent implements OnInit {
 
+  isInputFocused: boolean = false;
   userDetails: any;
   addContactForm!: FormGroup;
   showErrors: boolean = false;
@@ -52,10 +53,7 @@ export class ContactAddContactComponent implements OnInit {
               this.msg = res.success,
               this.msg_status = 'success'
             }
-          }
-          
-          
-          
+          }  
         },
         error: (err) => { 
           console.log(err);

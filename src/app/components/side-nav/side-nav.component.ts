@@ -31,7 +31,7 @@ export class SideNavComponent implements OnInit {
 
   menu_list: any[] = [
     {name: 'Contact Book', route : '/index/contact-book'},
-    // {name: 'Chat', icon: 'assets/img/find-jobs.svg', route : '/home/find-jobs'},
+    {name: 'Chat Box', route : '/index/chat-box'},
     // {name: 'My Jobs', icon: 'assets/img/find-jobs.svg', route : '/home/my-jobs'},
     // {name: 'Booking', icon: 'assets/img/booking.svg', route : '/home/customer-feedback'},
    

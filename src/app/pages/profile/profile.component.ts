@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browse
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { LoaderService } from 'src/app/services/loader.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private loaderService: LoaderService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private localStorageService: LocalStorageService
   ) {}
   
   ngOnInit(): void {
@@ -29,6 +31,10 @@ export class ProfileComponent implements OnInit {
       );
       this.fetchUserInfo(this.userDetails.user_id);
     }
+    this.localStorageService.removeItem(Constants.APP.SELECTED_SIDENAV)
+    this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Profile')
+
+    
     
   }
  
