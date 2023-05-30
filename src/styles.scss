@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+// "analytics": "feffb0b2-07ee-45eb-ab14-9e5b34bb1ba4"
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "../node_modules/bulma/sass/utilities/initial-variables.sass";
 @import "../node_modules/bulma/sass/utilities/functions.sass";
@@ -30,36 +30,16 @@ $font-mobile : 0.78rem;  //12px
 $font-mobile-sub-heading : 1.125rem;
 $font-mobile-heading: 1.5rem;
 
-
-
-  
-
 //Colors
 
 
 $primary: #207178;
 $black: #000000;
 $white: #ffffff;
-$grey: #676767;
-$grey-1: #E1E1E1;
-$grey-2: #2F2E2E;
-$grey-3: #F1F1F1;
-$grey-4: #EDEDED;
-$grey-5: #929292;
-$grey-6: #3B4243;
-$grey-7: #E8E8E8;
-$grey-8: #FAFAFA;
+$grey-2: #2f2e2e;
 $grey-9: #fdfdfd;
-$grey-10: #F5F5F5;
-$grey-11: #2d2a2b;
-$grey-12:#EEEEEE;
 $grey-13:#CBCBCB;
-$grey-14: #5A5A5A;
-$grey-15: #DDDDDD;
 $grey-16: #C4C4C4;
-$grey-17: #BBBBBB;
-$grey-18: #F3F3F3;
-$grey-19: #FBFBFB;
 
 $grey-nav: rgb(226, 226, 226);
 
@@ -86,7 +66,6 @@ body {
   font-family: 'Oswald', sans-serif;
   font-size: $font-desktop !important;
 }
-
 .pad-20 {
   padding: 0px 20px;
 }
