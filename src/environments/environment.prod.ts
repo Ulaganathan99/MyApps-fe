@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASEURL: 'http://localhost:3000/'
+  BASEURL: 'https://myappsbackend-fwwz.onrender.com'
 };
