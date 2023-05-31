@@ -1,7 +1,7 @@
-<div class="columns is-gapless is-mobile tab_container">
+<div class="columns p-0 m-0 is-mobile tab_container">
   <div class="column is-4" *ngFor="let tab of tab_list">
-    <div class="tab_head has-text-centered p-2">
-      <a *ngIf="tab.route" routerLink="{{ tab.route }}">{{ tab.label }}</a>
+    <div class="tab_head has-text-centered p-2"   *ngIf="tab.route" [routerLink]="tab.route" (click)="tabChange(tab.key)" [ngClass]="{'is-active': selected_tab === tab.key}">
+      <a>{{ tab.label }}</a>
     </div>
   </div>
 </div>

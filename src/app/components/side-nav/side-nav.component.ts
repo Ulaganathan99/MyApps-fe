@@ -13,9 +13,7 @@ export class SideNavComponent implements OnInit {
   selected_side_nav : any;
 
   constructor(private localStorageService: LocalStorageService) { 
-    // if(localStorage.getItem(Constants.APP.SELECTED_SIDENAV)){
-    //   this.selected_tab = JSON.parse(localStorage.getItem(Constants.APP.SELECTED_SIDENAV) || "{}");
-    // }
+   
   }
 
   ngOnInit(): void {
@@ -32,9 +30,6 @@ export class SideNavComponent implements OnInit {
   menu_list: any[] = [
     {name: 'Contact Book', route : '/index/contact-book'},
     {name: 'Chat Box', route : '/index/chat-box'},
-    // {name: 'My Jobs', icon: 'assets/img/find-jobs.svg', route : '/home/my-jobs'},
-    // {name: 'Booking', icon: 'assets/img/booking.svg', route : '/home/customer-feedback'},
-   
   ]
 
   clear(ev:any){
