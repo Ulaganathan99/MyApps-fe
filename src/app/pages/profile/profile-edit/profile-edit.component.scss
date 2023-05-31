@@ -45,6 +45,7 @@
     position: relative;
     width: 50%;
     display: inline-block;
+    max-width: 200px;
   }
   
   .profile-picture {
@@ -77,6 +78,11 @@
   
   .edit-icon img {
     width: 60%;
+  }
+  .delete-button{
+    background-color: red;
+    color: white;
+    width: 50%;
   }
   @media screen and (max-width: 400px) { 
     .profile-container {

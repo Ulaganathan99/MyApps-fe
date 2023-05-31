@@ -53,6 +53,7 @@ import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-
 import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
+import { ProfileDeletePopupComponent } from './pages/profile/profile-delete-popup/profile-delete-popup.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.componen
     ChatBoxHistoryComponent,
     ChatBoxInviteComponent,
     ChatPageComponent,
+    ProfileDeletePopupComponent,
   ],
   imports: [
     BrowserModule,

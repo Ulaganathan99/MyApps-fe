@@ -18,10 +18,11 @@ export class UserService {
     });
     
   }
-  signup(name:string, email: string, password: string): Observable<any> {
+  signup(name:string, email: string, number:'string', password: string): Observable<any> {
     return this.http.post(Constants.BASE_URL + Constants.API.SIGNUP, {
       name,
       email,
+      number,
       password,
     });
   }
@@ -50,5 +51,8 @@ export class UserService {
   }
   fetchUserInfo(user_id: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.FETCH_USER_INFO,{user_id: user_id})
+  }
+  deleteUser(user_id: string): Observable<any>{
+    return this.http.post(Constants.BASE_URL+Constants.API.DELETE_USER,{userID: user_id})
   }
 }

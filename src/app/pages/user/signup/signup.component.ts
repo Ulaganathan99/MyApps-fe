@@ -42,6 +42,8 @@ export class SignupComponent implements OnInit {
         ],
       ],
       email: ['', [Validators.required, Validators.email]],
+      mobileNumber: ['', [Validators.required, Validators.minLength(10),
+        Validators.maxLength(10),]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
     });
@@ -54,12 +56,13 @@ export class SignupComponent implements OnInit {
   clickSignUp() {
     const name = this.signupForm.value.name;
     const email = this.signupForm.value.email;
+    const number = this.signupForm.value.mobileNumber;
     const password = this.signupForm.value.password;
     const confirmPassword = this.signupForm.value.confirmPassword;
     this.showErrors = true;
 
     if (this.signupForm.status === 'VALID' && password === confirmPassword) {
-      this.userService.signup(name, email, password).subscribe({
+      this.userService.signup(name, email,number, password).subscribe({
         next: (res) => {
           
           if (res.statusCode === 1) {            

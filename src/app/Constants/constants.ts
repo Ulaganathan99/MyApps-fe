@@ -8,13 +8,17 @@ export class Constants {
     FETCH_PERMISSION: 'user/getAllPrivileges',
     FETCH_USER_INFO: 'user/fetchUserInfo',
     EDIT_PROFILE: 'user/editProfile',
+    DELETE_USER: 'user/deleteProfile',
    
 
 
     ADD_CONTACT: 'contact/addContact',
     FETCH_CONTACT_INFO: 'contact/getContacts',
     DELETE_CONTACT: 'contact/delete',
-    DELETE_ALL_CONTACT: 'contact/deleteAll'
+    DELETE_ALL_CONTACT: 'contact/deleteAll',
+
+    GET_CHAT_CONTACTS: 'chat/getChatContacts',
+    GET_INVITE_CONTACTS: 'chat/getInviteContacts'
     
   }
 

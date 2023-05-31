@@ -13,11 +13,13 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileEditComponent implements OnInit {
   profileEditForm!: FormGroup;
   showErrors: boolean = false;
+  showDeletePopup: boolean = false;
 
   msg: String = '';
   msg_status: String = '';
   userDetails: any;
   profilePicture:  ArrayBuffer | null = null; // Initialize profilePicture as null;
+
 
   constructor(
     private router: Router,
@@ -56,10 +58,7 @@ export class ProfileEditComponent implements OnInit {
               Constants.APP.SESSION_USER_DATA,
               JSON.stringify(res.user)
             );
-          }
-          
-          
-          
+          } 
         },
         error: (err) => { 
           console.log(err);
@@ -67,6 +66,17 @@ export class ProfileEditComponent implements OnInit {
       });
     } else {
       console.log('invalid');
+    }
+  }
+  clickDelete(){
+    this.showDeletePopup = true
+  }
+  closeDelete(event: string) {
+    if (event === 'cancel') {
+      this.showDeletePopup = false;
+    } else if (event === 'delete') {
+      this.showDeletePopup = false;
+      this.router.navigate(['/login']);
     }
   }
 
