@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
+import { ChatService } from 'src/app/services/chat.service';
 import { ContactService } from 'src/app/services/contact.service';
 import { LoaderService } from 'src/app/services/loader.service';
 
@@ -12,11 +13,11 @@ import { LoaderService } from 'src/app/services/loader.service';
 export class ChatBoxChatsComponent implements OnInit {
 
   userDetails: any;
-  contactList: any;
+  chatContactList: any;
 
   constructor(private loaderService: LoaderService,
-    private contactService: ContactService,
-    private router: Router,) { }
+    private chatService: ChatService,
+    private router: Router,) {}
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
@@ -25,10 +26,10 @@ export class ChatBoxChatsComponent implements OnInit {
     this.fetchContactInfo(this.userDetails.user_id);
   }
   fetchContactInfo(userID: string) {
-    this.contactService.getContacts(userID).subscribe({
+    this.chatService.getChatContacts(userID).subscribe({
       next: (res) => {
         this.loaderService.show();
-        this.contactList = res.contactList
+        this.chatContactList = res.chatContactList
         this.loaderService.hide();
       },
       error: (err) => {

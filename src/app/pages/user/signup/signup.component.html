@@ -16,6 +16,36 @@
       </div>
       <div class="field">
         <div class="control">
+          <input
+            class="input is-size-5 mb-3"
+            formControlName="mobileNumber"
+            type="text"
+            autocomplete="off"
+            placeholder="Mobile Number"
+            name="mobileNumber"
+            required
+          />
+        </div>
+        <div class="help-container">
+          <div
+            class="help is-danger"
+            *ngIf="signupForm?.get('mobileNumber')?.invalid && showErrors"
+          >
+            <div
+              *ngIf="signupForm?.get('mobileNumber')?.errors?.['required']"
+            >
+              Mobile Number is required.
+            </div>
+            <div
+              *ngIf="signupForm?.get('mobileNumber')?.errors?.['minlength'] || signupForm?.get('mobileNumber')?.errors?.['maxlength']"
+            >
+              Mobile Number must be 10 Numbers.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <input class="input is-size-5 mb-3" formControlName="email" type="text"
             placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
         </div>

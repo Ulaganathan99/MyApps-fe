@@ -64,6 +64,14 @@
       <div class="btn mt-6 is-flex is-justify-content-center">
         <button class="button py-5" type="submit"><p>Edit</p></button>
       </div>
+      <div class="is-flex is-justify-content-center mt-4">
+        <button class="button delete-button py-5" (click)="clickDelete()">
+          <p class="font-sub">Delete Profile</p>
+        </button>
+      </div>
+     
     </form>
+    
   </div>
 </div>
+<app-profile-delete-popup *ngIf="showDeletePopup" [userDetails]="userDetails" (closeDelete)="closeDelete($event)"></app-profile-delete-popup>

@@ -1,1 +1,26 @@
-<p>chat-box-invite works!</p>
+<div class="pad-20">
+    <div class="chat-box-container">
+        <div class="box px-2">
+            <div class="chat-card my-2 is-clickable" *ngFor="let item of inviteContactList" (click)="clickChatBox(item)">
+                <div class="columns is-mobile px-3">
+                    <div class="column is-narrow">
+                        <img src="../../../../assets/img/man.png" alt="">
+                    </div>
+                    <div class="column ">
+                        <div class="field is-flex is-justify-content-space-between pr-4 is-align-items-center m-0">
+                            <div class="font-sub">
+                                {{item.name}}
+                            </div>
+                            <div>
+                                {{item.number}}
+                            </div>
+                        </div>
+                        <div class="field is-flex is-align-items-center">
+                            <p class="status">status</p>  
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

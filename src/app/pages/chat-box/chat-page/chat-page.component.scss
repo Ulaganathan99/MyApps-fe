@@ -1,0 +1,33 @@
+.is-fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 100;
+  width: 100%;
+  .chat-container {
+    background-color: #ffffff;
+    max-width: 75%; /* Adjust the value as needed */
+    .chat-messages {
+        height: calc(100vh - 300px); /* Set a fixed height for the chat messages container */
+        overflow-y: auto; /* Enable vertical scroll for overflow */
+        
+      }
+      
+      .message {
+        background-color: #F0F0F0;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+      }
+    .chat-form {
+      height: 90px;
+      textarea {
+        border: 1px solid black;
+        resize: none; /* Prevents textarea resizing */
+        width: 90%;
+        height: 60px;
+        overflow-y: auto;
+      }
+      
+    }
+  }
+}
