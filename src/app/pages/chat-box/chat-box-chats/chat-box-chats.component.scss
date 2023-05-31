@@ -1,0 +1,22 @@
+
+.box{
+    border: 1px solid green;
+    .chat-card{
+        border: 1px solid grey;
+        img{
+            width: 60px;
+            height: 60px;
+        }
+        .field{
+            height: 50%;
+            .status{
+                color: gray;
+            }
+        }
+       
+    }
+    .chat-card:hover{
+        border: 1px solid green;
+        opacity: 50%;
+    }
+}

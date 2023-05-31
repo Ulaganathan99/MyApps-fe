@@ -52,6 +52,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
 import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
+import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-bo
     ChatBoxChatsComponent,
     ChatBoxHistoryComponent,
     ChatBoxInviteComponent,
+    ChatPageComponent,
   ],
   imports: [
     BrowserModule,

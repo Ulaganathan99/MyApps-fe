@@ -7,15 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatBoxSummaryComponent implements OnInit {
 
+  selected_tab:string = 'chats';
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   tabs_list: any = [
-    { key: 'chats', label: 'Chats', route: 'index/chat-box/chat-box-chats' },
-    { key: 'history', label: 'History', route: 'index/chat-box/chat-box-history' },
-    { key: 'invite', label: 'Invite', route: 'index/chat-box/chat-box-invite' }
+    { key: 'chats', label: 'Chats', route: 'chat-box-chats' },
+    { key: 'history', label: 'History', route: 'chat-box-history' },
+    { key: 'invite', label: 'Invite', route: 'chat-box-invite' }
   ]
+
+  tabChange(data:any){
+    console.log(data);
+    
+    this.selected_tab = data
+
+  }
 
 }

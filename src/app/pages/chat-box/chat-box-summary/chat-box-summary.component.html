@@ -1,4 +1,17 @@
+<div class="columns  is-mobile px-4 mt-3">
+    <div class="column is-6">
+        <app-search></app-search>
+    </div>
+    <div class="column is-6 is-flex is-align-items-center is-justify-content-end">
+        <p class=" has-text-weight-bold">Settings <span><img src="../../../../assets/img/settings.svg" alt=""></span></p>
+    </div>
+    
+</div>
+
 <div class="m-2">
-    <!-- <app-tabs  [tab_list]="tabs_list" (tab_key)="tabChange($event)></app-tabs> -->
+    <app-tabs  [tab_list]="tabs_list" (tab_key)="tabChange($event)"></app-tabs>
+</div>
+<div>
+    <router-outlet></router-outlet>
 </div>
 

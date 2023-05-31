@@ -16,6 +16,7 @@ import { ChatBoxSummaryComponent } from './pages/chat-box/chat-box-summary/chat-
 import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
 import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
+import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,7 @@ const routes: Routes = [
               { path: 'chat-box-chats', component: ChatBoxChatsComponent },
               { path: 'chat-box-history', component: ChatBoxHistoryComponent },
               { path: 'chat-box-invite', component: ChatBoxInviteComponent },
+              { path: 'chat-page', component: ChatPageComponent },
             ],
           }
         ],
