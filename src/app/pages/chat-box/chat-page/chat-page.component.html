@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="chat-form is-flex is-justify-content-center is-align-items-center">
-            <textarea class="input w-100" type="text"[(ngModel)]="message" name="message"></textarea>
+            <textarea class="input w-100" type="text"[(ngModel)]="message" name="message"(keypress)="messageTyping()"></textarea>
             <div class="pl-2">
                 <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>
