@@ -19,16 +19,16 @@ export class ChatService {
       userID
     });
   }
-  sendChatMsg(message:string, sender:string, receiver:string): Observable<any> {
+  sendChatMsg(message:string, owner:string, receiver:string): Observable<any> {
     return this.http.post(Constants.BASE_URL + Constants.API.SEND_MSG, {
       message,
-      sender,
+      owner,
       receiver
     });
   }
-  getChatMsg( sender:string, receiver:string): Observable<any> {
+  getChatMsg( owner:string, receiver:string): Observable<any> {
     return this.http.post(Constants.BASE_URL + Constants.API.GET_MSG, {
-      sender,
+      owner,
       receiver
     });
   }
