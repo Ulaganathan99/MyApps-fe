@@ -18,7 +18,9 @@ export class Constants {
     DELETE_ALL_CONTACT: 'contact/deleteAll',
 
     GET_CHAT_CONTACTS: 'chat/getChatContacts',
-    GET_INVITE_CONTACTS: 'chat/getInviteContacts'
+    GET_INVITE_CONTACTS: 'chat/getInviteContacts',
+    SEND_MSG: 'chat/sendChatMsg',
+    GET_MSG: 'chat/getChatMsg'
     
   }
 

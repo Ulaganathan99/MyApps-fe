@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-chat-box-summary',
@@ -7,11 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatBoxSummaryComponent implements OnInit {
 
+  currentRoute!: string | null;
+
   selected_tab:string = 'chats';
 
-  constructor() { }
+  constructor(private router: Router,private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+    if(this.localStorageService.getItem('currentRoute')){
+      this.currentRoute = this.localStorageService.getItem('currentRoute')
+    }
+    this.router.events.subscribe((event:any) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects;
+        localStorage.setItem('currentRoute', this.currentRoute); 
+      }
+    });
   }
 
   tabs_list: any = [

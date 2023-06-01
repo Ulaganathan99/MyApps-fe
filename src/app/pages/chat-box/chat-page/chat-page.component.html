@@ -1,14 +1,39 @@
+<div class="px-2 chat-head-container">
+    <div class="columns p-0 m-0 is-mobile tab-container is-gapless is-flex is-align-items-center">
+    <div class="column is-narrow">
+        <div class="pl-3">
+            <img class="p-3 is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
+        </div>
+    </div>
+    <div class="column is-fluid">
+        <div class="field is-flex is-align-items-center m-0 pl-2">
+            <div class="font-sub">
+                {{contactDetails.name}}
+            </div>
+        </div>
+        <div class="field is-flex is-align-items-center m-0 pl-2">
+            <p class="status">{{contactDetails.number}}</p>  
+        </div>
+    </div>
+    <div class="column is-narrow">
+        <div class="pr-3">
+            <img src="../../../../assets/img/man.png" alt="">
+        </div>
+    </div>
+    </div>
+</div>
+
 <div class=" is-fixed-bottom">
     <div class="chat-container px-3">
         <div class="chat-messages" >
             <div class="message" *ngFor="let message of message_list">
-                {{ message.content }}
+                {{ message.message }}
             </div>
         </div>
         <div class="chat-form is-flex is-justify-content-center is-align-items-center">
             <textarea class="input w-100" type="text"[(ngModel)]="message" name="message"></textarea>
             <div class="pl-2">
-                <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/settings.svg" alt=""></div>
+                <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>
         </div>
     </div>
