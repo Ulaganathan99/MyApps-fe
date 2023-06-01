@@ -20,7 +20,8 @@ export class Constants {
     GET_CHAT_CONTACTS: 'chat/getChatContacts',
     GET_INVITE_CONTACTS: 'chat/getInviteContacts',
     SEND_MSG: 'chat/sendChatMsg',
-    GET_MSG: 'chat/getChatMsg'
+    GET_MSG: 'chat/getChatMsg',
+    DELETE_CHAT_HISTORY: 'chat/deleteChatHistory'
     
   }
 

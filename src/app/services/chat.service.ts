@@ -32,4 +32,10 @@ export class ChatService {
       receiver
     });
   }
+  deleteChatHistory( owner:string, receiver:string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CHAT_HISTORY, {
+      owner,
+      receiver
+    });
+  }
 }
