@@ -57,14 +57,7 @@ export class ChatPageComponent implements OnInit {
             ...res.sendMessages.map((msg: any) => ({ ...msg, msgStatus: 'send' })),
             ...res.receiveMessages.map((msg: any) => ({ ...msg, msgStatus: 'receive' })),
           ];
-
           console.log(this.message_list);
-          
-        }
-        if (res.statusCode == 2) {
-          
-          console.log(res);
-          
         }
       },
       error: (err) => {
@@ -80,9 +73,7 @@ export class ChatPageComponent implements OnInit {
           this.message = '';
           this.getMessages()
           console.log(res);
-          
         }
-        
       },
       error: (err) => {
         console.log(err);
@@ -96,6 +87,19 @@ export class ChatPageComponent implements OnInit {
   
   clickBack(){
     this.router.navigate(['/index/chat-box/chat-box-chats']); 
+  }
+  deleteChat(){
+    this.chatService.deleteChatHistory(this.userDetails.user_id, this.contactDetails.number).subscribe({
+      next: (res) => {    
+        if (res.statusCode == 1) {
+          
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+
   }
   
 
