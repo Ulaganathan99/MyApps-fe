@@ -31,3 +31,20 @@
     }
   }
 }
+.chat-head-container{
+  height: 4rem;
+}
+.tab-container{
+  height: 100%;
+  background-color: #207178;
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+  .field{
+    height: 50%;
+  }
+  img{
+    width: 50px;
+    height: 50px;
+  }
+}
