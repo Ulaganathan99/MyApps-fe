@@ -1,4 +1,7 @@
 .form-card {
+    .back-img{
+      cursor: pointer;
+    }
     .msg {
       min-height: 35px;
       .is-danger {
@@ -53,7 +56,8 @@
     width: 100%;
     padding-top: 100%; /* Maintain 1:1 aspect ratio */
     border-radius: 50%;
-    overflow: hidden; /* Hide overflowing content */
+    overflow: hidden;
+    box-shadow: 0px 2px 4px black;
   }
   
   .picture {
@@ -67,7 +71,7 @@
   
   .edit-icon {
     position: absolute;
-    background-color: rgb(201, 193, 193);
+    background-color: #207178;
     border-radius: 50%;
     bottom: 5%;
     right: 5%;
@@ -83,6 +87,7 @@
     background-color: red;
     color: white;
     width: 50%;
+    font-weight: 600;
   }
   @media screen and (max-width: 400px) { 
     .profile-container {

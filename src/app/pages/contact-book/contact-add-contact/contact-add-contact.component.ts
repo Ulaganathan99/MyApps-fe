@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -18,7 +19,7 @@ export class ContactAddContactComponent implements OnInit {
   msg: String = '';
   msg_status: String = '';
 
-  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService, private router:Router) { }
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
@@ -64,5 +65,7 @@ export class ContactAddContactComponent implements OnInit {
     }
 
   }
-
+  back_to_contacts() {
+    this.router.navigate(['/index/contact-book/contact-list']);
+  }
 }

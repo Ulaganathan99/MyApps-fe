@@ -103,6 +103,9 @@ export class ProfileEditComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
+  back_to_profile() {
+    this.router.navigate(['/index/profile']);
+  }
   
 
 }
