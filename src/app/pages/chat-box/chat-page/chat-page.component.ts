@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
@@ -11,6 +11,7 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
   styleUrls: ['./chat-page.component.scss']
 })
 export class ChatPageComponent implements OnInit {
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
   
   contactDetails: any;
   userDetails: any;
@@ -52,17 +53,30 @@ export class ChatPageComponent implements OnInit {
   getMessages(){
     this.chatService.getChatMsg(this.userDetails.user_id, this.contactDetails.number).subscribe({
       next: (res) => {    
-        if (res.statusCode == 1) {
-          this.message_list = [
-            ...res.sendMessages.map((msg: any) => ({ ...msg, msgStatus: 'send' })),
-            ...res.receiveMessages.map((msg: any) => ({ ...msg, msgStatus: 'receive' })),
-          ];
-          console.log(this.message_list);
-        }
+        const sendMessages = res.sendMessages.map((msg: any) => ({ ...msg, msgStatus: 'send' }));
+        const receiveMessages = res.receiveMessages.map((msg: any) => ({ ...msg, msgStatus: 'receive' }));
+
+        this.message_list = [...sendMessages, ...receiveMessages].sort((a, b) => {
+          const timestampA = new Date(a.timestamp);
+          const timestampB = new Date(b.timestamp);
+          return timestampA.getTime() - timestampB.getTime();
+        });
+
+        console.log(this.message_list);
+        this.scrollToBottom();
+
       },
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+  private scrollToBottom() {
+    setTimeout(() => {
+      if (this.chatContainer && this.chatContainer.nativeElement) {
+        const container = this.chatContainer.nativeElement;
+        container.scrollTop = container.scrollHeight;
+      }
     });
   }
  
@@ -83,6 +97,12 @@ export class ChatPageComponent implements OnInit {
       message: this.message,
       handle: this.userDetails.user_id
     })
+  }
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Prevent the default behavior of creating a new line
+      this.sendMsg(); // Call the send message function
+    }
   }
   
   clickBack(){

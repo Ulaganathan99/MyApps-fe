@@ -2,7 +2,7 @@
     <div class="columns p-0 m-0 is-mobile tab-container is-gapless is-flex is-align-items-center">
     <div class="column is-narrow">
         <div class="pl-3">
-            <img class="p-3 is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
+            <img class="icon p-3 is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
         </div>
     </div>
     <div class="column is-fluid">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="field is-flex is-align-items-center m-0 pl-2">
-            <p class="status">{{contactDetails.number}}</p>  
+            <p class="active-status">online</p>  
         </div>
     </div>
     <div class="column is-narrow">
@@ -22,17 +22,25 @@
     </div>
     </div>
 </div>
-<p class="is-clickable" (click)="deleteChat()"> delete chat</p>
-
-<div class=" is-fixed-bottom">
-    <div class="chat-container px-3">
-        <div class="chat-messages" >
-            <div class="message" *ngFor="let message of message_list">
+<!-- <p class="is-clickable" (click)="deleteChat()"> delete chat</p> -->
+<div class="chat-messages mt-2 px-4" #chatContainer>
+    <div class="msg-box" [ngClass]="{'send': message.msgStatus === 'send', 'receive': message.msgStatus === 'receive'}" *ngFor="let message of message_list">
+        <div class="message">
+            <div>
                 {{ message.message }}
             </div>
+            <div class="time">
+               <p>&nbsp; &nbsp; &nbsp; {{ message.timestamp | indianTime }}</p> 
+            </div>
         </div>
+    </div>
+    
+  </div>
+  
+<div class=" is-fixed-bottom">
+    <div class="chat-container mb-1">   
         <div class="chat-form is-flex is-justify-content-center is-align-items-center">
-            <textarea class="input w-100" type="text"[(ngModel)]="message" name="message"(keypress)="messageTyping()"></textarea>
+            <textarea class="input w-100" maxlength="250" type="text"[(ngModel)]="message" name="message"(keypress)="messageTyping()" (keydown)="onKeyDown($event)"></textarea>
             <div class="pl-2">
                 <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>

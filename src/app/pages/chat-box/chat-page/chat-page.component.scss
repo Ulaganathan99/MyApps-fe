@@ -6,22 +6,10 @@
   .chat-container {
     background-color: #ffffff;
     max-width: 75%; /* Adjust the value as needed */
-    .chat-messages {
-        height: calc(100vh - 300px); /* Set a fixed height for the chat messages container */
-        overflow-y: auto; /* Enable vertical scroll for overflow */
-        
-      }
-      
-      .message {
-        background-color: #F0F0F0;
-        padding: 10px;
-        margin-bottom: 5px;
-        border-radius: 5px;
-      }
     .chat-form {
-      height: 90px;
+      height: 80px;
       textarea {
-        border: 1px solid black;
+        border: 1px solid #207178;
         resize: none; /* Prevents textarea resizing */
         width: 90%;
         height: 60px;
@@ -48,3 +36,38 @@
     height: 50px;
   }
 }
+.chat-messages {
+  height: calc(100vh - 280px); /* Set a fixed height for the chat messages container */
+  overflow-y: auto; /* Enable vertical scroll for overflow */
+  .message {
+    max-width: 75%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    word-break: break-all;
+    .time{
+      text-align: end;
+      font-size: 10px;
+      font-weight: 100;
+    }
+    
+  }
+  .send { 
+    display: flex;
+    justify-content: end;
+    .message{
+      background-color: #207178b9;
+      color: white;
+    }
+  }
+  .receive {
+    display: flex;
+    justify-content: start;
+    .message{
+      background-color: #F0F0F0;
+    }
+  }
+  
+}
+
+
