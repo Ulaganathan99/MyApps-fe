@@ -5,7 +5,7 @@
       (ngSubmit)="clickEdit()"
       [formGroup]="profileEditForm"
     >
-    <img class="back-img" src="../../../../assets/img/back-arrow-primary.png" alt="" (click)="back_to_profile()">
+    <img class="back-img ml-3" src="../../../../assets/img/back-arrow-primary.png" alt="" (click)="back_to_profile()">
       <div class="msg has-text-centered pb-4">
         <p
           [ngClass]="{
@@ -21,7 +21,7 @@
         <div class="profile-container">
           <div class="profile-picture">
             <img
-              [src]="profilePicture ? profilePicture : 'assets/img/Elonmusk.jpg'"
+              [src]="profilePicture ? profilePicture : 'assets/img/man.png'"
               alt="Profile Picture"
               class="picture"
             />

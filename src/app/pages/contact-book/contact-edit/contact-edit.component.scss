@@ -1,6 +1,12 @@
 .modal-card{
     width: 40%;
+    min-width: 300px;
     // height: 830px;
+    .close-img{
+      cursor: pointer;
+      float: right;
+
+    }
   }
  
   
@@ -44,6 +50,7 @@
   .btn {
     button {
       width: 50%;
+      min-width: 80%;
       font-family: "Oswald", sans-serif;
       letter-spacing: 2px;
       background-color: #207178;
