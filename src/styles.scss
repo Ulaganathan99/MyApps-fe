@@ -78,6 +78,17 @@ body {
 .mat-checkbox-checked.mat-accent .mat-checkbox-background{
   background-color: $primary;
 }
+.input {
+  &:hover,
+  &:active,
+  &:focus {
+    border: none;
+    box-shadow: none;
+  }
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
 
 @media screen and (max-width: 2000px) {
   html,

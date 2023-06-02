@@ -5,6 +5,10 @@
       (ngSubmit)="clickAdd()"
       [formGroup]="addContactForm"
     >
+    <img class="back-img ml-3" src="../../../../assets/img/back-arrow-primary.png" alt="" (click)="back_to_contacts()">
+    <div class="has-text-centered">
+      <p class="font-sub">Add Contact</p>
+    </div>
       <div class="msg has-text-centered pb-4">
         <p *ngIf="!isInputFocused"
           [ngClass]="{
@@ -79,7 +83,7 @@
         </div>
       </div>
       <div class="btn mt-6 is-flex is-justify-content-center">
-        <button class="button py-5" type="submit"><p>Add Contact</p></button>
+        <button class="button py-5" type="submit"><p>Submit</p></button>
       </div>
     </form>
   </div>

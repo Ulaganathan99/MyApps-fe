@@ -41,7 +41,7 @@
               {{ item.number | phoneNumber }}
             </td>
             <td class="has-text-centered">
-              <img [matMenuTriggerFor]="menu" src="/assets/img/action.png" alt="Image">
+              <img class="px-4" [matMenuTriggerFor]="menu" src="/assets/img/action.png" alt="Image">
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="clickEdit(item)" >Edit</button>
                 <button mat-menu-item (click)="clickDelete(item)">Delete</button>

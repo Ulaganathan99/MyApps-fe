@@ -5,6 +5,7 @@
       (ngSubmit)="clickEdit()"
       [formGroup]="profileEditForm"
     >
+    <img class="back-img ml-3" src="../../../../assets/img/back-arrow-primary.png" alt="" (click)="back_to_profile()">
       <div class="msg has-text-centered pb-4">
         <p
           [ngClass]="{
@@ -29,7 +30,7 @@
             class="edit-icon is-flex is-justify-content-center is-align-items-center is-clickable"
             (click)="profileChange()"
           >
-            <img src="../../../assets/img/pencil.png" alt="" />
+            <img src="../../../assets/img/camera.png" alt="" />
           </span>
         </div>
       </div>
@@ -62,7 +63,9 @@
         </div>
       </div>
       <div class="btn mt-6 is-flex is-justify-content-center">
-        <button class="button py-5" type="submit"><p>Edit</p></button>
+        <button class="button py-5" type="submit">
+          <p class="font-sub">Edit</p>
+        </button>
       </div>
       <div class="is-flex is-justify-content-center mt-4">
         <button class="button delete-button py-5" (click)="clickDelete()">
