@@ -54,6 +54,7 @@ import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
 import { ProfileDeletePopupComponent } from './pages/profile/profile-delete-popup/profile-delete-popup.component';
+import { IndianTimePipe } from './pipes/indian-time.pipe';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { ProfileDeletePopupComponent } from './pages/profile/profile-delete-popu
     ChatBoxInviteComponent,
     ChatPageComponent,
     ProfileDeletePopupComponent,
+    IndianTimePipe,
   ],
   imports: [
     BrowserModule,

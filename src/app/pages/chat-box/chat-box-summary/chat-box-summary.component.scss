@@ -8,3 +8,8 @@
     border-radius: 5px;
     padding: 5px;
 }
+@media screen and (max-width: 400px) {
+    .chat-head-container{
+        height: 3rem;
+    }
+}

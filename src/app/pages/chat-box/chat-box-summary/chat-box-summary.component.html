@@ -1,28 +1,17 @@
-<div class="columns  is-mobile px-4 mt-3">
+<div class="columns is-mobile px-3 mt-3">
     <div class="column is-6">
         <app-search></app-search>
     </div>
     <div class="column is-6 is-flex is-align-items-center is-justify-content-end">
-        <p class=" has-text-weight-bold">Settings <span><img src="../../../../assets/img/settings.svg" alt=""></span></p>
+       <img class="icon" src="../../../../assets/img/settings.svg" alt="">
     </div>
     
 </div>
-<div class="px-2 chat-head-container" *ngIf="currentRoute !== '/index/chat-box/chat-page' " >
+<div class="px-2 chat-head-container mb-3" *ngIf="currentRoute !== '/index/chat-box/chat-page' " >
+   <div>
     <app-tabs  [tab_list]="tabs_list" (tab_key)="tabChange($event)"></app-tabs>
+   </div>   
 </div>
-<!-- <div class="px-2 chat-head-container" *ngIf="currentRoute === '/index/chat-box/chat-page' ">
-    <div class="columns p-0 m-0 is-mobile tab-container">
-    <div class="column is-narrow">
-
-    </div>
-    <div class="column is-fluid">
-
-    </div>
-    <div class="column is-narrow">
-        <img class="" src="../../../../assets/img/man.png" alt="">
-    </div>
-    </div>
-</div> -->
 <div>
     <router-outlet></router-outlet>
 </div>
