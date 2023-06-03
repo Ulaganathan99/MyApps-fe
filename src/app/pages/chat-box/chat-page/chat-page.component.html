@@ -12,7 +12,9 @@
             </div>
         </div>
         <div class="field is-flex is-align-items-center m-0 pl-2">
-            <p class="active-status">online</p>  
+            <p class="active-status" *ngIf="this.feedback">{{this.feedback}}</p>  
+            <p class="active-status" *ngIf="!this.feedback">{{this.onlineStatus}}</p>  
+            
         </div>
     </div>
     <div class="column is-narrow">
@@ -40,7 +42,7 @@
 <div class=" is-fixed-bottom">
     <div class="chat-container mb-1">   
         <div class="chat-form is-flex is-justify-content-center is-align-items-center">
-            <textarea class="input w-100" maxlength="250" type="text"[(ngModel)]="message" name="message"(keypress)="messageTyping()" (keydown)="onKeyDown($event)"></textarea>
+            <textarea class="input w-100" maxlength="250" type="text" [(ngModel)]="message" name="message"(keypress)="messageTyping()" (keydown)="onKeyDown($event)"></textarea>
             <div class="pl-2">
                 <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>
