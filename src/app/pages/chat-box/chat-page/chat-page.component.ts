@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
@@ -15,11 +17,22 @@ export class ChatPageComponent implements OnInit {
   
   contactDetails: any;
   userDetails: any;
+  user_info!: any;
   message!: string;
   message_list: any = [ ]
   feedback!: string;
+  typingTimeout: any; 
+  onlineStatus!: string;
 
-  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService) { }
+
+  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.disconnectAndSetOffline();
+      }
+    });
+
+   }
 
   ngOnInit(): void {
     if (history.state.contactDetails != undefined) {
@@ -31,23 +44,71 @@ export class ChatPageComponent implements OnInit {
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
-    this.getMessages();
-    this.webSocketService.listen('typing').subscribe((data) => this.updateFeedback(data))
-    this.webSocketService.listen('chat').subscribe((data) => this.updateMessage(data))
+   
+    this.fetchUserInfo(this.userDetails.user_id)
+  }
+ 
+  disconnectAndSetOffline() {
+    this.webSocketService.disconnect(this.user_info.number);
+    this.webSocketService.emit('updatedOnlineStatus', { handle: this.userDetails.user_id });
+  }
+  
+  fetchUserInfo(user_id: any) {
+  this.userService.fetchUserInfo(user_id).subscribe({
+    next: (res) => {
+      this.user_info = res.data;
+      console.log('fetch');
+      console.log(this.user_info.number);
+
+      this.getMessages();
+      this.webSocketService.connect(this.user_info.number);
+      this.webSocketService.emit('updatedOnlineStatus', { handle: this.userDetails.user_id });
+      this.webSocketService.listen('typing').subscribe((data) => this.updateFeedback(data));
+      this.webSocketService.listen('chat').subscribe((data) => this.updateMessage(data));
+      this.webSocketService.listen('updatedOnlineStatus').subscribe((data) => this.updateOnlineStatus(data));
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  });
+}
+ 
+  updateOnlineStatus(data: any) {
+    console.log(data);
+    const userNumber = this.contactDetails.number; 
+    if (userNumber && data[userNumber]) {
+      this.onlineStatus = data[userNumber].online;
+      console.log(this.onlineStatus);
+    }
   }
 
   updateFeedback(data: any){
-    this.feedback = ''
-    if(!!!data) return;
+    clearTimeout(this.typingTimeout); // Clear any existing typing timeout
+
+    if (!!data && data.handle !== this.userDetails.user_id) {
+      this.feedback = 'Typing...';
+      // Set a timeout to clear the typing status after 2 seconds (adjust the delay as needed)
+      this.typingTimeout = setTimeout(() => {
+        this.feedback = '';
+      }, 1000);
+    } else {
+      this.feedback = '';
+    }
   }
   updateMessage(data: any){
-    this.feedback = `${data} is typing a message`
+    this.feedback = ''
     if(!!!data) return;
+    if(data.handle === this.userDetails.user_id) {
+      data = {...data, msgStatus: 'send'}
+    } else {
+      data = {...data, msgStatus: 'receive'}
+    }
     this.message_list.push(data)
+    
+    this.scrollToBottom();
   }
   messageTyping() {
-    console.log('is typing'); 
-    this.webSocketService.emit('typing', this.userDetails.user_id)
+    this.webSocketService.emit('typing', {handle: this.userDetails.user_id})
   }
 
   getMessages(){
@@ -62,7 +123,6 @@ export class ChatPageComponent implements OnInit {
           return timestampA.getTime() - timestampB.getTime();
         });
 
-        console.log(this.message_list);
         this.scrollToBottom();
 
       },
@@ -85,8 +145,6 @@ export class ChatPageComponent implements OnInit {
       next: (res) => {    
         if (res.statusCode == 1) {
           this.message = '';
-          this.getMessages()
-          console.log(res);
         }
       },
       error: (err) => {
@@ -95,7 +153,8 @@ export class ChatPageComponent implements OnInit {
     });
     this.webSocketService.emit('chat', {
       message: this.message,
-      handle: this.userDetails.user_id
+      handle: this.userDetails.user_id,
+      timestamp: Date(),
     })
   }
   onKeyDown(event: KeyboardEvent) {
@@ -106,6 +165,8 @@ export class ChatPageComponent implements OnInit {
   }
   
   clickBack(){
+    this.webSocketService.disconnect(this.user_info.number);
+     this.webSocketService.emit('updatedOnlineStatus', { handle: this.userDetails.user_id });
     this.router.navigate(['/index/chat-box/chat-box-chats']); 
   }
   deleteChat(){

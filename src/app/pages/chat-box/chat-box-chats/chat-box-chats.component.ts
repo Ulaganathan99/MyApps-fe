@@ -30,6 +30,8 @@ export class ChatBoxChatsComponent implements OnInit {
       next: (res) => {
         this.loaderService.show();
         this.chatContactList = res.chatContactList
+        console.log(this.chatContactList);
+        
         this.loaderService.hide();
       },
       error: (err) => {
