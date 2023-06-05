@@ -10,7 +10,8 @@
 <div class="px-2 chat-head-container mb-3" *ngIf="currentRoute !== '/index/chat-box/chat-page' " >
    <div>
     <app-tabs  [tab_list]="tabs_list" (tab_key)="tabChange($event)"></app-tabs>
-   </div>   
+   </div>  
+    
 </div>
 <div>
     <router-outlet></router-outlet>

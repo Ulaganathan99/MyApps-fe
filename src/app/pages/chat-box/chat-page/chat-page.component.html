@@ -5,6 +5,11 @@
             <img class="icon p-3 is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
         </div>
     </div>
+    <div class="column is-narrow">
+        <div class="pr-3">
+            <img src="../../../../assets/img/man.png" alt="">
+        </div>
+    </div>
     <div class="column is-fluid">
         <div class="field is-flex is-align-items-center m-0 pl-2">
             <div class="font-sub">
@@ -19,12 +24,16 @@
     </div>
     <div class="column is-narrow">
         <div class="pr-3">
-            <img src="../../../../assets/img/man.png" alt="">
+            <!-- <img class="p-3 is-clickable" src="../../../../assets/img/dots.png" alt="" (click)="clickOptions()"> -->
+            <img class="p-3 is-clickable" [matMenuTriggerFor]="menu" src="/assets/img/dots.png" alt="Image">
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="clearChat()">Clear Chats</button>
+              <button mat-menu-item >Setting</button>
+            </mat-menu>
         </div>
     </div>
     </div>
 </div>
-<!-- <p class="is-clickable" (click)="deleteChat()"> delete chat</p> -->
 <div class="chat-messages mt-2 px-4" #chatContainer>
     <div class="msg-box" [ngClass]="{'send': message.msgStatus === 'send', 'receive': message.msgStatus === 'receive'}" *ngFor="let message of message_list">
         <div class="message">

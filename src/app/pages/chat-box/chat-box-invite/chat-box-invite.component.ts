@@ -26,9 +26,9 @@ export class ChatBoxInviteComponent implements OnInit {
     this.fetchContactInfo(this.userDetails.user_id);
   }
   fetchContactInfo(userID: string) {
+    this.loaderService.show();
     this.chatService.getInviteContacts(userID).subscribe({
       next: (res) => {
-        this.loaderService.show();
         this.inviteContactList = res.inviteContactList
         this.loaderService.hide();
       },

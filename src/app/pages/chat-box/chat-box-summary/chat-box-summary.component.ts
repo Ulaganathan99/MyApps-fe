@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ChildActivationStart, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -18,10 +18,20 @@ export class ChatBoxSummaryComponent implements OnInit {
   user_info!: any;
   feedback!: string;
   typingTimeout: any; 
+  onlineStatusInfo!: any;
 
   selected_tab:string = 'chats';
 
-  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService) { }
+  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService) { 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = (event as NavigationEnd).url;
+        if (!this.shouldSkipDisconnect(url)) {
+          this.disconnectAndSetOffline();
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     if(this.localStorageService.getItem('currentRoute')){
@@ -33,10 +43,10 @@ export class ChatBoxSummaryComponent implements OnInit {
         localStorage.setItem('currentRoute', this.currentRoute); 
       }
     });
-    
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
+    this.fetchChatInfo(this.userDetails.user_id);
   }
 
   tabs_list: any = [
@@ -45,35 +55,34 @@ export class ChatBoxSummaryComponent implements OnInit {
     { key: 'invite', label: 'Invite', route: 'chat-box-invite' }
   ]
 
-  fetchUserInfo(user_id: any) {
+  shouldSkipDisconnect(url: string): boolean {
+    // Define the routes where you want to skip calling disconnectAndSetOffline()
+    const allowedRoutes = ['chat-box-chats', 'chat-box-history', 'chat-box-invite', 'chat-page', 'chat-box'];  
+    return allowedRoutes.some(route => url.includes(route));
+  }
+
+  disconnectAndSetOffline() {
+    if (this.user_info && this.user_info.number) {
+      this.webSocketService.disconnect(this.user_info.number);
+      this.webSocketService.emit('updatedOnlineStatus', { handle: this.userDetails.user_id });
+    } 
+
+  }
+
+  fetchChatInfo(user_id: any) {
     this.userService.fetchUserInfo(user_id).subscribe({
       next: (res) => {
         this.user_info = res.data;
-        console.log('fetch');
-        console.log(this.user_info.number);
-  
-        
         this.webSocketService.connect(this.user_info.number);
         this.webSocketService.emit('updatedOnlineStatus', { handle: this.userDetails.user_id });
-        this.webSocketService.listen('typing').subscribe((data) => this.updateFeedback(data));
-        // this.webSocketService.listen('updatedOnlineStatus').subscribe((data) => this.updateOnlineStatus(data));
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  updateFeedback(data: any){
-    clearTimeout(this.typingTimeout); 
-    if (!!data && data.handle !== this.userDetails.user_id) {
-      this.feedback = 'Typing...';
-      this.typingTimeout = setTimeout(() => {
-        this.feedback = '';
-      }, 1000);
-    } else {
-      this.feedback = '';
-    }
-  }
+ 
+ 
   tabChange(data:any){
     console.log(data);
     
