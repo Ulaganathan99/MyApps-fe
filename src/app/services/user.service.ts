@@ -45,8 +45,6 @@ export class UserService {
     };
     console.log("service");
     
-  console.log(payload.avatar);
-  
     return this.http.post(Constants.BASE_URL + Constants.API.EDIT_PROFILE, payload);
   }
   fetchUserInfo(user_id: string): Observable<any>{

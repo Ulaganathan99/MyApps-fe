@@ -31,13 +31,12 @@ export class ContactListComponent implements OnInit {
   }
 
   fetchContactInfo(userID: string) {
+    this.loaderService.show();
     this.contactService.getContacts(userID).subscribe({
       next: (res) => {
-        this.loaderService.show();
         this.contactList = res.contactList.map((contact: any) => {
           return { ...contact, checked: false };
         });
-
         this.loaderService.hide();
       },
       error: (err) => {

@@ -3,10 +3,18 @@
         <img class="edit-img is-clickable" (click)="clickEdit()" src="../../../assets/img/edit.png" alt="">
         <div class="field is-flex is-justify-content-center">
             <div class="profile-container">
-                <img *ngIf="user_info.avatar" [src]="imageData" alt="Profile Picture" class="profile-picture" style="border: 1px solid black;">
+                <div class="profile-picture">
+                  <img
+                    [src]="avatarData"
+                  
+                    class="picture"
+                  />
+                </div>
+                
               </div>
               
         </div>
+        {{avatarData}}
             <div class="columns is-mobile">
                 <div class="column is-narrow ">
                     <p>Name : </p>

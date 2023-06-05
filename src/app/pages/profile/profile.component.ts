@@ -14,7 +14,8 @@ import { UserService } from 'src/app/services/user.service';
 export class ProfileComponent implements OnInit {
   userDetails: any;
   user_info: any = [];
-  imageData!: SafeUrl;
+  // avatarData: string | ArrayBuffer | null = null;
+  avatarData: string | ArrayBuffer | null = null;
 
   constructor(
     private userService: UserService,
@@ -42,18 +43,16 @@ export class ProfileComponent implements OnInit {
     this.loaderService.show();
     this.userService.fetchUserInfo(user_id).subscribe({
       next: (res) => {
-        console.log(res);
-        
-        this.user_info = res.data;
-        console.log(this.user_info);
-        if (this.user_info && this.user_info.avatar && this.user_info.avatar.data) {
-          const binaryData = this.convertBsonToBinary(this.user_info.avatar);
-          const base64String = this.convertBinaryToBase64(binaryData);
-          const imageUrl = `data:image/png;base64,${base64String}`;
-          this.imageData = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+        if(res.statusCode == 1){
+          console.log('res');
+          
+          console.log(res);    
+          this.user_info = res.data;
+          console.log(this.user_info);
+          this.createImageFromBlob(res.data.avatar);
+          this.loaderService.hide();
         }
         
-        this.loaderService.hide();
       },
       error: (err) => {
         console.log(err);
@@ -61,20 +60,20 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
-  private convertBsonToBinary(bsonData: any): ArrayBuffer {
-    const bytes = new Uint8Array(bsonData.data.data);
-    return bytes.buffer;
+
+  get sanitizedAvatarData(): SafeUrl | null {
+    return this.avatarData ? this.sanitizer.bypassSecurityTrustUrl(this.avatarData.toString()) : null;
   }
-  
-  private convertBinaryToBase64(buffer: ArrayBuffer): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
+
+   createImageFromBlob(image: any): void {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      this.avatarData = reader.result;
+    };
+    const blob = new Blob([new Uint8Array(image.data)], { type: image.contentType });
+    reader.readAsDataURL(blob);
   }
+
   clickEdit(){
     this.router.navigate(['/index/profile-edit'], { state: { user: this.user_info } });
   }
