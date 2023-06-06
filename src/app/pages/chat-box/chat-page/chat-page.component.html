@@ -2,16 +2,19 @@
     <div class="columns p-0 m-0 is-mobile tab-container is-gapless is-flex is-align-items-center">
     <div class="column is-narrow">
         <div class="pl-3">
-            <img class="icon p-3 is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
+            <div class=""> 
+                <img class="back-img is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
+
+            </div>
         </div>
     </div>
     <div class="column is-narrow">
-        <div class="pr-3">
-            <img src="../../../../assets/img/man.png" alt="">
+        <div class="">
+            <img class="profile-img" src="../../../../assets/img/man.png" alt="">
         </div>
     </div>
     <div class="column is-fluid">
-        <div class="field is-flex is-align-items-center m-0 pl-2">
+        <div class="field is-flex is-align-items-center m-0">
             <div class="font-sub">
                 {{contactDetails.name}}
             </div>
@@ -25,7 +28,7 @@
     <div class="column is-narrow">
         <div class="pr-3">
             <!-- <img class="p-3 is-clickable" src="../../../../assets/img/dots.png" alt="" (click)="clickOptions()"> -->
-            <img class="p-3 is-clickable" [matMenuTriggerFor]="menu" src="/assets/img/dots.png" alt="Image">
+            <img class="dot-img p-3 is-clickable" [matMenuTriggerFor]="menu" src="/assets/img/dots.png" alt="Image">
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="clearChat()">Clear Chats</button>
               <button mat-menu-item >Setting</button>
@@ -48,12 +51,12 @@
     
   </div>
   
-<div class=" is-fixed-bottom">
+<div class=" is-fixed-bottom px-3">
     <div class="chat-container mb-1">   
         <div class="chat-form is-flex is-justify-content-center is-align-items-center">
             <textarea class="input w-100" maxlength="250" type="text" [(ngModel)]="message" name="message"(keypress)="messageTyping()" (keydown)="onKeyDown($event)"></textarea>
             <div class="pl-2">
-                <div class="is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
+                <div class="send-img is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>
         </div>
     </div>
