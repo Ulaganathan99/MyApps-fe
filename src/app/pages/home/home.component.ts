@@ -11,6 +11,12 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class HomeComponent implements OnInit {
   userDetails: any;
 
+  studiesTabs: any = [
+    { 'subject' : 'Angular'},
+    { 'subject' : 'Bulma'},
+    { 'subject' : 'ExpressJs'},
+  ]
+
   constructor(private router: Router, private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {

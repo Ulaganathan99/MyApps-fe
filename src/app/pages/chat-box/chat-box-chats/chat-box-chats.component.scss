@@ -20,3 +20,12 @@
         opacity: 50%;
     }
 }
+@media screen and (max-width: 400px) {
+    .chat-card{
+        img{
+            width: 40px !important;
+            height: 40px !important;
+           }
+    }
+   
+}

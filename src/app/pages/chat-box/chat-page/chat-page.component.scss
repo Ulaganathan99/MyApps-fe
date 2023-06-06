@@ -71,6 +71,18 @@
 .mat-menu-item{
   color: #207178;
 }
+@media screen and (max-width: 400px) {
+  .back-img, .send-img{
+    
+      width: 15px !important;
+      height: 15px !important;
+  
+  }
+  .profile-img, .dot-img{
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
 
 
 

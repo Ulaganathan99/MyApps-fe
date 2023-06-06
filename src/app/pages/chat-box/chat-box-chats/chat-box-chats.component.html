@@ -2,9 +2,11 @@
     <div class="chat-box-container">
         <div class="px-2">
             <div class="chat-card my-2 is-clickable" *ngFor="let item of chatContactList" (click)="clickChatBox(item)">
-                <div class="columns is-mobile px-3">
+                <div class="columns is-mobile px-3 is-gapless">
                     <div class="column is-narrow">
-                        <img src="../../../../assets/img/man.png" alt="">
+                        <div class="profile-img">
+                            <img  src="../../../../assets/img/man.png" alt="">
+                        </div>
                     </div>
                     <div class="column ">
                         <div class="field is-flex is-justify-content-space-between pr-4 is-align-items-center m-0">

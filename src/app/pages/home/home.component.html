@@ -1,14 +1,17 @@
 <div>
     <div class="column">
         <div class="welcome-head has-text-centered">
-            <p >Welcome {{userDetails.user_name}}</p>
+            <p class="font-sub has-text-weight-bold" >Welcome <span class="user_name"> {{userDetails.user_name}} </span> </p>
         </div>
     </div>
 </div>
 <div >
-    <button mat-button [matMenuTriggerFor]="fileMenu">File</button>
-    <mat-menu #fileMenu="matMenu">
-      <button mat-menu-item>Hello</button>
-    </mat-menu>
+    <div class="columns pad-20 mt-4">
+        <div class="column is-4 p-3" *ngFor="let study of studiesTabs">
+            <div class="prgm-container p-2">
+                <p class="is-flex is-justify-content-center font-sub">{{study.subject}}</p>
+            </div>
+        </div>
+    </div>
 </div>
 
