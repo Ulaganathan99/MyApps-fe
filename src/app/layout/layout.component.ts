@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { Constants } from '../Constants/constants';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class LayoutComponent implements OnInit {
   ];
   
 
-  constructor(private router: Router, private localStorageService: LocalStorageService) {
+  constructor(private router: Router, private localStorageService: LocalStorageService, private elementRef: ElementRef) {
    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -61,7 +61,9 @@ export class LayoutComponent implements OnInit {
     
     
   }
-  ham_menu() {}
+  ham_menu() {    
+    this.show_dropdown_menu = !this.show_dropdown_menu;
+  }
   logout(): void {
     localStorage.clear();
     this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Login');
@@ -77,5 +79,19 @@ export class LayoutComponent implements OnInit {
       this.selected_top_menu
     );
     localStorage.removeItem(Constants.APP.SELECTED_TAB);
+    if(this.show_dropdown_menu){
+      this.show_dropdown_menu = false;
+    }
+  }
+  
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    const isClickedOnMenuIcon = clickedElement.closest('.ham-menu') !== null;
+    const isClickedInsideMenu = clickedElement.closest('.menu_dropdown') !== null;
+
+    if (!isClickedOnMenuIcon && !isClickedInsideMenu) {
+      this.show_dropdown_menu = false;
+    }
   }
 }

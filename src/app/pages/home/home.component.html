@@ -5,12 +5,14 @@
         </div>
     </div>
 </div>
-<div >
-    <div class="columns pad-20 mt-4">
-        <div class="column is-4 p-3" *ngFor="let study of studiesTabs">
-            <div class="prgm-container p-2">
-                <p class="is-flex is-justify-content-center font-sub">{{study.subject}}</p>
-            </div>
+<div class="pad-20">
+    <div class="columns mt-4 is-gapless">
+        <div class="column is-4" *ngFor="let study of studiesTabs">
+            <div class="p-3">
+                <div class="prgm-container p-2">
+                    <p class="is-flex is-justify-content-center font-sub">{{study.subject}}</p>
+                </div>
+            </div>    
         </div>
     </div>
 </div>

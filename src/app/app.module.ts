@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -108,7 +109,8 @@ import { IndianTimePipe } from './pipes/indian-time.pipe';
     MatToolbarModule,
     MatFormFieldModule,
     MatSliderModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
     
 
 

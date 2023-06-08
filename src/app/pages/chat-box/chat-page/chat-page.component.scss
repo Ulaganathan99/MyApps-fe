@@ -31,10 +31,6 @@
   .field{
     height: 50%;
   }
-  img{
-    width: 50px;
-    height: 50px;
-  }
 }
 .chat-messages {
   height: calc(100vh - 280px); /* Set a fixed height for the chat messages container */
@@ -68,6 +64,38 @@
     }
   }
 }
+.profile-container {
+  position: relative;
+  display: inline-block;
+ 
+}
+
+.profile-picture {
+  position: relative;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid grey;
+  width: 60px;
+  height: 60px;
+}
+.picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+.back-img, .send-img{
+    
+  width: 25px;
+  height: 25px;
+}
+.profile-picture, .dot-img{
+  width: 45px;
+  height: 45px;
+}
 .mat-menu-item{
   color: #207178;
 }
@@ -78,7 +106,7 @@
       height: 15px !important;
   
   }
-  .profile-img, .dot-img{
+  .profile-picture, .dot-img{
     width: 40px !important;
     height: 40px !important;
   }

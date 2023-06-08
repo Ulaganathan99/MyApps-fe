@@ -2,15 +2,19 @@
     <div class="chat-box-container">
         <div class="px-2">
             <div class="chat-card my-2 is-clickable" *ngFor="let item of chatContactList" (click)="clickChatBox(item)">
-                <div class="columns is-mobile px-3 is-gapless">
-                    <div class="column is-narrow">
-                        <div class="profile-img">
-                            <img  src="../../../../assets/img/man.png" alt="">
-                        </div>
+                <div class="columns is-mobile px-3 py-2 is-gapless">
+                    <div class="column is-narrow is-flex is-align-items-center">
+                        <div class="profile-container">
+                            <div class="profile-picture" [class.active]="onlineStatusInfo?.[item.number]?.online =='online'">
+                                <img class="picture" src="../../../../assets/img/man.png" alt="">
+                            </div>
+                            
+                          </div>
+                       
                     </div>
                     <div class="column ">
-                        <div class="field is-flex is-justify-content-space-between pr-4 is-align-items-center m-0">
-                            <div class="font-sub">
+                        <div class="field is-flex is-justify-content-space-between is-align-items-center m-0">
+                            <div class="font-sub pl-3">
                                 {{item.name}}
                             </div>
                             <div>
@@ -18,7 +22,7 @@
                             </div>
                         </div>
                         <div class="field is-flex is-align-items-center">
-                            <p class="status">{{ onlineStatusInfo?.[item.number]?.online }}</p> 
+                            <p class="status pl-3">{{ onlineStatusInfo?.[item.number]?.online }}</p> 
                         </div>  
                     </div>
                 </div>

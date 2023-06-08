@@ -3,6 +3,7 @@ import { ChildActivationStart, NavigationEnd, NavigationStart, Router } from '@a
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { SearchService } from 'src/app/services/search.service';
 import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
@@ -19,10 +20,11 @@ export class ChatBoxSummaryComponent implements OnInit {
   feedback!: string;
   typingTimeout: any; 
   onlineStatusInfo!: any;
+  searchText: any;
 
   selected_tab:string = 'chats';
 
-  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService) { 
+  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService, private searchService: SearchService) { 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = (event as NavigationEnd).url;
@@ -88,6 +90,13 @@ export class ChatBoxSummaryComponent implements OnInit {
     
     this.selected_tab = data
 
+  }
+  onSearch(event: any) {
+
+    this.searchText = event.searchText;
+    console.log(this.searchText);
+    this.searchService.setSearchText(event.searchText);
+    // this.fetchAllQuotes({});
   }
 
 }

@@ -4,6 +4,7 @@ import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { ContactService } from 'src/app/services/contact.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { SearchService } from 'src/app/services/search.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
@@ -16,11 +17,13 @@ export class ChatBoxChatsComponent implements OnInit {
   userDetails: any;
   chatContactList: any;
   onlineStatusInfo: { [key: string]: any } = {};
+  searchText: any;
 
   constructor(private loaderService: LoaderService,
     private chatService: ChatService,
     private router: Router,
-    private webSocketService : WebSocketService,) {}
+    private webSocketService : WebSocketService,
+    private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
@@ -28,6 +31,12 @@ export class ChatBoxChatsComponent implements OnInit {
     );
     this.fetchContactInfo(this.userDetails.user_id);
     this.setupSocketListeners();
+    this.searchService.searchText$.subscribe(searchText => {
+      this.searchText = searchText;
+      console.log(this.searchText);
+      
+      // Perform any necessary actions with the search text
+    });
   }
   fetchContactInfo(userID: string) {
     this.loaderService.show();
