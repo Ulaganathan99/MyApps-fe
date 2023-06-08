@@ -1,6 +1,6 @@
 <div class="columns px-3 is-gapless is-mobile mt-3">
     <div class="column is-6 pl-3">
-        <app-search></app-search>
+        <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search'"></app-search>
     </div>
     <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
        <img class="icon" src="../../../../assets/img/settings.svg" alt="">

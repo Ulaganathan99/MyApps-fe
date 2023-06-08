@@ -20,7 +20,23 @@
             </menu>
         </div>
         <div class="column is-size-6 is-fluid is-flex is-justify-content-end is-hidden-tablet">
-            <img class="logo is-clickable" (click)="ham_menu()" src="../../../assets/img/menu.png" alt="">
+            <img class="ham-menu is-clickable" (click)="ham_menu()" src="../../../assets/img/menu.png" alt="">
+        </div>
+        <div *ngIf="show_dropdown_menu">
+            <div class="menu_dropdown">
+                <div *ngFor="let menu of topmenu_list">
+                    <div *ngIf="(is_loggedIn && menu.permission) || (!is_loggedIn && !menu.permission)" class="py-3 is-clickable menulist" (click)="changeMenu(menu)" [ngClass]="{ 'is-active': selected_top_menu === menu.name, 'has-text-black': selected_top_menu !== menu.name }" routerLink="{{ menu.route }}">
+                        <div class="is-flex is-justify-content-center">
+                            <a class="a px-5">{{ menu.name }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="is_loggedIn === true" class="py-3 is-clickable menulist" (click)="logout()" >
+                    <div class="is-flex is-justify-content-center">
+                    <a class="a px-5">Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

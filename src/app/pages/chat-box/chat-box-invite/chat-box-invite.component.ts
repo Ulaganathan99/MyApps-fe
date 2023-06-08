@@ -30,6 +30,8 @@ export class ChatBoxInviteComponent implements OnInit {
     this.chatService.getInviteContacts(userID).subscribe({
       next: (res) => {
         this.inviteContactList = res.inviteContactList
+        this.inviteContactList.sort((a: { name: string; }, b: { name: any; }) => a.name.localeCompare(b.name));
+
         this.loaderService.hide();
       },
       error: (err) => {
