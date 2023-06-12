@@ -9,6 +9,19 @@
 .mat-menu-item{
     color: $primary;
 }
+.download-img{
+    width: 20px;
+}
+
+
+@media screen and (max-width: 400px) {
+    .action-img{
+    height: 10px;
+    }
+    .download-img{
+        width: 15px;
+    }
+  }
 
 
 

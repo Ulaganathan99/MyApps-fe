@@ -53,13 +53,13 @@ export class ChatBoxSummaryComponent implements OnInit {
 
   tabs_list: any = [
     { key: 'chats', label: 'Chats', route: 'chat-box-chats' },
-    { key: 'history', label: 'History', route: 'chat-box-history' },
+    { key: 'all-chat', label: 'All Chats', route: 'chat-box-all-chat' },
     { key: 'invite', label: 'Invite', route: 'chat-box-invite' }
   ]
 
   shouldSkipDisconnect(url: string): boolean {
     // Define the routes where you want to skip calling disconnectAndSetOffline()
-    const allowedRoutes = ['chat-box-chats', 'chat-box-history', 'chat-box-invite', 'chat-page', 'chat-box'];  
+    const allowedRoutes = ['chat-box-chats', 'chat-box-all-chat', 'chat-box-invite', 'chat-page', 'chat-box'];  
     return allowedRoutes.some(route => url.includes(route));
   }
 
@@ -92,11 +92,12 @@ export class ChatBoxSummaryComponent implements OnInit {
 
   }
   onSearch(event: any) {
-
     this.searchText = event.searchText;
     console.log(this.searchText);
     this.searchService.setSearchText(event.searchText);
-    // this.fetchAllQuotes({});
+  }
+  clickSettings(){
+    
   }
 
 }

@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
-import { ContactService } from 'src/app/services/contact.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { SearchService } from 'src/app/services/search.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
-  selector: 'app-chat-box-chats',
-  templateUrl: './chat-box-chats.component.html',
-  styleUrls: ['./chat-box-chats.component.scss']
+  selector: 'app-chat-box-all-chats',
+  templateUrl: './chat-box-all-chats.component.html',
+  styleUrls: ['./chat-box-all-chats.component.scss']
 })
-export class ChatBoxChatsComponent implements OnInit {
+export class ChatBoxAllChatsComponent implements OnInit {
 
   userDetails: any;
   chatContactList: any;
@@ -32,6 +31,7 @@ export class ChatBoxChatsComponent implements OnInit {
     );
     this.fetchContactInfo(this.userDetails.user_id);
     this.setupSocketListeners();
+    this.searchService.setSearchText('');
     this.searchService.searchText$.subscribe(searchText => {
       this.searchText = searchText;
       this.searchContact()
@@ -39,9 +39,10 @@ export class ChatBoxChatsComponent implements OnInit {
   }
   fetchContactInfo(userID: string) {
     this.loaderService.show();
-    this.chatService.getChatContacts(userID).subscribe({
-      next: (res) => {
+    this.chatService.getAllChatContacts(userID).subscribe({
+      next: (res) => {        
         this.chatContactList = res.chatContactList;
+        this.chatContactList.sort((a: { name: string; }, b: { name: any; }) => a.name.localeCompare(b.name));
         this.webSocketService.emit('updatedOnlineStatus', {
           handle: this.userDetails.user_id,
         });
@@ -77,5 +78,6 @@ export class ChatBoxChatsComponent implements OnInit {
   clickChatBox(data: any){
     this.router.navigate(['/index/chat-box/chat-page'], { state: { contactDetails: data } });
   }
+
 
 }

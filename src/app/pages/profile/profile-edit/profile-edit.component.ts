@@ -18,7 +18,7 @@ export class ProfileEditComponent implements OnInit {
   msg: String = '';
   msg_status: String = '';
   userDetails: any;
-  profilePicture:  ArrayBuffer | null = null; // Initialize profilePicture as null;
+  profilePicture!:  string; // Initialize profilePicture as null;
 
 
   constructor(
@@ -57,7 +57,9 @@ export class ProfileEditComponent implements OnInit {
             localStorage.setItem(
               Constants.APP.SESSION_USER_DATA,
               JSON.stringify(res.user)
+              
             );
+            this.profilePicture = ''
           } 
         },
         error: (err) => { 
@@ -95,8 +97,7 @@ export class ProfileEditComponent implements OnInit {
       const reader = new FileReader();
   
       reader.onload = (e: ProgressEvent<FileReader>) => {
-        this.profilePicture = e.target?.result as ArrayBuffer;
-        console.log(this.profilePicture);
+        this.profilePicture = e.target?.result as string;
         // Store the data in MongoDB or perform other actions here
       };
   

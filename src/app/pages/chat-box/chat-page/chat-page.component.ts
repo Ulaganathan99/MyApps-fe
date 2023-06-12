@@ -52,9 +52,6 @@ export class ChatPageComponent implements OnInit {
     this.userService.fetchUserInfo(user_id).subscribe({
       next: (res) => {
         this.user_info = res.data;
-        console.log('fetch');
-        console.log(this.user_info.number);
-
         this.getMessages();
         this.webSocketService.emit('updatedOnlineStatus', {
           handle: this.userDetails.user_id,
@@ -80,12 +77,9 @@ export class ChatPageComponent implements OnInit {
   }
 
   updateOnlineStatus(data: any) {
-    console.log('update');
-    console.log(data);
     const userNumber = this.contactDetails ? this.contactDetails.number : null;
     if (userNumber && data[userNumber]) {
       this.onlineStatus = data[userNumber].online;
-      console.log(this.onlineStatus);
     }
   }
 

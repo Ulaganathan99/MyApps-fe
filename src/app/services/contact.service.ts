@@ -22,6 +22,12 @@ export class ContactService {
       userID
     });
   }
+  getContactsTable(userID:string, pageSize:any): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.FETCH_CONTACTS_TABLE, {
+      userID,
+      pageSize
+    });
+  }
   deleteContact(userID: string, contactNumber: string): Observable<any>{
     return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CONTACT, {
       userID,
@@ -29,7 +35,7 @@ export class ContactService {
     })
   }
   editContact(userID: string,contactName: string, contactNumber: string): Observable<any>{
-    return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CONTACT, {
+    return this.http.post(Constants.BASE_URL + Constants.API.EDIT_CONTACT, {
       userID,
       contactName,
       contactNumber
@@ -40,5 +46,12 @@ export class ContactService {
       userID,
       contactNumbers
     })
+  }
+  downloadContacts(userID: string): Observable<any> {
+    return this.http.post(
+      Constants.BASE_URL + Constants.API.DOWNLOAD_CONTACT,
+      { userID },
+      { responseType: 'arraybuffer' }
+    );
   }
 }

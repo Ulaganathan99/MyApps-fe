@@ -14,6 +14,11 @@ export class ChatService {
       userID
     });
   }
+  getAllChatContacts(userID:string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.GET_ALL_CHAT_CONTACTS, {
+      userID
+    });
+  }
   getInviteContacts(userID:string): Observable<any> {
     return this.http.post(Constants.BASE_URL + Constants.API.GET_INVITE_CONTACTS, {
       userID
@@ -36,6 +41,12 @@ export class ChatService {
     return this.http.post(Constants.BASE_URL + Constants.API.DELETE_CHAT_HISTORY, {
       owner,
       receiver
+    });
+  }
+  getSearchChatContact( userID:string, searchText:string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.GET_SEARCH_CHAT_CONTACT, {
+      userID,
+      searchText
     });
   }
 }

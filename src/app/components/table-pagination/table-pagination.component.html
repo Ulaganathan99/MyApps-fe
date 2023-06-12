@@ -1,0 +1,7 @@
+<div class="is-flex is-align-items-center">
+{{start_page_count}} - {{(end_page_count > listLength) ? listLength : end_page_count}} of {{listLength}}
+<ul class="is-flex"> 
+   <li> <button style="cursor : pointer !important" (click)="previous()" [disabled]="current_page == 1"><img class="mt-2" src="../../../assets/img/backward_icon.svg" alt=""></button></li>
+   <li> <button style="cursor : pointer !important" (click)="next()" [disabled]="(end_page_count > listLength) ? listLength : current_page == last_page"><img img class="mt-2" src="../../../assets/img/forward_icon.svg" alt=""></button></li>
+</ul>
+</div>
