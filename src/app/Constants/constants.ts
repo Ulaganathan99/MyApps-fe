@@ -14,14 +14,19 @@ export class Constants {
 
     ADD_CONTACT: 'contact/addContact',
     FETCH_CONTACT_INFO: 'contact/getContacts',
+    FETCH_CONTACTS_TABLE: 'contact/getContactsTable',
     DELETE_CONTACT: 'contact/delete',
     DELETE_ALL_CONTACT: 'contact/deleteAll',
+    EDIT_CONTACT: 'contact/edit',
+    DOWNLOAD_CONTACT: 'contact/download',
 
     GET_CHAT_CONTACTS: 'chat/getChatContacts',
+    GET_ALL_CHAT_CONTACTS: 'chat/getAllChatContacts',
     GET_INVITE_CONTACTS: 'chat/getInviteContacts',
     SEND_MSG: 'chat/sendChatMsg',
     GET_MSG: 'chat/getChatMsg',
-    DELETE_CHAT_HISTORY: 'chat/deleteChatHistory'
+    DELETE_CHAT_HISTORY: 'chat/deleteChatHistory',
+    GET_SEARCH_CHAT_CONTACT: 'chat/getSearchChatContact',
     
   }
 

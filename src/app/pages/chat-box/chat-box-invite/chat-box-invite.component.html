@@ -1,7 +1,7 @@
 <div class="pad-20">
     <div class="chat-box-container">
         <div class="px-2">
-            <div class="chat-card my-2 is-clickable" *ngFor="let item of inviteContactList" (click)="clickChatBox(item)">
+            <div class="chat-card my-2 is-clickable" *ngFor="let item of searchText ? searchInviteContactList : inviteContactList" (click)="clickChatBox(item)">
                 <div class="columns is-mobile px-3">
                     <div class="column is-narrow">
                         <img src="../../../../assets/img/man.png" alt="">
@@ -17,6 +17,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="!inviteContactList || inviteContactList.length === 0">
+                <p class="has-text-centered mt-6">No data</p>
             </div>
         </div>
     </div>

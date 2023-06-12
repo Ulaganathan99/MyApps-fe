@@ -37,6 +37,18 @@ export class ContactEditComponent implements OnInit {
     });
   }
   clickEdit(){
+    const contactName = this.editContactForm.value.name;
+    const contactNumber = this.editContactForm.value.mobileNumber;
+    this.contactService.editContact(this.userDetails.user_id, contactName, contactNumber).subscribe({
+      next: (res) => {    
+        if (res.statusCode == 1) {
+          // this.closeDelete.emit("delete");
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
 
   }
   close(){

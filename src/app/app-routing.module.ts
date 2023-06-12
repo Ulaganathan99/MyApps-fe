@@ -14,9 +14,9 @@ import { ContactAddContactComponent } from './pages/contact-book/contact-add-con
 import { ContactListComponent } from './pages/contact-book/contact-list/contact-list.component';
 import { ChatBoxSummaryComponent } from './pages/chat-box/chat-box-summary/chat-box-summary.component';
 import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
-import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
+import { ChatBoxAllChatsComponent } from './pages/chat-box/chat-box-all-chats/chat-box-all-chats.component';
 
 const routes: Routes = [
   {
@@ -51,7 +51,7 @@ const routes: Routes = [
             children: [
               { path: '', pathMatch: 'full', redirectTo: 'chat-box-chats' },
               { path: 'chat-box-chats', component: ChatBoxChatsComponent },
-              { path: 'chat-box-history', component: ChatBoxHistoryComponent },
+              { path: 'chat-box-all-chat', component: ChatBoxAllChatsComponent },
               { path: 'chat-box-invite', component: ChatBoxInviteComponent },
               { path: 'chat-page', component: ChatPageComponent },
             ],

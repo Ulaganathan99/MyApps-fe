@@ -51,11 +51,12 @@ import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ChatBoxSummaryComponent } from './pages/chat-box/chat-box-summary/chat-box-summary.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-chats.component';
-import { ChatBoxHistoryComponent } from './pages/chat-box/chat-box-history/chat-box-history.component';
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
 import { ProfileDeletePopupComponent } from './pages/profile/profile-delete-popup/profile-delete-popup.component';
 import { IndianTimePipe } from './pipes/indian-time.pipe';
+import { ChatBoxAllChatsComponent } from './pages/chat-box/chat-box-all-chats/chat-box-all-chats.component';
+import { TablePaginationComponent } from './components/table-pagination/table-pagination.component';
 
 
 @NgModule({
@@ -88,11 +89,12 @@ import { IndianTimePipe } from './pipes/indian-time.pipe';
     ChatBoxSummaryComponent,
     TabsComponent,
     ChatBoxChatsComponent,
-    ChatBoxHistoryComponent,
     ChatBoxInviteComponent,
     ChatPageComponent,
     ProfileDeletePopupComponent,
     IndianTimePipe,
+    ChatBoxAllChatsComponent,
+    TablePaginationComponent,
   ],
   imports: [
     BrowserModule,

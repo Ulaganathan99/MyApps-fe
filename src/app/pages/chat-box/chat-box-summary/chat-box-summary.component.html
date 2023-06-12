@@ -3,7 +3,9 @@
         <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search'"></app-search>
     </div>
     <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
-       <img class="icon" src="../../../../assets/img/settings.svg" alt="">
+        <div class="pr-4">
+            <img class="icon is-clickable" src="../../../../assets/img/settings.svg" alt="" (click)="clickSettings()">
+        </div>
     </div>
     
 </div>

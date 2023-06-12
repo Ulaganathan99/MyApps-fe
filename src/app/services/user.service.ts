@@ -33,7 +33,7 @@ export class UserService {
     });
   }
 
-  editProfile(userID: string,name: string, profilePictureData:  ArrayBuffer | null): Observable<any> {
+  editProfile(userID: string,name: string, profilePictureData:  string): Observable<any> {
 
     const payload = {
       userID,

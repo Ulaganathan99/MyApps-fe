@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Constants } from 'src/app/Constants/constants';
 import { ContactService } from 'src/app/services/contact.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-contact-list',
@@ -17,27 +18,47 @@ export class ContactListComponent implements OnInit {
   selected_action: any = 'Bulk Action';
   selectAll: boolean = false;
   action_list: any = ['Bulk Action', 'Delete All'];
+  searchText: any;
+  contactsLength: any;
+
+
+  pageEventData = {
+    pageIndex: 1,
+    pageSize: 10
+  }
+
+  records_count = this.pageEventData.pageSize;
+
 
   constructor(
     private loaderService: LoaderService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
-    this.fetchContactInfo(this.userDetails.user_id);
+    this.fetchContactInfo( this.pageEventData);
+    this.searchService.setSearchText('');
   }
 
-  fetchContactInfo(userID: string) {
+  fetchContactInfo(event:any) {
     this.loaderService.show();
-    this.contactService.getContacts(userID).subscribe({
+    event = { ...this.pageEventData, searchText: this.searchText}
+    if(event.searchText){
+      this.loaderService.hide();
+    }
+    this.contactService.getContactsTable(this.userDetails.user_id, event).subscribe({
       next: (res) => {
-        this.contactList = res.contactList.map((contact: any) => {
-          return { ...contact, checked: false };
-        });
-        this.loaderService.hide();
+        if(res.statusCode == 1){
+          this.contactsLength = res.totalRecords;
+          this.contactList = res.contactList.map((contact: any) => {
+            return { ...contact, checked: false };
+          });
+          this.loaderService.hide();
+        }
       },
       error: (err) => {
         console.log(err);
@@ -54,7 +75,7 @@ export class ContactListComponent implements OnInit {
       this.showDeleteModel = false;
     } else if (event === 'delete') {
       this.showDeleteModel = false;
-      this.fetchContactInfo(this.userDetails.user_id);
+      this.fetchContactInfo({});
     }
   }
 
@@ -70,7 +91,7 @@ export class ContactListComponent implements OnInit {
       this.contactService.deleteAllContacts(this.userDetails.user_id, this.selectedContact ).subscribe({
         next: (res) => {    
           if (res.statusCode == 1) {
-            this.fetchContactInfo(this.userDetails.user_id);
+            this.fetchContactInfo({});
           }
         },
         error: (err) => {
@@ -78,7 +99,6 @@ export class ContactListComponent implements OnInit {
         },
       });
     }
-    
   }
   checkedAction(data: any) {
     console.log(data);
@@ -97,16 +117,41 @@ export class ContactListComponent implements OnInit {
 
     if (this.selectAll) {
       this.selectedContact = [...this.contactList];
-      console.log(this.selectedContact);
       
     } else {
       this.selectedContact = [];
-      console.log(this.selectedContact);
     }
 
     for (let contact of this.contactList) {
       contact.checked = this.selectAll;
     }
+  }
+  onSearch(event: any) {
+    this.searchText = event.searchText;
+    this.searchService.setSearchText(event.searchText);  
+    this.fetchContactInfo({});
+  
+  }
+  clickDownload(){
+    this.contactService.downloadContacts(this.userDetails.user_id ).subscribe( 
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'contacts.xlsx';
+        link.click();
+        window.URL.revokeObjectURL(url);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+    
+  }
+  onPaginate(event: any) {
+    this.pageEventData = { pageIndex: event.pageIndex, pageSize: event.pageSize };
+    this.fetchContactInfo({});
   }
 
 }
