@@ -2,19 +2,29 @@
     <div class="chat-box-container">
         <div class="px-2">
             <div class="chat-card my-2 is-clickable" *ngFor="let item of searchText ? searchInviteContactList : inviteContactList" (click)="clickChatBox(item)">
-                <div class="columns is-mobile px-3">
-                    <div class="column is-narrow">
-                        <img src="../../../../assets/img/man.png" alt="">
+                <div class="columns is-mobile px-3 py-2 is-gapless">
+                    <div class="column is-narrow is-flex is-align-items-center">
+                        <div class="profile-container">
+                            <div class="profile-picture">
+                                <img
+                                    src="assets/img/man.png"
+                                    alt="Profile Picture"
+                                    class="picture"
+                                />
+                            </div>
+                            
+                          </div>
+                       
                     </div>
                     <div class="column ">
-                        <div class="field is-flex is-justify-content-space-between pr-4 is-align-items-center m-0">
-                            <div class="font-sub">
+                        <div class="field is-flex is-justify-content-space-between is-align-items-center m-0">
+                            <div class="font-sub pl-3">
                                 {{item.name}}
                             </div>
                             <div>
                                 {{item.number}}
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>

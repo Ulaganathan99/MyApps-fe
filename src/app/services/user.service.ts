@@ -33,22 +33,24 @@ export class UserService {
     });
   }
 
-  editProfile(userID: string,name: string, profilePictureData:  string): Observable<any> {
-
-    const payload = {
-      userID,
-      name,
-      avatar: {
-        data: profilePictureData,
-        contentType: 'image/png'
-      }
-    };
-    console.log("service");
-    
-    return this.http.post(Constants.BASE_URL + Constants.API.EDIT_PROFILE, payload);
+  editProfile(userID: string,name: string, image: File): Observable<any> { 
+    const formData = new FormData();
+  formData.append('userID', userID);
+  formData.append('name', name);
+  formData.append('image', image, image.name);
+    return this.http.post(Constants.BASE_URL + Constants.API.EDIT_PROFILE, formData);
+  }
+  editName(userID: string,name: string): Observable<any> { 
+    const formData = new FormData();
+  formData.append('userID', userID);
+  formData.append('name', name);
+    return this.http.post(Constants.BASE_URL + Constants.API.EDIT_PROFILE, formData);
   }
   fetchUserInfo(user_id: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.FETCH_USER_INFO,{user_id: user_id})
+  }
+  getProfile(imgUrl: string): Observable<Blob>{
+    return this.http.post(Constants.BASE_URL+Constants.API.FETCH_IMG,{ imgUrl },  { responseType: 'blob' })
   }
   deleteUser(user_id: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.DELETE_USER,{userID: user_id})

@@ -153,5 +153,8 @@ export class ContactListComponent implements OnInit {
     this.pageEventData = { pageIndex: event.pageIndex, pageSize: event.pageSize };
     this.fetchContactInfo({});
   }
+  contactUpdated(){
+    this.fetchContactInfo({});
+  }
 
 }

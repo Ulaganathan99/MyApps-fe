@@ -34,11 +34,12 @@ export class ContactService {
       contactNumber
     })
   }
-  editContact(userID: string,contactName: string, contactNumber: string): Observable<any>{
+  editContact(userID: string,contactName: string, contactNumber: string, contactID: string): Observable<any>{
     return this.http.post(Constants.BASE_URL + Constants.API.EDIT_CONTACT, {
       userID,
       contactName,
-      contactNumber
+      contactNumber,
+      contactID
     })
   }
   deleteAllContacts(userID: string, contactNumbers: any): Observable<any>{

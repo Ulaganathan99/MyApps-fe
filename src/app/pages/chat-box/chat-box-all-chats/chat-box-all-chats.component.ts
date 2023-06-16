@@ -4,6 +4,7 @@ import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { SearchService } from 'src/app/services/search.service';
+import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
 @Component({
@@ -18,12 +19,15 @@ export class ChatBoxAllChatsComponent implements OnInit {
   searchChatContactList: any;
   onlineStatusInfo: { [key: string]: any } = {};
   searchText: any;
+  profilePictures: { [key: string]: string } = {};
+
 
   constructor(private loaderService: LoaderService,
     private chatService: ChatService,
     private router: Router,
     private webSocketService : WebSocketService,
-    private searchService: SearchService) {}
+    private searchService: SearchService,
+    private userService: UserService,) {}
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
@@ -47,11 +51,39 @@ export class ChatBoxAllChatsComponent implements OnInit {
           handle: this.userDetails.user_id,
         });
         this.loaderService.hide();
+        this.fetchProfileImages()
       },
       error: (err) => {
         console.log(err);
         this.loaderService.hide();
       },
+    });
+  }
+  fetchProfileImages(): void {
+    this.chatContactList.forEach((item: { avatar: any; number: string | number; }) => {
+      if(item.avatar){
+        this.userService.getProfile(item.avatar).subscribe((response) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            this.profilePictures[item.number] = reader.result as string;
+          };
+          reader.readAsDataURL(response);
+        });
+      }
+      
+    });
+    console.log(this.profilePictures);
+    
+  }
+  getProfileImg(url: any){
+  console.log('url', url);
+    
+    this.userService.getProfile(url).subscribe((response) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        return reader.result as string;
+      };
+      reader.readAsDataURL(response);
     });
   }
   searchContact(){

@@ -24,6 +24,8 @@ export class ChatPageComponent implements OnInit {
   feedback!: string;
   typingTimeout: any;
   onlineStatus!: string;
+  profileImage!: string;
+
 
   constructor(
     private loaderService: LoaderService,
@@ -42,6 +44,7 @@ export class ChatPageComponent implements OnInit {
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
+    this.getProfileImg(this.contactDetails.avatar)
 
     this.fetchChatInfo(this.userDetails.user_id);
     this.setupSocketListeners();
@@ -62,6 +65,15 @@ export class ChatPageComponent implements OnInit {
         console.log(err);
         this.loaderService.hide();
       },
+    });
+  }
+  getProfileImg(url: any){
+    this.userService.getProfile(url).subscribe((response) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.profileImage = reader.result as string;
+      };
+      reader.readAsDataURL(response);
     });
   }
   setupSocketListeners() {
