@@ -86,5 +86,5 @@
   <app-contact-delete  [contactDetail]="selectedContact" (closeDelete)="closeDelete($event)"></app-contact-delete>
 </div>
 <div *ngIf="showEditModel" >
-  <app-contact-edit [contactDetail]="selectedContact" (closeEdit)="closeEdit($event)"></app-contact-edit>
+  <app-contact-edit [contactDetail]="selectedContact" (closeEdit)="closeEdit($event)" (contactUpdated)="contactUpdated()"></app-contact-edit>
 </div>

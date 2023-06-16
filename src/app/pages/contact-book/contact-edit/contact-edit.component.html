@@ -33,8 +33,7 @@
                   placeholder="Contact Name"
                   name="name"
                   required
-                  (focus)="isInputFocused = true"
-                  (blur)="isInputFocused = false"
+                  (focus)="inputFocused()"
                 />
               </div>
               <div class="help-container is-flex is-justify-content-center">
@@ -66,8 +65,7 @@
                   placeholder="Mobile Number"
                   name="mobileNumber"
                   required
-                  (focus)="isInputFocused = true"
-                  (blur)="isInputFocused = false"
+                  (focus)="inputFocused()"
                 />
               </div>
               <div class="help-container is-flex is-justify-content-center">

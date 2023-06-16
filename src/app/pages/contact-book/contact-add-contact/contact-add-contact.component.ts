@@ -44,6 +44,7 @@ export class ContactAddContactComponent implements OnInit {
     this.showErrors = true;
 
     if (this.addContactForm.status === 'VALID') {
+      this.isInputFocused = false
       this.contactService.addContact(this.userDetails.user_id,contactName,contactNumber).subscribe({
         next: (res) => {
           if (res.statusCode == 1) {
@@ -67,5 +68,9 @@ export class ContactAddContactComponent implements OnInit {
   }
   back_to_contacts() {
     this.router.navigate(['/index/contact-book/contact-list']);
+  }
+  inputFocused(){    
+    this.msg = ''
+    this.isInputFocused = true
   }
 }

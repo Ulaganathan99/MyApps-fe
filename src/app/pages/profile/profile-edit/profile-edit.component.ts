@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -30,11 +29,13 @@ export class ProfileEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (history.state.user != undefined) {
-      this.userDetails = history.state.user
+      this.userDetails = history.state.user      
       this.initializeForm();
-
     } else {
       this.router.navigate(['/index/profile']);
+    }
+    if(this.userDetails.avatar){
+      this.getProfileImg(this.userDetails.avatar)
     }
   }
   initializeForm(): void {
@@ -47,28 +48,47 @@ export class ProfileEditComponent implements OnInit {
   clickEdit() {
     const userID = this.userDetails.userID
     const name = this.profileEditForm.value.name;
-    const profilePicture = this.profilePicture;
     this.showErrors = true;
+    
 
     if (this.profileEditForm.status === 'VALID') {
-      this.userService.editProfile(userID,name, profilePicture).subscribe({
-        next: (res) => {
-          if (res.statusCode == 1) {
-            localStorage.setItem(
-              Constants.APP.SESSION_USER_DATA,
-              JSON.stringify(res.user)
-              
-            );
-            this.profilePicture = ''
-          } 
-        },
-        error: (err) => { 
-          console.log(err);
-        },
-      });
+      const fileInput = document.getElementById('imageInput') as HTMLInputElement;
+      if (fileInput.files && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        this.userService.editProfile(userID, name, file).subscribe({
+          next: (res) => {
+            if (res.statusCode === 1) {
+              this.router.navigate(['/index/profile']);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      } else {
+        this.userService.editName(userID, name).subscribe({
+          next: (res) => {
+            if (res.statusCode === 1) {
+              this.router.navigate(['/index/profile']);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        });
+      }
     } else {
-      console.log('invalid');
+      console.log('Form is invalid.');
     }
+  }
+  getProfileImg(url: any){
+    this.userService.getProfile(url).subscribe((response) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.profilePicture = reader.result as string;
+      };
+      reader.readAsDataURL(response);
+    });
   }
   clickDelete(){
     this.showDeletePopup = true
@@ -82,12 +102,20 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
-  profileChange() {
-    const fileInput: HTMLInputElement = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.jpeg, .jpg, .png'; 
-    fileInput.addEventListener('change', (event: Event) => this.onFileSelected(event));
-    fileInput.click();
+  profileChange(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      this.profileEditForm.patchValue({ image: file });
+      const allowedMimeTypes = ["image/png", "image/jpeg", "image/jpg"];
+      if (allowedMimeTypes.includes(file.type)) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.profilePicture = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   }
 
   onFileSelected(event: Event) {

@@ -9,6 +9,7 @@ export class Constants {
     FETCH_USER_INFO: 'user/fetchUserInfo',
     EDIT_PROFILE: 'user/editProfile',
     DELETE_USER: 'user/deleteProfile',
+    FETCH_IMG: 'user/fetchImg',
    
 
 

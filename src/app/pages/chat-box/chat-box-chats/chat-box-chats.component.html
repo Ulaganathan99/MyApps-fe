@@ -6,7 +6,11 @@
                     <div class="column is-narrow is-flex is-align-items-center">
                         <div class="profile-container">
                             <div class="profile-picture" [class.active]="onlineStatusInfo?.[item.number]?.online =='online'">
-                                <img class="picture" src="../../../../assets/img/man.png" alt="">
+                                <img
+                                    [src]="profilePictures[item.number] || 'assets/img/man.png'"
+                                    alt="Profile Picture"
+                                    class="picture"
+                                />
                             </div>
                             
                           </div>
