@@ -1,28 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { LoaderService } from 'src/app/services/loader.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
-import { Utils } from 'src/app/common/utils';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-forgot-pass',
+  templateUrl: './forgot-pass.component.html',
+  styleUrls: ['./forgot-pass.component.scss']
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+export class ForgotPassComponent implements OnInit {
+  forgotForm: FormGroup;
   showErrors: boolean = false;
 
   msg: String = '';
   msg_status: String = '';
+  user_email!: string;
 
   constructor(
     private router: Router,
@@ -30,11 +25,10 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private localStorageService: LocalStorageService,
     private loaderService: LoaderService,
-    private utilsClass: Utils
   ) {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+    this.forgotForm = this.formBuilder.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
     });
   }
 
@@ -42,34 +36,27 @@ export class LoginComponent implements OnInit {
     if(this.localStorageService.getItem(Constants.APP.SESSION_ID)){
       this.router.navigate(['/index'])
     }
+    if (history.state != undefined) {
+      this.user_email = history.state.email;
+    }
   }
-  toRegister() {
-    this.router.navigate(['/signup']);
+  toLogin() {
+    this.router.navigate(['/login']);
     this.localStorageService.setItem(
       Constants.APP.SELECTED_TOPNAV,
-      'Register'
+      'Login'
     );
   }
-  clickLogin() {
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
+  clickSubmit() {
+    const newPassword = this.forgotForm.value.newPassword;
+    const confirmPassword = this.forgotForm.value.confirmPassword;
     this.showErrors = true;
-    if (this.loginForm.status === 'VALID') {
+    if (this.forgotForm.status === 'VALID' && newPassword === confirmPassword) {
       this.loaderService.show();
-      this.userService.login(email, password).subscribe({
+      this.userService.changePassword(this.user_email, newPassword).subscribe({
         next: (res) => {
           if (res.statusCode == 1) {
-            this.utilsClass.openSuccessSnackBar(res.message);
-            localStorage.setItem(
-              Constants.APP.SESSION_USER_DATA,
-              JSON.stringify(res.user)
-            );
-            localStorage.setItem(Constants.APP.SESSION_ID, res.session_id);
-            localStorage.removeItem(Constants.APP.SELECTED_SIDENAV);
-            this.router.navigate(['/index'], {
-              state: { user: res.user },
-            });
-            this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV, 'Home');
+            this.router.navigate(['/login']);
             this.loaderService.hide();
           } else {
             if (res.error) {
@@ -87,7 +74,5 @@ export class LoginComponent implements OnInit {
       console.log('invalid');
     }
   }
-  clickForgot(){
-    this.router.navigate(['/forgot']);
-  }
+
 }

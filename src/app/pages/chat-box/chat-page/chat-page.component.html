@@ -11,8 +11,8 @@
     <div class="column is-narrow is-flex is-align-items-center">
         <div class="profile-container pl-2">
             <div class="profile-picture">
-                <img class="picture" [src]="profileImage || 'assets/img/man.png'" alt="">            </div>
-            
+                <img class="picture" [src]="profileImage || 'assets/img/man.png'" alt="">            
+            </div> 
           </div>
     </div>
     <div class="column is-fluid">
@@ -29,7 +29,6 @@
     </div>
     <div class="column is-narrow">
         <div class="pr-3">
-            <!-- <img class="p-3 is-clickable" src="../../../../assets/img/dots.png" alt="" (click)="clickOptions()"> -->
             <img class="dot-img p-3 is-clickable" [matMenuTriggerFor]="menu" src="/assets/img/dots.png" alt="Image">
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="clearChat()">Clear Chats</button>
@@ -55,11 +54,14 @@
   
 <div class=" is-fixed-bottom px-3">
     <div class="chat-container mb-1">   
-        <div class="chat-form is-flex is-justify-content-center is-align-items-center">
+        <div *ngIf="contactDetails.isUser" class="chat-form is-flex is-justify-content-center is-align-items-center">
             <textarea class="input w-100" maxlength="250" type="text" [(ngModel)]="message" name="message"(input)="messageTyping()" (keydown)="onKeyDown($event)"></textarea>
             <div class="pl-2">
                 <div class="send-img is-clickable" (click)="sendMsg()"><img src="../../../../assets/img/send.png" alt=""></div>
             </div>
+        </div>
+        <div *ngIf="!contactDetails.isUser" class="chat-form is-flex is-justify-content-center is-align-items-end">
+            <p class="deleted-acc">This account was deleted</p>
         </div>
     </div>
 </div>

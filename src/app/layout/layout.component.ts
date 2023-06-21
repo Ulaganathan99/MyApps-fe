@@ -3,6 +3,7 @@ import { Constants } from '../Constants/constants';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { LocalStorageService } from '../services/local-storage.service';
+import { Utils } from 'src/app/common/utils';
 
 @Component({
   selector: 'app-layout',
@@ -23,7 +24,7 @@ export class LayoutComponent implements OnInit {
   ];
   
 
-  constructor(private router: Router, private localStorageService: LocalStorageService, private elementRef: ElementRef) {
+  constructor(private router: Router, private localStorageService: LocalStorageService, private utilsClass: Utils) {
    
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -66,6 +67,7 @@ export class LayoutComponent implements OnInit {
   }
   logout(): void {
     localStorage.clear();
+    this.utilsClass.openSuccessSnackBar('Logout Success');
     this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Login');
     this.router.navigate(['/login']);
   }

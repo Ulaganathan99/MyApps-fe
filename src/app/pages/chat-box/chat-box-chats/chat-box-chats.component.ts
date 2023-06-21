@@ -47,7 +47,7 @@ export class ChatBoxChatsComponent implements OnInit {
         this.chatContactList = res.chatContactList;
         this.webSocketService.emit('updatedOnlineStatus', {
           handle: this.userDetails.user_id,
-        });
+        });       
         this.loaderService.hide();
         this.fetchProfileImages()
       },
@@ -58,7 +58,7 @@ export class ChatBoxChatsComponent implements OnInit {
     });
   }
   fetchProfileImages(): void {
-    this.chatContactList.forEach((item: { avatar: any; number: string | number; }) => {
+    this.chatContactList.forEach((item: { avatar: any; number: string | number; }) => {      
       if(item.avatar){
         this.userService.getProfile(item.avatar).subscribe((response) => {
           const reader = new FileReader();
@@ -66,23 +66,11 @@ export class ChatBoxChatsComponent implements OnInit {
             this.profilePictures[item.number] = reader.result as string;
           };
           reader.readAsDataURL(response);
-        });
-      }
-      
+        });        
+      } 
     });
     console.log(this.profilePictures);
     
-  }
-  getProfileImg(url: any){
-  console.log('url', url);
-    
-    this.userService.getProfile(url).subscribe((response) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        return reader.result as string;
-      };
-      reader.readAsDataURL(response);
-    });
   }
   searchContact(){
     if (this.searchText) {

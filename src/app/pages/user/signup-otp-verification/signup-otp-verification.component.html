@@ -1,11 +1,15 @@
 <div class="columns is-centered">
   <div class="column is-one-third-desktop is-half-tablet mx-6 mt-6">
+   
     <form
       class="form-card box py-5"
       (ngSubmit)="clickVerify()"
       [formGroup]="otpForm"
     >
       <div class="field">
+        <div class="heading has-text-centered mb-6">
+          <p>Check your Email</p>
+         </div>
         <div class="otp-input">
           <input
             *ngFor="let digit of otpDigits; let i = index"
@@ -30,7 +34,7 @@
       </div>
       <div class="is-flex is-justify-content-center">
         <p class="mb-4 mt-3 is-size-7">
-          Resend OTP<a (click)="toRegister()"> SignUp</a>
+          <a (click)="toRegister()"> Go to Signup</a>
         </p>
       </div>
     </form>

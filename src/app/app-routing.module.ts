@@ -17,6 +17,9 @@ import { ChatBoxChatsComponent } from './pages/chat-box/chat-box-chats/chat-box-
 import { ChatBoxInviteComponent } from './pages/chat-box/chat-box-invite/chat-box-invite.component';
 import { ChatPageComponent } from './pages/chat-box/chat-page/chat-page.component';
 import { ChatBoxAllChatsComponent } from './pages/chat-box/chat-box-all-chats/chat-box-all-chats.component';
+import { ForgotComponent } from './pages/user/forgot/forgot.component';
+import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
+import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
 
 const routes: Routes = [
   {
@@ -27,6 +30,9 @@ const routes: Routes = [
       { path: 'login', pathMatch: 'full', component: LoginComponent },
       { path: 'signup', pathMatch: 'full', component: SignupComponent },
       { path: 'signup-otp', component: SignupOtpVerificationComponent },
+      { path: 'forgot', component: ForgotComponent },
+      { path: 'forgot-otp', component: ForgotOtpComponent },
+      { path: 'forgot-pass', component: ForgotPassComponent },
       {
         path: 'index',
         component: IndexComponent,

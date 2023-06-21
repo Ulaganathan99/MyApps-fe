@@ -54,7 +54,7 @@ export class ChatPageComponent implements OnInit {
     this.loaderService.show();
     this.userService.fetchUserInfo(user_id).subscribe({
       next: (res) => {
-        this.user_info = res.data;
+        this.user_info = res.data;        
         this.getMessages();
         this.webSocketService.emit('updatedOnlineStatus', {
           handle: this.userDetails.user_id,

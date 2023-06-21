@@ -11,14 +11,14 @@ import {
 
 export class Utils{
      horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-    verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+     verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
     constructor(
         private _snackBar: MatSnackBar,
     ){}
 
      openErrorSnackBar(content:string){
-        this._snackBar.open(content, 'tamam', {
+        this._snackBar.open(content, 'Ok', {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
             duration : 1500,
@@ -26,10 +26,10 @@ export class Utils{
           });
     }
     openSuccessSnackBar(content: string){
-        this._snackBar.open(content, 'tamam', {
+        this._snackBar.open(content, 'Ok', {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
-            duration : 1500,
+            duration : 2000,
             panelClass: ['success-snackbar']
           });
     }

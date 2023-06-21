@@ -26,12 +26,14 @@
               class="picture"
             />
           </div>
-          <span
-            class="edit-icon is-flex is-justify-content-center is-align-items-center is-clickable"         
-          >
+          
           <input (change)="profileChange($event)" type="file" id="imageInput" style="display: none"  />
-          <label class="is-flex is-justify-content-center" for="imageInput">
-            <img src="../../../assets/img/camera.png" alt="" />
+          <span
+            class="edit-icon is-flex is-justify-content-center is-align-items-center is-clickable"   
+            for="imageInput"      
+          >
+          <label class="is-flex is-justify-content-center" >
+            <img class="is-clickable" src="../../../assets/img/camera.png" alt="" />
           </label>
           </span>
           <div>

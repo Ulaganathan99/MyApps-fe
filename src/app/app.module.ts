@@ -57,6 +57,9 @@ import { ProfileDeletePopupComponent } from './pages/profile/profile-delete-popu
 import { IndianTimePipe } from './pipes/indian-time.pipe';
 import { ChatBoxAllChatsComponent } from './pages/chat-box/chat-box-all-chats/chat-box-all-chats.component';
 import { TablePaginationComponent } from './components/table-pagination/table-pagination.component';
+import { ForgotComponent } from './pages/user/forgot/forgot.component';
+import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
+import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
 
 
 @NgModule({
@@ -95,6 +98,9 @@ import { TablePaginationComponent } from './components/table-pagination/table-pa
     IndianTimePipe,
     ChatBoxAllChatsComponent,
     TablePaginationComponent,
+    ForgotComponent,
+    ForgotOtpComponent,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,
