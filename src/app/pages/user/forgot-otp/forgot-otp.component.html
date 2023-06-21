@@ -1,0 +1,42 @@
+<div class="columns is-centered">
+    <div class="column is-one-third-desktop is-half-tablet mx-6 mt-6">
+     
+      <form
+        class="form-card box py-5"
+        (ngSubmit)="clickVerify()"
+        [formGroup]="otpForm"
+      >
+        <div class="field">
+          <div class="heading has-text-centered mb-6">
+            <p>Check your Email</p>
+           </div>
+          <div class="otp-input">
+            <input
+              *ngFor="let digit of otpDigits; let i = index"
+              #otpInput
+              [class.active]="i === currentDigitIndex"
+              formControlName="otp"
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="1"
+              (input)="onInput($event, i)"
+              (paste)="onPaste($event)"
+              (keydown)="onKeyDown($event, i)"
+            />
+          </div>
+          <div class="help is-danger" *ngIf="otpForm?.get('otp')?.invalid && showErrors">
+            <div *ngIf="otpForm?.get('otp')?.errors?.['required']">Enter 6 digit OTP.</div>
+          </div>
+        </div>
+        <div class="btn py-3 is-flex is-justify-content-center">
+          <button class="button primary-button" type="submit">Verify</button>
+        </div>
+        <div class="is-flex is-justify-content-center">
+          <p class="mb-4 mt-3 is-size-7">
+            <a (click)="toRegister()"> Go to Signup</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>

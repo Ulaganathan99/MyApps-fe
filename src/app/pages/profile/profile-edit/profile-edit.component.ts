@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
+import { LoaderService } from 'src/app/services/loader.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class ProfileEditComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private formBuilder: FormBuilder,
+    private loaderService: LoaderService,
   ) { 
   }
 
@@ -52,16 +54,19 @@ export class ProfileEditComponent implements OnInit {
     
 
     if (this.profileEditForm.status === 'VALID') {
+      this.loaderService.show();
       const fileInput = document.getElementById('imageInput') as HTMLInputElement;
       if (fileInput.files && fileInput.files.length > 0) {
         const file = fileInput.files[0];
         this.userService.editProfile(userID, name, file).subscribe({
           next: (res) => {
             if (res.statusCode === 1) {
+              this.loaderService.hide();
               this.router.navigate(['/index/profile']);
             }
           },
           error: (err) => {
+            this.loaderService.hide();
             console.log(err);
           }
         });
@@ -69,10 +74,12 @@ export class ProfileEditComponent implements OnInit {
         this.userService.editName(userID, name).subscribe({
           next: (res) => {
             if (res.statusCode === 1) {
+              this.loaderService.hide();
               this.router.navigate(['/index/profile']);
             }
           },
           error: (err) => {
+            this.loaderService.hide();
             console.log(err);
           }
         });

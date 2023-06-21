@@ -89,6 +89,19 @@ body {
   box-shadow: none;
   background-color: transparent;
 }
+.success-snackbar {
+  background-color: rgb(235, 235, 235); 
+  color: green; 
+  .mat-button-wrapper{
+    color: rgb(30, 111, 218);
+  }
+}
+// .success-snackbar::ng-deep .mat-snack-bar-container::after {
+//   color: rgb(90, 200, 233); /* Replace with your desired text color for the word "Success" */
+// }
+.error-snackbar {
+  color: red; 
+}
 
 @media screen and (max-width: 2000px) {
   html,

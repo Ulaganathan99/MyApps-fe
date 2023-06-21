@@ -1,0 +1,37 @@
+<div class="columns m-0 is-centered">
+    <div class="column is-one-third-desktop is-half-tablet mx-6 mt-6">
+      
+      <form class="form-card box py-5" (ngSubmit)="clickSubmit()" [formGroup]="forgotForm">
+        <div class="msg has-text-centered pb-4">
+          <p [ngClass]="{'is-success': msg_status === 'success', 'is-danger': msg_status === 'error'}">{{ msg }} </p>
+        </div>
+        <div class="field">
+            <div class="control">
+              <input class="input is-size-5 mb-3" formControlName="newPassword" type="text"
+                placeholder="New Password" minlength="8" maxlength="64" required>
+            </div>
+            <div class="help is-danger" *ngIf="forgotForm?.get('newPassword')?.invalid && showErrors">
+              <div *ngIf="forgotForm?.get('newPassword')?.errors?.['required']">Password is required.</div>
+              <div *ngIf="forgotForm?.get('newPassword')?.errors?.['minlength']">Invalid password.</div>
+            </div>
+          </div>
+        <div class="field">
+          <div class="control">
+            <input class="input is-size-5 mb-3" formControlName="confirmPassword" type="text"
+              placeholder="Confirm Password" minlength="8" maxlength="64" required>
+          </div>
+          <div class="help is-danger" *ngIf="forgotForm?.get('confirmPassword')?.invalid && showErrors">
+            <div *ngIf="forgotForm?.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
+            <div *ngIf="this.forgotForm.value.newPassword !== this.forgotForm.value.confirmPassword">Confirm Password must be same.</div>
+          </div>
+        </div>
+        <div class="btn py-3 is-flex is-justify-content-center">
+          <button class="button primary-button" type="submit">Submit</button>
+        </div>
+        <div class="is-flex is-justify-content-center">
+          <p class="mb-4 mt-3 is-size-7"><a (click)="toLogin()"> Go to Login</a></p>
+        </div>
+        
+      </form>
+    </div>
+  </div> 

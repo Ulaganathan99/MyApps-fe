@@ -60,22 +60,25 @@ export class SignupComponent implements OnInit {
     const password = this.signupForm.value.password;
     const confirmPassword = this.signupForm.value.confirmPassword;
     this.showErrors = true;
-
     if (this.signupForm.status === 'VALID' && password === confirmPassword) {
+      this.loaderService.show();
       this.userService.signup(name, email,number, password).subscribe({
         next: (res) => {
           
           if (res.statusCode === 1) {            
             this.router.navigate(['/signup-otp'], { state: { email: email } });
+            this.loaderService.hide();
           }else {
             if(res.error){
               this.msg = res.error,
               this.msg_status = 'error'
             }
+            this.loaderService.hide();
           }
         },
         error: (err) => {
           console.log(err);
+          this.loaderService.hide();
         },
       });
     } else {

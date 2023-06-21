@@ -1,4 +1,4 @@
-<div class="column is-flex is-justify-content-space-between">
+<div class="column p-0 is-flex is-justify-content-space-between">
   <div class="column is-3">
     <app-dropdown [option_list]="action_list" (option_changed)="actionChanged($event)"></app-dropdown>
   </div>
@@ -11,7 +11,7 @@
     </div>
   </div>
 </div>
-  <div class="columns px-5 is-mobile">
+  <div class="columns m-0 is-mobile">
     <div class="column is-6 is-flex is-align-items-center">
       <div class="button" (click)="selectAllContacts()">Select All</div>
     </div>
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-<div class="column is-full">
+<div class="column px-2 is-full">
   <div class="layout">
     <div class="table-container">
       <table
@@ -40,9 +40,9 @@
             <td >
               <div class="columns is-gapless is-mobile">
                 <div class="column is-narrow">
-                  <section class="example-section pl-3">
+                  <div class="example-section pl-1">
                     <mat-checkbox class="example-margin" [(ngModel)]="item.checked" (change)="checkedAction(item)"></mat-checkbox>
-                  </section>
+                  </div>
                 </div>
                 <div class="column has-text-centered">
                   {{ item.name }}
@@ -67,14 +67,14 @@
      
       </table>
       <div *ngIf="!contactList || contactList.length === 0">
-        <p class="has-text-centered mt-6">No data</p>
+        <p class="has-text-centered my-3 ">No data</p>
     </div>
     
     <div class="columns m-0">
       <div class="column is-flex is-justify-content-center">
-        <div *ngIf="contactList && contactList.length > 0">
+        <div *ngIf="contactList?.length > 0">
           <app-table-pagination [listLength]="contactsLength" [recordsCount]="contactList.length"
-            [page_records_count]="records_count" (pageEventData)="onPaginate($event)"
+            [page_records_count]="records_count" [searchLength]="search_length" (pageEventData)="onPaginate($event)"
            ></app-table-pagination>
         </div>
       </div>

@@ -18,10 +18,9 @@ export class ContactListComponent implements OnInit {
   selected_action: any = 'Bulk Action';
   selectAll: boolean = false;
   action_list: any = ['Bulk Action', 'Delete All'];
-  searchText: any;
+  searchText: string = '';
   contactsLength: any;
-
-
+  search_length: any;
   pageEventData = {
     pageIndex: 1,
     pageSize: 10
@@ -53,7 +52,9 @@ export class ContactListComponent implements OnInit {
     this.contactService.getContactsTable(this.userDetails.user_id, event).subscribe({
       next: (res) => {
         if(res.statusCode == 1){
+          this.search_length = event.searchText.length;
           this.contactsLength = res.totalRecords;
+          this.records_count = this.pageEventData.pageSize;
           this.contactList = res.contactList.map((contact: any) => {
             return { ...contact, checked: false };
           });
@@ -76,6 +77,12 @@ export class ContactListComponent implements OnInit {
     } else if (event === 'delete') {
       this.showDeleteModel = false;
       this.fetchContactInfo({});
+    }
+  }
+  resetPage() {
+    this.pageEventData = {
+      pageIndex: 1,
+      pageSize: 10
     }
   }
 
@@ -102,7 +109,7 @@ export class ContactListComponent implements OnInit {
   }
   checkedAction(data: any) {
     console.log(data);
-  if (data.checked) {
+    if (data.checked) {
     this.selectedContact.push(data);
     console.log(this.selectedContact);
   } else {
@@ -127,6 +134,7 @@ export class ContactListComponent implements OnInit {
     }
   }
   onSearch(event: any) {
+    this.resetPage()
     this.searchText = event.searchText;
     this.searchService.setSearchText(event.searchText);  
     this.fetchContactInfo({});

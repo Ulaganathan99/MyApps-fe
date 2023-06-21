@@ -15,8 +15,7 @@ export class UserService {
     return this.http.post(Constants.BASE_URL + Constants.API.LOGIN, {
       email,
       password,
-    });
-    
+    }); 
   }
   signup(name:string, email: string, number:'string', password: string): Observable<any> {
     return this.http.post(Constants.BASE_URL + Constants.API.SIGNUP, {
@@ -30,6 +29,23 @@ export class UserService {
     return this.http.post(Constants.BASE_URL + Constants.API.SIGNUP_VERIFICATION, {
       email,
       otp
+    });
+  }
+  forgot(email: string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.FORGOT, {
+      email,
+    }); 
+  }
+  forgot_verification(email: string, otp:string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.FORGOT_VERIFICATION, {
+      email,
+      otp
+    });
+  }
+  changePassword(email: string, newPassword:string): Observable<any> {
+    return this.http.post(Constants.BASE_URL + Constants.API.CHANGE_PASSWORD, {
+      email,
+      newPassword
     });
   }
 

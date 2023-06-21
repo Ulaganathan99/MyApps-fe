@@ -1,22 +1,16 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-signup-otp-verification',
-  templateUrl: './signup-otp-verification.component.html',
-  styleUrls: ['./signup-otp-verification.component.scss'],
+  selector: 'app-forgot-otp',
+  templateUrl: './forgot-otp.component.html',
+  styleUrls: ['./forgot-otp.component.scss']
 })
-export class SignupOtpVerificationComponent implements OnInit {
+export class ForgotOtpComponent implements OnInit {
   @ViewChildren('otpInput') otpInputs!: QueryList<ElementRef>;
 
   otpForm!: FormGroup;
@@ -37,6 +31,9 @@ export class SignupOtpVerificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.localStorageService.getItem(Constants.APP.SESSION_ID)){
+      this.router.navigate(['/index'])
+    }
     if (history.state != undefined) {
       this.user_email = history.state.email;
     }
@@ -108,10 +105,10 @@ export class SignupOtpVerificationComponent implements OnInit {
       .map((input) => input.nativeElement.value)
       .join('');
     if (this.otpForm.status === 'VALID') {
-      this.userService.signup_verification(this.user_email, otpValue).subscribe({
+      this.userService.forgot_verification(this.user_email, otpValue).subscribe({
         next: (res) => {
           if (res.statusCode == 1) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/forgot-pass'], { state: { email: this.user_email } });
           }
         },
         error: (err) => {
@@ -122,4 +119,5 @@ export class SignupOtpVerificationComponent implements OnInit {
       console.log('invalid');
     }
   }
+
 }
