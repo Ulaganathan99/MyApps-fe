@@ -21,8 +21,11 @@ export class ChatBoxSummaryComponent implements OnInit {
   typingTimeout: any; 
   onlineStatusInfo!: any;
   searchText: any;
-
+  showVideoPopup: boolean = false;
+  popupData: any;
+  offerData: any;
   selected_tab:string = 'chats';
+  profileImage!: string;
 
   constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService, private searchService: SearchService) { 
     this.router.events.subscribe(event => {
@@ -49,6 +52,23 @@ export class ChatBoxSummaryComponent implements OnInit {
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
     this.fetchChatInfo(this.userDetails.user_id);
+    this.setupSocketListeners()
+  }
+
+  setupSocketListeners() {
+    // In the frontend code of the receiving user (the answerer)
+    this.webSocketService
+      .listen('video-chat-request')
+      .subscribe((data) => {
+          if(data.userDetails.number === this.userDetails.user_number){
+            this.showVideoPopup = true
+            this.popupData = data.contactDetails
+            if(this.popupData.avatar){
+              this.getProfileImg(this.popupData.avatar)
+            }
+          }
+        }
+      );
   }
 
   tabs_list: any = [
@@ -98,6 +118,19 @@ export class ChatBoxSummaryComponent implements OnInit {
   }
   clickSettings(){
     
+  }
+  acceptVideoCall(){
+    this.showVideoPopup = false  
+    this.router.navigate(['/index/chat-box/video-chat'], { state: { popupData: this.popupData} })
+  }
+  getProfileImg(url: any){
+    this.userService.getProfile(url).subscribe((response) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.profileImage = reader.result as string;
+      };
+      reader.readAsDataURL(response);
+    });
   }
 
 }

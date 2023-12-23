@@ -1,5 +1,5 @@
 <nav class="is-flex is-align-items-center">
-    <div class="column m-0 px-3 is-flex is-align-items-center">
+    <div class="column m-0 p-0 is-flex is-align-items-center">
         <div class="column py-0 is-narrow">
             <img class="logo" src="../../../assets/img/my_app_logo.png" alt="">
         </div>
@@ -19,7 +19,7 @@
                 </div>
             </menu>
         </div>
-        <div class="column is-size-6 is-fluid is-flex is-justify-content-end is-hidden-tablet">
+        <div class="column py-0 is-size-6 is-fluid is-flex is-justify-content-end is-hidden-tablet">
             <img class="ham-menu is-clickable" (click)="ham_menu()" src="../../../assets/img/menu.png" alt="">
         </div>
         <div *ngIf="show_dropdown_menu">
@@ -40,5 +40,5 @@
         </div>
     </div>
 </nav>
-
 <router-outlet></router-outlet>
+

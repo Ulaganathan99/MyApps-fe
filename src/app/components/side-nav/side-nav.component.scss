@@ -3,7 +3,9 @@
 .side-nav {
   width: 100%;
   min-height: calc(100vh - 50px);
-  background-color: $primary;
+  // background-color: $primary;
+  position: sticky;
+  top: 50px;
 }
 
 .a {

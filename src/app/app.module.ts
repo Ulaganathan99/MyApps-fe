@@ -60,6 +60,7 @@ import { TablePaginationComponent } from './components/table-pagination/table-pa
 import { ForgotComponent } from './pages/user/forgot/forgot.component';
 import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
 import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
+import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/chat-box-video-chat.component';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.compon
     ForgotComponent,
     ForgotOtpComponent,
     ForgotPassComponent,
+    ChatBoxVideoChatComponent,
   ],
   imports: [
     BrowserModule,

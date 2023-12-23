@@ -14,7 +14,6 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
   styleUrls: ['./chat-box-chats.component.scss']
 })
 export class ChatBoxChatsComponent implements OnInit {
-
   userDetails: any;
   chatContactList: any;
   searchChatContactList: any;
@@ -68,9 +67,7 @@ export class ChatBoxChatsComponent implements OnInit {
           reader.readAsDataURL(response);
         });        
       } 
-    });
-    console.log(this.profilePictures);
-    
+    });    
   }
   searchContact(){
     if (this.searchText) {

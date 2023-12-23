@@ -8,6 +8,58 @@
     border-radius: 5px;
     padding: 5px;
 }
+.modal{
+    z-index: 999;
+    position: fixed;
+    &.is-active{
+      background: rgba($color: #000000, $alpha: 0.8);
+    }
+    .modal-card{
+      width: 30%;
+      min-width: 250px;
+      height: 70%;
+      .profile{
+        height: 50%;
+        .profile-container {
+            position: relative;
+            display: inline-block;
+            .profile-picture {
+                position: relative;
+                width: 100%;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 2px solid grey;
+                width: 200px;
+                height: 200px;
+                .picture {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover; /* Maintain aspect ratio and cover the container */
+                  }
+              } 
+        }
+    }
+    }
+    .name{
+        color: #207178;
+    }
+
+    .decline-btn{
+        background-color: red;
+        color: white;
+        border-radius: 10px;
+    }
+    .accept-btn{
+        background-color: green;
+        color: white;
+        border-radius: 10px;
+    }
+    
+    
+}
 @media screen and (max-width: 400px) {
     .chat-head-container{
         height: 3rem;

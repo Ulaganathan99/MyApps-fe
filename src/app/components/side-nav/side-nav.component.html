@@ -1,5 +1,5 @@
-<div class="side-nav py-3">
-    <div *ngFor="let menu of menu_list" class="side-nav-links my-2">
+<div class="side-nav py-2">
+    <div *ngFor="let menu of menu_list" class="side-nav-links py-1">
       <div class="py-3 is-clickable menulist" (click)="clear(menu)" [ngClass]="(selected_side_nav == menu.name) ? 'is-active' : 'has-text-black'" routerLink="{{ menu.route }}">
         <div class="is-flex is-justify-content-center">
         <a class="a">{{ menu.name }}</a>

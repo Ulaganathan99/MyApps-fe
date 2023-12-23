@@ -1,0 +1,34 @@
+
+    <div class="remote-video">
+     
+        <div *ngIf="!remoteStream || !remoteStreamEnable" class="profile-container pl-2">
+            <div class="profile-picture">
+                <img class="picture" [src]="remoteProfileImage || 'assets/img/man.png'" alt="">            
+            </div> 
+            <p class="mt-3 has-text-centered name font-sub">{{contactDetails.name}}</p>
+            <div class="mt-3 status">
+                <p class="has-text-centered" *ngIf="!remoteStream">Trying to Connect....</p>
+                <p class="has-text-centered" *ngIf="!remoteStreamEnable">Video muted</p>
+            </div>
+        </div>
+        <video class="remote" #remoteVideo autoplay></video>
+        <div class="btn-container">
+            <div class="btn audio my-3" (click)="toggleAudio()" [ngClass]="audioEnable? 'enable': 'disable'"><i class="fas fa-microphone fa-2x"></i></div>
+            <div class="btn video my-3" (click)="toggleVideo()"  [ngClass]="videoEnable? 'enable': 'disable'"> <i class="fas fa-video fa-2x"></i></div>
+            <div class="btn cancel my-3" (click)="cancelCall()">
+                <i class="fas fa-phone fa-2x"></i>
+            </div>        
+        </div>
+        <div class="local-video">
+            <!-- <div *ngIf="!remoteStream || !remoteStreamEnable" class="profile-container pl-2">
+                <div class="profile-picture">
+                    <img class="picture" [src]="localProfileImage || 'assets/img/man.png'" alt="">            
+                </div> 
+                <p class="mt-3 has-text-centered name font-sub">{{contactDetails.name}}</p>
+            </div> -->
+            <video class="local" #localVideo autoplay muted></video>
+        </div>
+        
+
+    </div>    
+

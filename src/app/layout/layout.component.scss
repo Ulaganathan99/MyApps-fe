@@ -1,5 +1,8 @@
 @import "../../styles.scss";
 nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
     background-color: $grey-nav;
     height: 50px;
     .logo{
