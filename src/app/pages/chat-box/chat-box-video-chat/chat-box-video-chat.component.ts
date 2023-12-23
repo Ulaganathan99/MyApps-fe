@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
+import { Utils } from 'src/app/common/utils';
 import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
@@ -37,7 +38,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
   videoEnable: boolean= true;
   remoteStreamEnable: boolean = true;
  
-  constructor(private webSocketService: WebSocketService, private router: Router, private userService: UserService,) { }
+  constructor(private webSocketService: WebSocketService, private router: Router, private userService: UserService, private utils: Utils) { }
 
   async ngOnInit(){
     this.userDetails = JSON.parse(
@@ -47,9 +48,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
     if (history.state.contactDetails != undefined) {      
       this.contactDetails = history.state.contactDetails;      
       this.localStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true, // Enable echo cancellation
-        },
+        audio: false,
         video: true, 
       });
       this.localVideo.nativeElement.srcObject = this.localStream;
@@ -103,6 +102,19 @@ export class ChatBoxVideoChatComponent implements OnInit {
           this.remoteStreamEnable = false
         }
       break;
+      case 'decline-call':
+        if (this.connection) {
+          this.connection.close(); // Close the connection
+        }
+        if (this.localStream) {
+          this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
+            track.stop(); // Stop each track in the local stream
+          });
+          this.localStream = null; // Reset the local stream reference
+        }
+        this.router.navigate(['/index/chat-box'])
+        this.utils.openErrorSnackBar(`${this.contactDetails.name} call declined`)
+      break;
       case 'cancel':
         if (this.connection) {
           this.connection.close(); // Close the connection
@@ -129,18 +141,21 @@ export class ChatBoxVideoChatComponent implements OnInit {
 
     if(!this.localStream){
       this.localStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true, // Enable echo cancellation
-          // Other constraints as needed
-        },
-        video: true, 
-      });
+        audio: { echoCancellation: true },
+        video: true,
+    });
+      // Display local stream in UI
       this.localVideo.nativeElement.srcObject = this.localStream;
     }
 
+       // Add local audio and video tracks to the connection
     this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-      if (this.connection) {
+      if (track.kind === 'audio') {
+        // Mute only audio tracks being transmitted
         this.connection.addTrack(track, this.localStream);
+      } else {
+        // Add video tracks directly to the local video element
+        this.connection.addTrack(track);
       }
     });
     this.connection.ontrack = (event) => {
@@ -182,6 +197,24 @@ export class ChatBoxVideoChatComponent implements OnInit {
             this.connection.setRemoteDescription(answer)
           }
   }
+  public async getLocalAudioStream() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false,
+      });
+  
+      stream.getAudioTracks().forEach(track => {
+        // Initially mute local audio output
+        track.enabled = false;
+      });
+  
+      return stream;
+    } catch (error) {
+      console.error('Error accessing local audio:', error);
+      return null;
+    }
+  }
   getProfileImg(url: any){
     this.userService.getProfile(url).subscribe((response) => {
       const reader = new FileReader();
@@ -218,13 +251,14 @@ export class ChatBoxVideoChatComponent implements OnInit {
     if (this.connection) {
       this.connection.close(); // Close the connection
        // Stop the local stream tracks to disable the camera
+    }
     if (this.localStream) {
       this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop(); // Stop each track in the local stream
       });
       this.localStream = null; // Reset the local stream reference
     }
-    }
+    this.localVideo.nativeElement.srcObject = null;
     this.router.navigate(['/index/chat-box'])
     const payload = {
       type: 'cancel',

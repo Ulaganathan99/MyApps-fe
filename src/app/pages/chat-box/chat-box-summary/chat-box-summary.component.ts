@@ -69,6 +69,14 @@ export class ChatBoxSummaryComponent implements OnInit {
           }
         }
       );
+      this.webSocketService
+      .listen('video-chat-data')
+      .subscribe(async(data) => {
+        if(data.contactNumber === this.userDetails.user_number)
+          if(data.type === 'cancel'){
+            this.showVideoPopup = false
+          }
+      })
   }
 
   tabs_list: any = [
@@ -105,15 +113,11 @@ export class ChatBoxSummaryComponent implements OnInit {
   }
  
  
-  tabChange(data:any){
-    console.log(data);
-    
+  tabChange(data:any){    
     this.selected_tab = data
-
   }
   onSearch(event: any) {
     this.searchText = event.searchText;
-    console.log(this.searchText);
     this.searchService.setSearchText(event.searchText);
   }
   clickSettings(){
@@ -131,6 +135,14 @@ export class ChatBoxSummaryComponent implements OnInit {
       };
       reader.readAsDataURL(response);
     });
+  }
+  declineCall(){
+    this.showVideoPopup = false
+    const payload = {
+      type: 'decline-call',
+      contactNumber: this.popupData.number
+    };
+    this.webSocketService.emit('video-chat-data',payload);
   }
 
 }
