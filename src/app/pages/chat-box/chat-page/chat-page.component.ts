@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
+import { Utils } from 'src/app/common/utils';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { UserService } from 'src/app/services/user.service';
@@ -30,7 +31,8 @@ export class ChatPageComponent implements OnInit {
     private router: Router,
     private chatService: ChatService,
     private webSocketService: WebSocketService,
-    private userService: UserService
+    private userService: UserService,
+    private utilsClass: Utils
   ) {}
 
   ngOnInit(): void {
@@ -211,14 +213,19 @@ export class ChatPageComponent implements OnInit {
       });
   }
   clickVideo(){
-    this.router.navigate(['/index/chat-box/video-chat'], { state: { contactDetails: {
-      number: this.contactDetails.number,
-      name: this.contactDetails.name,
-      avatar: this.contactDetails.avatar
-    } } })
-    this.webSocketService.emit('video-chat-request', {
-      contactDetails: {number: this.userDetails.user_number, name: this.userDetails.user_name, avatar: this.userDetails.user_logo},
-      userDetails: this.contactDetails
-    });
+    if(this.onlineStatus !== 'offline'){
+      this.router.navigate(['/index/chat-box/video-chat'], { state: { contactDetails: {
+        number: this.contactDetails.number,
+        name: this.contactDetails.name,
+        avatar: this.contactDetails.avatar
+      } } })
+      this.webSocketService.emit('video-chat-request', {
+        contactDetails: {number: this.userDetails.user_number, name: this.userDetails.user_name, avatar: this.userDetails.user_logo},
+        userDetails: this.contactDetails
+      });
+    }else{
+      this.utilsClass.openErrorSnackBar(`${this.contactDetails.name} is offline`);
+    }
+    
   }
 }
