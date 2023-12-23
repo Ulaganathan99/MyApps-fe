@@ -47,8 +47,10 @@ export class ChatBoxVideoChatComponent implements OnInit {
     if (history.state.contactDetails != undefined) {      
       this.contactDetails = history.state.contactDetails;      
       this.localStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
+        audio: {
+          echoCancellation: true, // Enable echo cancellation
+        },
+        video: true, 
       });
       this.localVideo.nativeElement.srcObject = this.localStream;
     } else if (history.state.popupData != undefined) {      
@@ -127,8 +129,11 @@ export class ChatBoxVideoChatComponent implements OnInit {
 
     if(!this.localStream){
       this.localStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true,
+        audio: {
+          echoCancellation: true, // Enable echo cancellation
+          // Other constraints as needed
+        },
+        video: true, 
       });
       this.localVideo.nativeElement.srcObject = this.localStream;
     }
