@@ -1,4 +1,4 @@
-<div class="columns px-3 is-gapless is-mobile mt-3">
+<div class="columns p-3 is-gapless is-mobile m-0">
     <div class="column is-6 pl-3">
         <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search'"></app-search>
     </div>
@@ -16,4 +16,31 @@
 <div>
     <router-outlet></router-outlet>
 </div>
+<div class="modal fade is-active" *ngIf="showVideoPopup">
+    <div class="modal-card">   
+      <div class="modal-card-body">
+            <div class="column is-flex is-justify-content-end">
+                <img class="icon close-img mr-2 is-clickable" src="../../../../assets/img/cancel.png" alt="" (click)="showVideoPopup = false">
+            </div>
+            <div class="column profile is-flex is-justify-content-center is-align-items-center">
+                <div class="profile-container pl-2">
+                    <div class="profile-picture">
+                        <img class="picture" [src]="profileImage || 'assets/img/man.png'" alt="">            
+                    </div> 
+                </div>
+            </div>
+            <div class="is-flex is-flex-direction-column is-justify-content-space-evenly" style="height: 40%;">
+                <div>
+                    <div class="has-text-centered name font-sub">{{popupData.name}}</div>
+                    <div class="has-text-centered font-sub">{{popupData.number}}</div>
+                </div>
+                <div class="is-flex is-justify-content-space-evenly">
+                    <div (click)="showVideoPopup = false" class="decline-btn is-clickable button">Decline</div>
+                    <div (click)="acceptVideoCall()" class="accept-btn is-clickable button">Accept</div>
+                </div>
+            </div>
+            
+      </div>
+    </div>
+  </div>
 

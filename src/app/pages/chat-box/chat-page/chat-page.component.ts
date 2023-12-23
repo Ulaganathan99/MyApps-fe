@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
@@ -44,7 +42,7 @@ export class ChatPageComponent implements OnInit {
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
-    this.getProfileImg(this.contactDetails.avatar)
+    this.getProfileImg(this.contactDetails?.avatar)
 
     this.fetchChatInfo(this.userDetails.user_id);
     this.setupSocketListeners();
@@ -211,5 +209,16 @@ export class ChatPageComponent implements OnInit {
           console.log(err);
         },
       });
+  }
+  clickVideo(){
+    this.router.navigate(['/index/chat-box/video-chat'], { state: { contactDetails: {
+      number: this.contactDetails.number,
+      name: this.contactDetails.name,
+      avatar: this.contactDetails.avatar
+    } } })
+    this.webSocketService.emit('video-chat-request', {
+      contactDetails: {number: this.userDetails.user_number, name: this.userDetails.user_name, avatar: this.userDetails.user_logo},
+      userDetails: this.contactDetails
+    });
   }
 }

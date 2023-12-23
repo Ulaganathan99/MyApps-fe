@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.localStorageService.getItem(Constants.APP.SESSION_ID)){
-      this.router.navigate(['/index'])
+      // this.router.navigate(['/index'])
     }
   }
   toRegister() {

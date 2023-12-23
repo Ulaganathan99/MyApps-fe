@@ -29,6 +29,11 @@
     </div>
     <div class="column is-narrow">
         <div class="pr-3">
+            <img class="dot-img p-1 is-clickable"  src="/assets/img/video-call(1).png" alt="Image" (click)="clickVideo()">   
+        </div>
+    </div>
+    <div class="column is-narrow">
+        <div class="pr-3">
             <img class="dot-img p-3 is-clickable" [matMenuTriggerFor]="menu" src="/assets/img/dots.png" alt="Image">
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="clearChat()">Clear Chats</button>
@@ -38,7 +43,7 @@
     </div>
     </div>
 </div>
-<div class="chat-messages mt-2 px-4" #chatContainer>
+<div class="chat-messages pt-2 px-4" #chatContainer>
     <div class="msg-box" [ngClass]="{'send': message.msgStatus === 'send', 'receive': message.msgStatus === 'receive'}" *ngFor="let message of message_list">
         <div class="message">
             <div>

@@ -20,6 +20,7 @@ import { ChatBoxAllChatsComponent } from './pages/chat-box/chat-box-all-chats/ch
 import { ForgotComponent } from './pages/user/forgot/forgot.component';
 import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
 import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
+import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/chat-box-video-chat.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,7 @@ const routes: Routes = [
               { path: 'chat-box-all-chat', component: ChatBoxAllChatsComponent },
               { path: 'chat-box-invite', component: ChatBoxInviteComponent },
               { path: 'chat-page', component: ChatPageComponent },
+              { path: 'video-chat', component: ChatBoxVideoChatComponent },
             ],
           }
         ],
