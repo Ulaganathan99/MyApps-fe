@@ -108,13 +108,10 @@ export class ContactListComponent implements OnInit {
     }
   }
   checkedAction(data: any) {
-    console.log(data);
     if (data.checked) {
     this.selectedContact.push(data);
-    console.log(this.selectedContact);
   } else {
     this.selectedContact = this.selectedContact.filter((contact: any) => contact.number !== data.number);
-    console.log(this.selectedContact);
   }
     
   }

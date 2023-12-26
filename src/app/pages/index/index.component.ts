@@ -22,7 +22,6 @@ export class IndexComponent implements OnInit {
    
   }
   menuChanged(data:any){
-    console.log(data);
     this.localStorageService.removeItem(Constants.APP.SELECTED_TOPNAV);
     this.selected_side_nav = data
   }

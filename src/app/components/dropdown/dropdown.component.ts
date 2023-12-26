@@ -24,10 +24,8 @@ export class DropdownComponent implements OnInit {
   }
   selectOption(data: any) {
     this.selected_option = data;
-    console.log("before" + this.options);
     
     this.options = false;
-    console.log("after" + this.options);
     this.option_changed.emit(data);
   }
   getOptionBackgroundColor(option: any): boolean {

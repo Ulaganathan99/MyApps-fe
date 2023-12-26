@@ -72,12 +72,9 @@ export class ChatBoxAllChatsComponent implements OnInit {
       }
       
     });
-    console.log(this.profilePictures);
     
   }
-  getProfileImg(url: any){
-  console.log('url', url);
-    
+  getProfileImg(url: any){    
     this.userService.getProfile(url).subscribe((response) => {
       const reader = new FileReader();
       reader.onloadend = () => {

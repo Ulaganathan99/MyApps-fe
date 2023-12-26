@@ -27,14 +27,12 @@ export class TablePaginationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.recordsCount);
     this.end_page_count = this.recordsCount;
     this.last_page = Math.ceil(this.listLength / this.page_records_count);
     
   }
 
   first() {
-    // console.log("first function");
     this.current_page = 1;
     this.start_page_count = 1;
     this.end_page_count = this.recordsCount;

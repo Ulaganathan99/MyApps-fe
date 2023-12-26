@@ -89,7 +89,6 @@ export class TabComponent implements OnInit {
   }
 
   tabChange(key: string) {
-    // console.log(key);
     this.tab_key.emit(key);
     this.tab_change.emit(key);
     this.selected_tab = key;
