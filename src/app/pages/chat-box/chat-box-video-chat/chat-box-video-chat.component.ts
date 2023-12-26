@@ -19,6 +19,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
   contactDetails: any;
   localStream: any;
   remoteStream: any;
+  transmitStream: any;
   configuration: RTCConfiguration = {
     iceServers: [
       {
@@ -106,12 +107,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
         if (this.connection) {
           this.connection.close(); // Close the connection
         }
-        if (this.localStream) {
-          this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-            track.stop(); // Stop each track in the local stream
-          });
-          this.localStream = null; // Reset the local stream reference
-        }
+        this.stopTracking()
         this.router.navigate(['/index/chat-box'])
         this.utils.openErrorSnackBar(`${this.contactDetails.name} call declined`)
       break;
@@ -119,12 +115,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
         if (this.connection) {
           this.connection.close(); // Close the connection
         }
-        if (this.localStream) {
-          this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-            track.stop(); // Stop each track in the local stream
-          });
-          this.localStream = null; // Reset the local stream reference
-        }
+        this.stopTracking()
         this.router.navigate(['/index/chat-box'])
       break;
 
@@ -134,29 +125,36 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
 
   public async createPeerConnection(){
-
     this.connection = new RTCPeerConnection(this.configuration)
     this.remoteStream = new MediaStream();
     this.remoteVideo.nativeElement.srcObject = this.remoteStream;
 
     if(!this.localStream){
       this.localStream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: true },
+        audio: false,
         video: true,
     });
       // Display local stream in UI
       this.localVideo.nativeElement.srcObject = this.localStream;
     }
-
-       // Add local audio and video tracks to the connection
-    this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-      if (track.kind === 'audio') {
-        // Mute only audio tracks being transmitted
-        this.connection.addTrack(track, this.localStream);
-      } else {
-        // Add video tracks directly to the local video element
-        this.connection.addTrack(track);
-      }
+    if(!this.transmitStream){
+      this.transmitStream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true },
+        video: true,
+      });
+    }
+    if(!this.audioEnable){
+      this.transmitStream.getAudioTracks().forEach((track: { enabled: boolean; }) => {
+        track.enabled = false; // Toggle audio track
+      });
+    }
+    if(!this.videoEnable){
+      this.transmitStream.getVideoTracks().forEach((track: { enabled: boolean; }) => {
+        track.enabled = false; // Toggle video track
+      });
+    }
+    this.transmitStream.getTracks().forEach((track: MediaStreamTrack) => {
+      this.connection.addTrack(track, this.transmitStream);
     });
     this.connection.ontrack = (event) => {
       event.streams[0].getTracks().forEach((track) => {
@@ -177,15 +175,18 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
 
   public async createOffer(){
-      await this.createPeerConnection()
-      const offer = await this.connection.createOffer();
+    if (!this.connection) {
+      await this.createPeerConnection();
+    }
+    const offer = await this.connection.createOffer();
     await this.connection.setLocalDescription(offer);
-  
     this.webSocketService.emit('video-chat-data', { type: 'offer', offer, contactNumber: this.contactDetails.number });
   }
 
   public async createAnswer(offer: any){
-    await this.createPeerConnection()
+    if (!this.connection) {
+      await this.createPeerConnection();
+    }
     await this.connection.setRemoteDescription(offer);
     let answer = await this.connection.createAnswer();
     await this.connection.setLocalDescription(answer);
@@ -193,28 +194,13 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
 
   public async addAnswer(answer: any){
-          if(!this.connection.currentRemoteDescription){
-            this.connection.setRemoteDescription(answer)
-          }
-  }
-  public async getLocalAudioStream() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      });
-  
-      stream.getAudioTracks().forEach(track => {
-        // Initially mute local audio output
-        track.enabled = false;
-      });
-  
-      return stream;
-    } catch (error) {
-      console.error('Error accessing local audio:', error);
-      return null;
+    if (this.connection) {
+      if(!this.connection.currentRemoteDescription){
+        this.connection.setRemoteDescription(answer)
+      }
     }
   }
+
   getProfileImg(url: any){
     this.userService.getProfile(url).subscribe((response) => {
       const reader = new FileReader();
@@ -225,40 +211,38 @@ export class ChatBoxVideoChatComponent implements OnInit {
     });
   }
   toggleAudio() {
-    if (this.localStream) {
-      this.localStream.getAudioTracks().forEach((track: { enabled: boolean; }) => {
+    if (this.transmitStream) {
+      this.transmitStream.getAudioTracks().forEach((track: { enabled: boolean; }) => {
         track.enabled = !track.enabled; // Toggle audio track
       });
-      this.audioEnable = !this.audioEnable
     }
+    this.audioEnable = !this.audioEnable
   }
   
   toggleVideo() {
-    if (this.localStream) {
+    if (this.transmitStream) {
+      this.transmitStream.getVideoTracks().forEach((track: { enabled: boolean; }) => {
+        track.enabled = !track.enabled; // Toggle video track
+      });
+    }
+    if(this.localStream){
       this.localStream.getVideoTracks().forEach((track: { enabled: boolean; }) => {
         track.enabled = !track.enabled; // Toggle video track
       });
-      this.videoEnable = !this.videoEnable
-      const payload = {
-        type: 'video-action',
-        enable: this.videoEnable,
-        contactNumber: this.contactDetails.number
-      };
-      this.webSocketService.emit('video-chat-data',payload);
     }
+    this.videoEnable = !this.videoEnable
+    const payload = {
+      type: 'video-action',
+      enable: this.videoEnable,
+      contactNumber: this.contactDetails.number
+    };
+    this.webSocketService.emit('video-chat-data',payload);
   }
   cancelCall() {
     if (this.connection) {
       this.connection.close(); // Close the connection
-       // Stop the local stream tracks to disable the camera
     }
-    if (this.localStream) {
-      this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
-        track.stop(); // Stop each track in the local stream
-      });
-      this.localStream = null; // Reset the local stream reference
-    }
-    this.localVideo.nativeElement.srcObject = null;
+    this.stopTracking()
     this.router.navigate(['/index/chat-box'])
     const payload = {
       type: 'cancel',
@@ -266,4 +250,20 @@ export class ChatBoxVideoChatComponent implements OnInit {
     };
     this.webSocketService.emit('video-chat-data',payload);
   }
+  stopTracking(){
+    if (this.localStream) {
+      this.localStream.getTracks().forEach((track: MediaStreamTrack) => {
+        track.stop(); // Stop each track in the local stream
+      });
+      this.localStream = null; // Reset the local stream reference
+    }
+    this.localVideo.nativeElement.srcObject = null;
+    if (this.transmitStream) {
+      this.transmitStream.getTracks().forEach((track: MediaStreamTrack) => {
+        track.stop(); // Stop each track in the local stream
+      });
+      this.transmitStream = null; // Reset the local stream reference
+    }
+  }
 }
+

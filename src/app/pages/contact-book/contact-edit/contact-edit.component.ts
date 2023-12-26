@@ -27,9 +27,7 @@ export class ContactEditComponent implements OnInit {
     this.userDetails = JSON.parse(
       localStorage.getItem(Constants.APP.SESSION_USER_DATA) || '{}'
     );
-    this.initializeForm();
-    console.log(this.contactDetail);
-    
+    this.initializeForm();    
   }
   initializeForm(): void {
     this.editContactForm = this.formBuilder.group({
