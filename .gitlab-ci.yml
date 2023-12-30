@@ -9,7 +9,7 @@ variables:
     CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:latest
 
 build_job:
-    state: Build
+    stage: Build
     script:
         - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
         - docker build -t $CONTAINER_TEST_IMAGE .
