@@ -11,7 +11,8 @@ export class WebSocketService {
  private socket: Socket;
 
   constructor() {
-    this.socket = io.connect('https://myappsbackend-fwwz.onrender.com')
+    this.socket = io.connect('https://myapps-backend-container.onrender.com')
+    // this.socket = io.connect('https://myappsbackend-fwwz.onrender.com')
     // this.socket = io.connect('http://localhost:3000')
    }
 
