@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { Utils } from 'src/app/common/utils';
 import { UserService } from 'src/app/services/user.service';
@@ -38,6 +39,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
   audioEnable: boolean = true;
   videoEnable: boolean= true;
   remoteStreamEnable: boolean = true;
+  private unsubscribe$ = new Subject<void>();
  
   constructor(private webSocketService: WebSocketService, private router: Router, private userService: UserService, private utils: Utils) { }
 
@@ -67,14 +69,14 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
   setupSocketListeners() {
       this.webSocketService
-      .listen('video-chat-data')
+      .listen('video-chat-data').pipe(takeUntil(this.unsubscribe$))
       .subscribe(async(data) => {
         if(data.contactNumber === this.userDetails.user_number)
         this._handleMessage(data)
       
       })
       this.webSocketService
-      .listen('video-chat-accept')
+      .listen('video-chat-accept').pipe(takeUntil(this.unsubscribe$))
       .subscribe(async(data) => {
         if(data.accept_user == this.contactDetails.number){
           this.createOffer()
@@ -264,6 +266,10 @@ export class ChatBoxVideoChatComponent implements OnInit {
       });
       this.transmitStream = null; // Reset the local stream reference
     }
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
 

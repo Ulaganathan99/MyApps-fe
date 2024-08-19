@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { ContactService } from 'src/app/services/contact.service';
@@ -17,7 +18,7 @@ export class ChatBoxChatsComponent implements OnInit {
   userDetails: any;
   chatContactList: any;
   searchChatContactList: any;
-  onlineStatusInfo: { [key: string]: any } = {};
+  onlineStatusInfo: any = [];
   searchText: any;
   profilePictures: { [key: string]: string } = {};
 
@@ -27,6 +28,7 @@ export class ChatBoxChatsComponent implements OnInit {
     private userService: UserService,
     private webSocketService : WebSocketService,
     private searchService: SearchService) {}
+    private unsubscribe$ = new Subject<void>();
 
   ngOnInit(): void {
     this.userDetails = JSON.parse(
@@ -82,8 +84,8 @@ export class ChatBoxChatsComponent implements OnInit {
 
   setupSocketListeners() {
     this.webSocketService
-      .listen('updatedOnlineStatus')
-      .subscribe((data) => this.updateOnlineStatus(data));
+      .listen('updatedOnlineStatus').pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data) => this.onlineStatusInfo = data);
   }
 
   updateOnlineStatus(data: any) {
@@ -92,6 +94,10 @@ export class ChatBoxChatsComponent implements OnInit {
 
   clickChatBox(data: any){
     this.router.navigate(['/index/chat-box/chat-page'], { state: { contactDetails: data } });
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

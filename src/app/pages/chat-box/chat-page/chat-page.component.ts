@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { Utils } from 'src/app/common/utils';
 import { ChatService } from 'src/app/services/chat.service';
@@ -24,6 +25,7 @@ export class ChatPageComponent implements OnInit {
   typingTimeout: any;
   onlineStatus!: string;
   profileImage!: string;
+  private unsubscribe$ = new Subject<void>();
 
 
   constructor(
@@ -78,13 +80,13 @@ export class ChatPageComponent implements OnInit {
   }
   setupSocketListeners() {
     this.webSocketService
-      .listen('typing')
+      .listen('typing').pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => this.updateFeedback(data));
     this.webSocketService
-      .listen('chat')
+      .listen('chat').pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => this.updateMessage(data));
     this.webSocketService
-      .listen('updatedOnlineStatus')
+      .listen('updatedOnlineStatus').pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => this.updateOnlineStatus(data));
   }
 
@@ -227,5 +229,9 @@ export class ChatPageComponent implements OnInit {
       this.utilsClass.openErrorSnackBar(`${this.contactDetails.name} is offline`);
     }
     
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

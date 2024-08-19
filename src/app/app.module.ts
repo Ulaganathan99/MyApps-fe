@@ -61,6 +61,7 @@ import { ForgotComponent } from './pages/user/forgot/forgot.component';
 import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
 import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
 import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/chat-box-video-chat.component';
+import { NoRightClickDirective } from './directives/no-right-click.directive';
 
 
 @NgModule({
@@ -103,6 +104,7 @@ import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/
     ForgotOtpComponent,
     ForgotPassComponent,
     ChatBoxVideoChatComponent,
+    NoRightClickDirective
   ],
   imports: [
     BrowserModule,
