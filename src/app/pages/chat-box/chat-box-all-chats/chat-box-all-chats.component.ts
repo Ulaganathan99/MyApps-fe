@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -17,9 +18,11 @@ export class ChatBoxAllChatsComponent implements OnInit {
   userDetails: any;
   chatContactList: any;
   searchChatContactList: any;
-  onlineStatusInfo: { [key: string]: any } = {};
+  onlineStatusInfo: any = [];
   searchText: any;
   profilePictures: { [key: string]: string } = {};
+
+  private unsubscribe$ = new Subject<void>();
 
 
   constructor(private loaderService: LoaderService,
@@ -96,16 +99,16 @@ export class ChatBoxAllChatsComponent implements OnInit {
 
   setupSocketListeners() {
     this.webSocketService
-      .listen('updatedOnlineStatus')
-      .subscribe((data) => this.updateOnlineStatus(data));
-  }
-
-  updateOnlineStatus(data: any) {
-    this.onlineStatusInfo = data
+      .listen('updatedOnlineStatus').pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data) => this.onlineStatusInfo = data);
   }
 
   clickChatBox(data: any){
     this.router.navigate(['/index/chat-box/chat-page'], { state: { contactDetails: data } });
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 

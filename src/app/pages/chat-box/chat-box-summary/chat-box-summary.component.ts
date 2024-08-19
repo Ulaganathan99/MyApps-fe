@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChildActivationStart, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
-import { ChatService } from 'src/app/services/chat.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SearchService } from 'src/app/services/search.service';
 import { UserService } from 'src/app/services/user.service';
@@ -27,7 +27,9 @@ export class ChatBoxSummaryComponent implements OnInit {
   selected_tab:string = 'chats';
   profileImage!: string;
 
-  constructor(private router: Router, private chatService : ChatService, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService, private searchService: SearchService) { 
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private router: Router, private webSocketService : WebSocketService, private userService: UserService,private localStorageService: LocalStorageService, private searchService: SearchService) { 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = (event as NavigationEnd).url;
@@ -58,7 +60,7 @@ export class ChatBoxSummaryComponent implements OnInit {
   setupSocketListeners() {
     // In the frontend code of the receiving user (the answerer)
     this.webSocketService
-      .listen('video-chat-request')
+      .listen('video-chat-request').pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
           if(data.userDetails.number === this.userDetails.user_number){
             this.showVideoPopup = true
@@ -70,7 +72,7 @@ export class ChatBoxSummaryComponent implements OnInit {
         }
       );
       this.webSocketService
-      .listen('video-chat-data')
+      .listen('video-chat-data').pipe(takeUntil(this.unsubscribe$))
       .subscribe(async(data) => {
         if(data.contactNumber === this.userDetails.user_number)
           if(data.type === 'cancel'){
@@ -143,6 +145,11 @@ export class ChatBoxSummaryComponent implements OnInit {
       contactNumber: this.popupData.number
     };
     this.webSocketService.emit('video-chat-data',payload);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }
