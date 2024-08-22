@@ -68,6 +68,7 @@ export class LayoutComponent implements OnInit {
   logout(): void {
     localStorage.clear();
     this.utilsClass.openSuccessSnackBar('Logout Success');
+    // this.socketService.disconnect(userNumber)
     this.localStorageService.setItem(Constants.APP.SELECTED_TOPNAV,'Login');
     this.router.navigate(['/login']);
   }

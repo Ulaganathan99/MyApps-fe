@@ -73,18 +73,19 @@ export class ChatBoxAllChatsComponent implements OnInit {
           reader.readAsDataURL(response);
         });
       }
-      
     });
     
   }
-  getProfileImg(url: any){    
-    this.userService.getProfile(url).subscribe((response) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        return reader.result as string;
-      };
-      reader.readAsDataURL(response);
-    });
+  getProfileImg(url: any){   
+    if(url){
+      this.userService.getProfile(url).subscribe((response) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          return reader.result as string;
+        };
+        reader.readAsDataURL(response);
+      });
+    } 
   }
   searchContact(){
     if (this.searchText) {

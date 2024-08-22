@@ -204,13 +204,15 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
 
   getProfileImg(url: any){
-    this.userService.getProfile(url).subscribe((response) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        this.remoteProfileImage = reader.result as string;
-      };
-      reader.readAsDataURL(response);
-    });
+    if(url){
+      this.userService.getProfile(url).subscribe((response) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.remoteProfileImage = reader.result as string;
+        };
+        reader.readAsDataURL(response);
+      });
+    }
   }
   toggleAudio() {
     if (this.transmitStream) {

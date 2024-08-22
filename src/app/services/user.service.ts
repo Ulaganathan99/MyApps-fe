@@ -65,7 +65,7 @@ export class UserService {
   fetchUserInfo(user_id: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.FETCH_USER_INFO,{user_id: user_id})
   }
-  getProfile(imgUrl: string): Observable<Blob>{
+  getProfile(imgUrl: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.FETCH_IMG,{ imgUrl },  { responseType: 'blob' })
   }
   deleteUser(user_id: string): Observable<any>{

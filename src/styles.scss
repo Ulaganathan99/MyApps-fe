@@ -100,7 +100,11 @@ body {
 //   color: rgb(90, 200, 233); /* Replace with your desired text color for the word "Success" */
 // }
 .error-snackbar {
+  background-color: rgb(235, 235, 235); 
   color: red; 
+  .mat-button-wrapper{
+    color: rgb(30, 111, 218);
+  }
 }
 
 @media screen and (max-width: 2000px) {
@@ -139,7 +143,6 @@ body {
     .button{
       font-size: $font-desktop !important;
     }
-   
   }
 }
 @media screen and (max-width: 1024px) {

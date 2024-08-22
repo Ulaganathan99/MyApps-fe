@@ -12,12 +12,23 @@
       width: 100vw;
     }
     .local-video{
+        border: 1px solid grey;
+        border: 1px solid white;
+        border-radius: 5px;
         position: absolute;
         top: 20px;
         left: 20px;
         width: 200px;
         video{
             border-radius: 5px;
+        }
+        .local-profile{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50% , -50%);
         }
     } 
 }

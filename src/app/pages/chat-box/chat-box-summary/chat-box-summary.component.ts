@@ -125,18 +125,61 @@ export class ChatBoxSummaryComponent implements OnInit {
   clickSettings(){
     
   }
-  acceptVideoCall(){
-    this.showVideoPopup = false  
-    this.router.navigate(['/index/chat-box/video-chat'], { state: { popupData: this.popupData} })
+  async acceptVideoCall(){
+    const permissions = await this.checkPermissions();
+      if (!permissions.camera || !permissions.microphone) {
+        // Ask for permissions if not granted
+        const stream = await this.requestPermissions();
+        if (stream) {
+          // Proceed with WebRTC connection setup
+          this.showVideoPopup = false  
+          this.router.navigate(['/index/chat-box/video-chat'], { state: { popupData: this.popupData} })
+        } else {
+          // Handle case where permissions are denied
+          console.log('Cannot proceed without permissions.');
+        }
+      } else {
+        // Permissions already granted
+        this.showVideoPopup = false  
+        this.router.navigate(['/index/chat-box/video-chat'], { state: { popupData: this.popupData} })
+      }
+  }
+  async checkPermissions() {
+    const cameraPermission = await navigator.permissions.query({ name: 'camera' as PermissionName });
+    const microphonePermission = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+  
+    return {
+      camera: cameraPermission.state === 'granted',
+      microphone: microphonePermission.state === 'granted'
+    };
+  }
+
+  async requestPermissions() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      // If successful, the user granted the permissions
+      return stream;
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+          alert('Please allow camera and microphone permissions from your browser settings to continue.');
+        } else {
+          console.error('Error accessing media devices:', err.message);
+        }
+      }
+      return null;
+    }
   }
   getProfileImg(url: any){
-    this.userService.getProfile(url).subscribe((response) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        this.profileImage = reader.result as string;
-      };
-      reader.readAsDataURL(response);
-    });
+    if(url){
+      this.userService.getProfile(url).subscribe((response) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.profileImage = reader.result as string;
+        };
+        reader.readAsDataURL(response);
+      });
+    }
   }
   declineCall(){
     this.showVideoPopup = false
@@ -151,5 +194,4 @@ export class ChatBoxSummaryComponent implements OnInit {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }

@@ -33,13 +33,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfileImg(url: any){
-    this.userService.getProfile(url).subscribe((response) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        this.profilePicture = reader.result as string;
-      };
-      reader.readAsDataURL(response);
-    });
+    if(url){
+      this.userService.getProfile(url).subscribe((response) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.profilePicture = reader.result as string;
+        };
+        reader.readAsDataURL(response);
+      });
+    }
   }
  
    fetchUserInfo(user_id: any) {
