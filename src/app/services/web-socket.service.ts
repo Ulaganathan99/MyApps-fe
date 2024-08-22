@@ -7,32 +7,34 @@ import * as io from 'socket.io-client'
   providedIn: 'root'
 })
 export class WebSocketService {
-
- private socket: Socket;
-
+  private socket: Socket;
+  private userNumber: any;
   constructor() {
     // this.socket = io.connect('https://myapps-backend-container.onrender.com')
-    this.socket = io.connect('https://myappsbackend-fwwz.onrender.com') 
-    // this.socket = io.connect('http://localhost:3100')
-   }
+    // this.socket = io.connect('https://myappsbackend-fwwz.onrender.com') 
+    this.socket = io.connect('http://localhost:3000')
+  }
 
-   connect(userNumber: string): void {
-    
+  connect(userNumber: string): void {
+    this.userNumber = userNumber
     this.socket.emit('online', { userNumber });
   }
 
   disconnect(userNumber: string): void {
     this.socket.emit('disConnect', { userNumber });
+    this.userNumber = undefined;
   }
-   listen(eventname: string) : Observable<any> {
+
+  listen(eventname: string) : Observable<any> {
     return new Observable((subscribe) => {
       this.socket.on(eventname, (data: any) => {
         subscribe.next(data)
       })
     })
-   }
+  }
 
-   emit(eventname: string, data: any) {
+  emit(eventname: string, data: any) {
     this.socket.emit(eventname, data)
-   }
+  }
+
 }

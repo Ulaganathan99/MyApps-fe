@@ -21,6 +21,7 @@ import { ForgotComponent } from './pages/user/forgot/forgot.component';
 import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component';
 import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
 import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/chat-box-video-chat.component';
+import { VideosListComponent } from './pages/video-streaming/videos-list/videos-list.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,11 @@ const routes: Routes = [
               { path: 'chat-page', component: ChatPageComponent },
               { path: 'video-chat', component: ChatBoxVideoChatComponent },
             ],
+          },
+          {
+            path: 'video-streaming',
+            component: VideosListComponent,
+            
           }
         ],
       },

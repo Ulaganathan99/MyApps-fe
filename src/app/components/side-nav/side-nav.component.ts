@@ -30,6 +30,7 @@ export class SideNavComponent implements OnInit {
   menu_list: any[] = [
     {name: 'Contact Book', route : '/index/contact-book'},
     {name: 'Chat Box', route : '/index/chat-box'},
+    {name: 'Video Streaming', route : '/index/video-streaming'},
   ]
 
   clear(ev:any){

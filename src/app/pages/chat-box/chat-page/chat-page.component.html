@@ -23,7 +23,7 @@
         </div>
         <div class="field is-flex is-align-items-center m-0 pl-2">
             <p class="active-status" *ngIf="this.feedback">{{this.feedback}}</p>  
-            <p class="active-status" *ngIf="!this.feedback">{{this.onlineStatus}}</p>  
+            <p class="active-status" *ngIf="!this.feedback">{{this.onlineStatus ? this.onlineStatus : 'offline'}}</p>  
             
         </div>
     </div>
