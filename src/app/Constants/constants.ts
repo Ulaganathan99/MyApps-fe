@@ -12,6 +12,8 @@ export class Constants {
     EDIT_PROFILE: 'user/editProfile',
     DELETE_USER: 'user/deleteProfile',
     FETCH_IMG: 'user/fetchImg',
+
+    CLEAR_SOCKET: 'clearSocket',
    
 
 
@@ -30,6 +32,8 @@ export class Constants {
     GET_MSG: 'chat/getChatMsg',
     DELETE_CHAT_HISTORY: 'chat/deleteChatHistory',
     GET_SEARCH_CHAT_CONTACT: 'chat/getSearchChatContact',
+
+    UPLOAD_VIDEOS : 'videos/upload'
     
   }
 
