@@ -39,6 +39,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
   audioEnable: boolean = true;
   videoEnable: boolean= true;
   remoteStreamEnable: boolean = true;
+  private pendingCandidates: RTCIceCandidate[] = [];
   private unsubscribe$ = new Subject<void>();
  
   constructor(private webSocketService: WebSocketService, private router: Router, private userService: UserService, private utils: Utils) { }
@@ -94,9 +95,15 @@ export class ChatBoxVideoChatComponent implements OnInit {
         this.addAnswer(data.answer)
         break;
       case 'candidate':
-          if(this.connection){
-            this.connection.addIceCandidate(data.candidate)
+        if (this.connection && this.connection.remoteDescription) {
+          try {
+            await this.connection.addIceCandidate(data.candidate);
+          } catch (e) {
+            console.error('Failed to add ICE candidate', e);
           }
+        } else {
+          this.pendingCandidates.push(data.candidate);
+        }
         break;
       case 'video-action':
         if(data.enable){
@@ -197,9 +204,16 @@ export class ChatBoxVideoChatComponent implements OnInit {
 
   public async addAnswer(answer: any){
     if (this.connection) {
-      if(!this.connection.currentRemoteDescription){
-        this.connection.setRemoteDescription(answer)
+      await this.connection.setRemoteDescription(answer);
+      // Add any pending ICE candidates
+      for (const candidate of this.pendingCandidates) {
+        try {
+          await this.connection.addIceCandidate(candidate);
+        } catch (e) {
+          console.error('Failed to add pending ICE candidate', e);
+        }
       }
+      this.pendingCandidates = []; // Clear the pending candidates queue
     }
   }
 
