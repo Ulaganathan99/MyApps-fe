@@ -1,13 +1,49 @@
-<div class="columns p-3 is-gapless is-mobile m-0">
-    <div class="column is-6 pl-3">
-        <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search videos'"></app-search>
-    </div>
-    <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
-        <div class="pr-4">
-            <!-- <img class="icon is-clickable" src="../../../../assets/img/settings.svg" alt="" (click)="clickSettings()"> -->
+<div [ngClass]="darkMode ? 'dark-mode':''">
+    <div class="video-list-page">
+        <div class="columns p-3 is-gapless is-mobile m-0" >
+            <div class="column is-6 pl-3">
+                <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search videos'"></app-search>
+            </div>
+            <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
+                <div class="pr-4 is-clickable px-2" *ngIf="!darkMode" style="border: 1px solid black;" (click)="darkMode = !darkMode">
+                    Dark-Mode
+                </div>
+                <div class="pr-4 is-clickable px-2" *ngIf="darkMode" style="border: 1px solid white; color: white;" (click)="darkMode = !darkMode">
+                    Light-Mode
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!showVideo" class="px-4 chat-head-container mb-3 mx-2 is-flex is-align-items-center is-justify-content-space-between">
+            <div>
+                Videos
+            </div>
+            <div class="is-clickable" (click)="uploadVideos()">
+                Upload
+            </div>
+        </div>
+        
+        <div *ngIf="!showVideo" class="video-list-container px-1 is-flex is-flex-wrap-wrap" >
+            <div class="video-card-container p-2" *ngFor="let i of numArray">
+                <div class="video-card is-clickable" (click)="showVideo = true">
+                    <div class="video-img">
+                        <img src="../../../../assets/img/interstellar.png" alt="">
+                    </div>
+                    <div class="video-name p-2">
+                        Interstellar
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showVideo">
+            <div class="px-4 chat-head-container mb-3 mx-2 is-flex is-align-items-center">
+                <img class="back-img is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="showVideo = false">
+                <div class="pl-3">
+                    Interstellar
+                </div>
+            </div>
+            <div class="video-container is-flex is-justify-content-center">
+                <video controls src="https://myapps-application.s3.amazonaws.com/Screencast+from+22-08-24+04%3A07%3A59+PM+IST.webm"></video>
+            </div>
         </div>
     </div>
-</div>
-<div class="px-2 chat-head-container mb-3 mx-2 is-flex is-align-items-center is-justify-content-center">
-        Videos
 </div>

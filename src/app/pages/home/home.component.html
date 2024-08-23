@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="pad-20">
-    <div class="columns mt-4 is-gapless">
+    <div class="columns mt-4 is-gapless is-multiline">
         <div class="column is-4" *ngFor="let study of studiesTabs">
             <div class="p-3">
                 <div class="prgm-container p-2">
@@ -14,6 +14,9 @@
                 </div>
             </div>    
         </div>
+    </div>
+    <div class="prgm-container p-2 is-clickable" (click)="clearSocketConnection()">
+        <p class="is-flex is-justify-content-center font-sub">Clear Socket Connections</p>
     </div>
 </div>
 

@@ -71,4 +71,7 @@ export class UserService {
   deleteUser(user_id: string): Observable<any>{
     return this.http.post(Constants.BASE_URL+Constants.API.DELETE_USER,{userID: user_id})
   }
+  clearSocket(user_id: string): Observable<any>{
+    return this.http.post(Constants.BASE_URL+Constants.API.CLEAR_SOCKET,{userId: user_id})
+  }
 }
