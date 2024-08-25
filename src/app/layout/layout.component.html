@@ -23,9 +23,9 @@
             <img class="ham-menu is-clickable" (click)="ham_menu()" src="../../../assets/img/menu.png" alt="">
         </div>
         <div *ngIf="show_dropdown_menu">
-            <div class="menu_dropdown">
-                <div *ngFor="let menu of topmenu_list">
-                    <div *ngIf="(is_loggedIn && menu.permission) || (!is_loggedIn && !menu.permission)" class="py-3 is-clickable menulist" (click)="changeMenu(menu)" [ngClass]="{ 'is-active': selected_top_menu === menu.name, 'has-text-black': selected_top_menu !== menu.name }" routerLink="{{ menu.route }}">
+            <div class="menu_dropdown is-hidden-tablet">
+                <div *ngFor="let menu of dropDownMenuList">
+                    <div *ngIf="(is_loggedIn && menu.permission) || (!is_loggedIn && !menu.permission)" class="py-3 is-clickable menulist" (click)="changeMenu(menu)" [ngClass]="{ 'is-active': selected_dropdown_menu === menu.name, 'has-text-black': selected_dropdown_menu !== menu.name }" routerLink="{{ menu.route }}">
                         <div class="is-flex is-justify-content-center">
                             <a class="a px-5">{{ menu.name }}</a>
                         </div>

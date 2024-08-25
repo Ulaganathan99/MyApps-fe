@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -17,6 +18,7 @@ export class ChatBoxInviteComponent implements OnInit {
   searchInviteContactList: any;
   searchText: any;
 
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private loaderService: LoaderService,
     private chatService: ChatService,
@@ -29,7 +31,7 @@ export class ChatBoxInviteComponent implements OnInit {
     );
     this.fetchContactInfo(this.userDetails.user_id);
     this.searchService.setSearchText('');
-    this.searchService.searchText$.subscribe(searchText => {
+    this.searchService.searchText$.pipe(takeUntil(this.unsubscribe$)).subscribe(searchText => {
       this.searchText = searchText;
       this.searchContact()
     });
@@ -61,6 +63,10 @@ export class ChatBoxInviteComponent implements OnInit {
           contact.number.match(searchRegex)
       );
     }     
+  }
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

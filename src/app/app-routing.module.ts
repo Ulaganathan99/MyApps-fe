@@ -22,6 +22,11 @@ import { ForgotOtpComponent } from './pages/user/forgot-otp/forgot-otp.component
 import { ForgotPassComponent } from './pages/user/forgot-pass/forgot-pass.component';
 import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/chat-box-video-chat.component';
 import { VideosListComponent } from './pages/video-streaming/videos-list/videos-list.component';
+import { VideoSummaryComponent } from './pages/video-streaming/video-summary/video-summary.component';
+import { VideoScreenComponent } from './pages/video-streaming/video-screen/video-screen.component';
+import { VideoUploadComponent } from './pages/video-streaming/video-upload/video-upload.component';
+import { MyVideoComponent } from './pages/video-streaming/my-video/my-video.component';
+import { DriveSummaryComponent } from './pages/drive/drive-summary/drive-summary.component';
 
 const routes: Routes = [
   {
@@ -67,8 +72,26 @@ const routes: Routes = [
           },
           {
             path: 'video-streaming',
-            component: VideosListComponent,
+            component: VideoSummaryComponent,
+            children: [
+              { path: '', pathMatch: 'full', redirectTo: 'video-list' },
+              { path: 'video-list', component: VideosListComponent },
+              { path: 'video-screen', component: VideoScreenComponent },
+              { path: 'video-upload', component: VideoUploadComponent },
+              { path: 'my-video', component: MyVideoComponent },
+            ],
             
+          },
+          {
+            path: 'drive',
+            component: DriveSummaryComponent,
+            // children: [
+            //   { path: '', pathMatch: 'full', redirectTo: 'video-list' },
+            //   { path: 'video-list', component: VideosListComponent },
+            //   { path: 'video-screen', component: VideoScreenComponent },
+            //   { path: 'video-upload', component: VideoUploadComponent },
+            //   { path: 'my-video', component: MyVideoComponent },
+            // ],
           }
         ],
       },

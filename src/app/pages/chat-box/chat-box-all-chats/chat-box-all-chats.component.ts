@@ -39,7 +39,7 @@ export class ChatBoxAllChatsComponent implements OnInit {
     this.fetchContactInfo(this.userDetails.user_id);
     this.setupSocketListeners();
     this.searchService.setSearchText('');
-    this.searchService.searchText$.subscribe(searchText => {
+    this.searchService.searchText$.pipe(takeUntil(this.unsubscribe$)).subscribe(searchText => {
       this.searchText = searchText;
       this.searchContact()
     });

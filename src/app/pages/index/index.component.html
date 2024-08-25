@@ -1,8 +1,8 @@
 <div class="columns m-0 is-mobile">
-  <div class="column is-3 p-0 side-nav-column">
+  <div class="column is-3 p-0 side-nav-column is-hidden-mobile">
     <app-side-nav (menu_changed)="menuChanged($event)"></app-side-nav>
   </div>
-    <div class="column is-9 p-0">
+    <div class="column is-12-mobile is-9-tablet p-0">
       <router-outlet></router-outlet>
   </div>
 </div>

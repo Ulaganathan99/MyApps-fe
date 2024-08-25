@@ -1,0 +1,14 @@
+<div class="columns p-3 is-gapless is-mobile m-0" >
+    <div class="column is-6 pl-3">
+        <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search videos'"></app-search>
+    </div>
+    <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
+        <!-- <div class="pr-4 is-clickable px-2" *ngIf="!darkMode" style="border: 1px solid black;" (click)="darkMode = !darkMode">
+            Dark-Mode
+        </div>
+        <div class="pr-4 is-clickable px-2" *ngIf="darkMode" style="border: 1px solid white; color: white;" (click)="darkMode = !darkMode">
+            Light-Mode
+        </div> -->
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -106,7 +106,30 @@ body {
     color: rgb(30, 111, 218);
   }
 }
+/* Base styles for video controls */
+.plyr__controls {
+  display: flex; /* Ensure controls are laid out in a flex container */
+  flex-wrap: wrap; /* Allow wrapping of controls */
+  justify-content: center; /* Center controls */
+  /* Style individual control buttons */
+  .plyr__control {
+    margin: 2px; /* Small margin to avoid overlap */
+    width: 40px; /* Fixed width for each control */
+    height: 40px; /* Fixed height for each control */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .plyr__progress__container{
+    min-width: 150px !important;
+  }
+}
 
+@media screen and (max-width: 500px) {
+  .plyr__progress__container{
+    min-width: 100px !important;
+  }
+}
 @media screen and (max-width: 2000px) {
   html,
   body {
