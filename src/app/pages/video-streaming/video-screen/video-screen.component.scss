@@ -1,0 +1,39 @@
+.chat-head-container{
+    height: 4rem;
+    background-color: #207178;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+}
+.video-container{
+    video{
+        height: 400px;
+    }
+}
+.back-img{
+    height: 20px;
+    width: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+    .video-container{
+        video{
+            height: 300px;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    .video-container{
+        video{
+            height: 300px;
+        }
+    }
+}
+@media screen and (max-width: 550px) {
+    .video-container{
+        video{
+            height: 500px;
+        }
+    }
+}

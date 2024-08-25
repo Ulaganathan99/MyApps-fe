@@ -64,6 +64,10 @@ import { ChatBoxVideoChatComponent } from './pages/chat-box/chat-box-video-chat/
 import { NoRightClickDirective } from './directives/no-right-click.directive';
 import { VideosListComponent } from './pages/video-streaming/videos-list/videos-list.component';
 import { VideoScreenComponent } from './pages/video-streaming/video-screen/video-screen.component';
+import { VideoSummaryComponent } from './pages/video-streaming/video-summary/video-summary.component';
+import { VideoUploadComponent } from './pages/video-streaming/video-upload/video-upload.component';
+import { MyVideoComponent } from './pages/video-streaming/my-video/my-video.component';
+import { DriveSummaryComponent } from './pages/drive/drive-summary/drive-summary.component';
 
 
 @NgModule({
@@ -108,7 +112,11 @@ import { VideoScreenComponent } from './pages/video-streaming/video-screen/video
     ChatBoxVideoChatComponent,
     NoRightClickDirective,
     VideosListComponent,
-    VideoScreenComponent
+    VideoScreenComponent,
+    VideoSummaryComponent,
+    VideoUploadComponent,
+    MyVideoComponent,
+    DriveSummaryComponent
   ],
   imports: [
     BrowserModule,

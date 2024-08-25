@@ -33,7 +33,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
     ],
     iceCandidatePoolSize: 10,
   };
-  connection!: RTCPeerConnection;
+  connection!: RTCPeerConnection | null;
   remoteProfileImage!: string;
   localProfileImage!: string;
   audioEnable: boolean = true;
@@ -114,7 +114,9 @@ export class ChatBoxVideoChatComponent implements OnInit {
       break;
       case 'decline-call':
         if (this.connection) {
+          this.removeTracksFromPeerConnection();
           this.connection.close(); // Close the connection
+          this.connection = null;
         }
         this.stopTracking()
         this.router.navigate(['/index/chat-box'])
@@ -122,7 +124,9 @@ export class ChatBoxVideoChatComponent implements OnInit {
       break;
       case 'cancel':
         if (this.connection) {
+          this.removeTracksFromPeerConnection();
           this.connection.close(); // Close the connection
+          this.connection = null;
         }
         this.stopTracking()
         this.router.navigate(['/index/chat-box'])
@@ -163,7 +167,7 @@ export class ChatBoxVideoChatComponent implements OnInit {
       });
     }
     this.transmitStream.getTracks().forEach((track: MediaStreamTrack) => {
-      this.connection.addTrack(track, this.transmitStream);
+      this.connection?.addTrack(track, this.transmitStream);
     });
     this.connection.ontrack = (event) => {
       event.streams[0].getTracks().forEach((track) => {
@@ -187,8 +191,8 @@ export class ChatBoxVideoChatComponent implements OnInit {
     if (!this.connection) {
       await this.createPeerConnection();
     }
-    const offer = await this.connection.createOffer();
-    await this.connection.setLocalDescription(offer);
+    const offer = await this.connection?.createOffer();
+    await this.connection?.setLocalDescription(offer);
     this.webSocketService.emit('video-chat-data', { type: 'offer', offer, contactNumber: this.contactDetails.number });
   }
 
@@ -196,9 +200,9 @@ export class ChatBoxVideoChatComponent implements OnInit {
     if (!this.connection) {
       await this.createPeerConnection();
     }
-    await this.connection.setRemoteDescription(offer);
-    let answer = await this.connection.createAnswer();
-    await this.connection.setLocalDescription(answer);
+    await this.connection?.setRemoteDescription(offer);
+    let answer = await this.connection?.createAnswer();
+    await this.connection?.setLocalDescription(answer);
     this.webSocketService.emit('video-chat-data', { type: 'answer', answer, contactNumber: this.contactDetails.number });
   }
 
@@ -258,7 +262,9 @@ export class ChatBoxVideoChatComponent implements OnInit {
   }
   cancelCall() {
     if (this.connection) {
-      this.connection.close(); // Close the connection
+      this.removeTracksFromPeerConnection();
+          this.connection.close(); // Close the connection
+          this.connection = null;
     }
     this.stopTracking()
     this.router.navigate(['/index/chat-box'])
@@ -283,9 +289,23 @@ export class ChatBoxVideoChatComponent implements OnInit {
       this.transmitStream = null; // Reset the local stream reference
     }
   }
+  removeTracksFromPeerConnection() {
+    if (this.connection) {
+      this.connection.getSenders().forEach(sender => {
+        this.connection?.removeTrack(sender);
+      });
+    }
+  }
+  
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    this.stopTracking();
+    if (this.connection) {
+      this.removeTracksFromPeerConnection();
+      this.connection?.close(); // Close the connection
+      this.connection = null;
+    }
   }
 }
 

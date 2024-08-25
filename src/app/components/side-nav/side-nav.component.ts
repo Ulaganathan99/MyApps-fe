@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Constants } from 'src/app/Constants/constants';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -11,6 +12,8 @@ export class SideNavComponent implements OnInit {
   @Output() menu_changed = new EventEmitter<any>();
 
   selected_side_nav : any;
+  private unsubscribe$ = new Subject<void>();
+
 
   constructor(private localStorageService: LocalStorageService) { 
    
@@ -20,7 +23,7 @@ export class SideNavComponent implements OnInit {
     if (localStorage.getItem(Constants.APP.SELECTED_SIDENAV)) {
       this.selected_side_nav = this.localStorageService.getItem(Constants.APP.SELECTED_SIDENAV);
      }
-    this.localStorageService.onChange.subscribe((key: string) => {
+    this.localStorageService.onChange.pipe(takeUntil(this.unsubscribe$)).subscribe((key: string) => {
       if (key === Constants.APP.SELECTED_SIDENAV) {
         this.selected_side_nav = this.localStorageService.getItem(Constants.APP.SELECTED_SIDENAV);
       } 
@@ -30,7 +33,8 @@ export class SideNavComponent implements OnInit {
   menu_list: any[] = [
     {name: 'Contact Book', route : '/index/contact-book'},
     {name: 'Chat Box', route : '/index/chat-box'},
-    {name: 'Video Streaming', route : '/index/video-streaming'},
+    {name: 'Streaming', route : '/index/video-streaming'},
+    {name: 'My Drive', route : '/index/drive'},
   ]
 
   clear(ev:any){
@@ -40,6 +44,9 @@ export class SideNavComponent implements OnInit {
     this.localStorageService.setItem(Constants.APP.SELECTED_SIDENAV,(this.selected_side_nav));
     localStorage.removeItem(Constants.APP.SELECTED_TAB);
   }
-
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 }

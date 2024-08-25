@@ -36,7 +36,7 @@ export class ChatBoxChatsComponent implements OnInit {
     );
     this.fetchContactInfo(this.userDetails.user_id);
     this.setupSocketListeners();
-    this.searchService.searchText$.subscribe(searchText => {
+    this.searchService.searchText$.pipe(takeUntil(this.unsubscribe$)).subscribe(searchText => {
       this.searchText = searchText;
       this.searchContact()
     });
