@@ -68,6 +68,7 @@ import { VideoSummaryComponent } from './pages/video-streaming/video-summary/vid
 import { VideoUploadComponent } from './pages/video-streaming/video-upload/video-upload.component';
 import { MyVideoComponent } from './pages/video-streaming/my-video/my-video.component';
 import { DriveSummaryComponent } from './pages/drive/drive-summary/drive-summary.component';
+import { AddFilePopupComponent } from './pages/drive/add-file-popup/add-file-popup.component';
 
 
 @NgModule({
@@ -116,7 +117,8 @@ import { DriveSummaryComponent } from './pages/drive/drive-summary/drive-summary
     VideoSummaryComponent,
     VideoUploadComponent,
     MyVideoComponent,
-    DriveSummaryComponent
+    DriveSummaryComponent,
+    AddFilePopupComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,71 @@
-<div class="is-flex is-justify-content-center is-align-items-center is-size-1" style="width: 100%; height: 100%;">
-    Coming Soon
+<div class="columns p-3 is-gapless is-mobile m-0" >
+    <div class="column is-6 pl-3">
+        <app-search (searchEventData)="onSearch($event)" [placeHolder]="'Search videos'"></app-search>
+    </div>
+    <div class="column is-6  is-flex is-align-items-center is-justify-content-end">
+        <!-- <div class="pr-4 is-clickable px-2" *ngIf="!darkMode" style="border: 1px solid black;" (click)="darkMode = !darkMode">
+            Dark-Mode
+        </div>
+        <div class="pr-4 is-clickable px-2" *ngIf="darkMode" style="border: 1px solid white; color: white;" (click)="darkMode = !darkMode">
+            Light-Mode
+        </div> -->
+    </div>
 </div>
+<div class="px-4 chat-head-container mx-2 is-flex is-align-items-center is-justify-content-space-between">
+    <div class="is-flex is-align-items-center">
+        <img *ngIf="currentLocation.includes('/')" class="back-img is-clickable" src="../../../../assets/img/back_arrow.png" alt="" (click)="clickBack()">
+        <div class="pl-2">
+            {{folderName}}
+        </div>
+    </div>
+    <div class="is-flex">
+        <div class="mx-2 is-clickable" (click)="addFolder()">
+            Add Folder
+        </div>
+        <div class="mx-2 is-clickable" (click)="showAddFile = true">
+            Add File
+        </div>
+    </div>
+</div>
+<div class="secondary-head mx-2 is-flex is-justify-content-space-between is-align-items-center" style="background-color: bisque; height: 25px;">
+    <div class="current-path px-3">
+        Path: <span class="has-text-weight-light">{{currentLocation}}</span> 
+    </div>
+    <div class="list-type">
+
+    </div>
+</div>
+<div class="list px-2">
+    <div class="folder-container is-flex is-align-items-center is-clickable my-1" *ngFor="let item of folderList; let i = index;" (click)="onDoubleClick(item)">
+        <div class="folder-img is-flex is-justify-content-center is-align-items-center">
+            <img src="../../../../assets/img/folder.png" alt="">
+        </div>
+        <div class="folder-name px-2">
+            <div *ngIf="item.edit" class="edit">
+                <input #inputField 
+                [(ngModel)]="item.name"
+                (blur)="onBlur(i)" 
+                type="text"
+                (keydown.enter)="onBlur(i)"
+                (focus)="selectText(inputField)">
+            </div>
+            <div *ngIf="!item.edit" class="name">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+    <div class="file-container is-flex is-align-items-center is-clickable my-1" *ngFor="let item of fileList">
+        <div class="file-img is-flex is-justify-content-center is-align-items-center">
+            <img src="../../../../assets/img/unknown-file.png" alt="">
+        </div>
+        <div class="file-name px-2">
+            <div *ngIf="item.edit" class="edit">
+                <input type="text" value="file name">
+            </div>
+            <div *ngIf="!item.edit" class="name">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+</div>
+<app-add-file-popup *ngIf="showAddFile" (closePopup)="showAddFile = false"></app-add-file-popup>

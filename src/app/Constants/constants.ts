@@ -33,7 +33,10 @@ export class Constants {
     DELETE_CHAT_HISTORY: 'chat/deleteChatHistory',
     GET_SEARCH_CHAT_CONTACT: 'chat/getSearchChatContact',
 
-    UPLOAD_VIDEOS : 'videos/upload'
+    UPLOAD_VIDEOS : 'videos/uploadVideo',
+
+    UPLOAD_FILE : 'drive/uploadFile',
+    FETCH_FILE : 'drive/fetchFile'
     
   }
 
