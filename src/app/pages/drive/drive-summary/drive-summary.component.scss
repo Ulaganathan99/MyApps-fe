@@ -1,0 +1,44 @@
+.chat-head-container{
+    height: 4rem;
+    background-color: #207178;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+}
+.secondary-head{
+    border-radius: 3px;
+}
+.back-img{
+    height: 20px;
+    width: 20px;
+}
+.list{
+    .folder-container{
+        &:hover{
+            background-color: #4b97a02d;
+            border-radius: 5px;
+        }
+        .folder-img{
+            width: 40px;
+            img{
+                width: 100%;
+            }
+        }
+    }.file-container{
+        &:hover{
+            background-color: #4b97a02d;
+            border-radius: 5px;
+
+        }
+        .file-img{
+            width: 40px;
+            img{
+                width: 100%;
+            }
+        }
+    }
+
+}
+
+  
