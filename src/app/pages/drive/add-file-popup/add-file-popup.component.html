@@ -1,8 +1,8 @@
 <div class="modal fade is-active">
     <div class="modal-card">   
-      <div class="modal-card-body">
+      <div class="modal-card-body" *ngIf="uploadProgress == null">
             <div class="column is-flex is-justify-content-space-between">
-                <p>Add a file</p>
+                <p class="has-text-weight-bold" style="color: #207178;">Add Files</p>
                 <img class="icon close-img mr-2 is-clickable" src="../../../../assets/img/cancel.png" alt="" (click)="closePopup.emit()">
             </div>
             <div class="file-upload">
@@ -27,7 +27,7 @@
                         <li *ngFor="let file of files; let i = index;" class="file-item"><div class="py-0">{{i+1}}</div><div class="px-2 py-0">-</div><div class="file-name p-0">{{ file.name }}</div></li>
                       </ul>
                     </div>
-                      <input type="file" #fileInput multiple (change)="onFileSelect($event)" style="display: none;">
+                      <input type="file" multiple #fileInput (change)="onFileSelect($event)" style="display: none;">
                     </div>
                     <div *ngIf="files.length > 0" class="file-list">
                       <h4>Selected Files:</h4>
@@ -37,6 +37,21 @@
                     </div>
                   </div>
             </div>
+            <div class="is-flex is-justify-content-center mt-3" (click)="uploadFile()">
+                <div class="button upload-btn ">Upload File</div>
+            </div>
+      </div>
+      <div class="modal-card-body" *ngIf="uploadProgress !== null">
+        <div class="progress-container">
+          <div class="progress-header">
+            <p class="progress-text">Uploading...</p>
+          </div>
+          <mat-progress-bar mode="determinate" [value]="uploadProgress" class="custom-progress-bar"></mat-progress-bar>
+          <div class="progress-details">
+            <p class="progress-size">{{ uploadedSize | fileSize }} / {{ totalFileSize | fileSize }}</p>
+            <p class="progress-percentage">{{ uploadProgress }}%</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

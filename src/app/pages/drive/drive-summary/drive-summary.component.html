@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="is-flex">
-        <div class="mx-2 is-clickable" (click)="addFolder()">
+        <div class="mx-2 is-clickable" (click)="addFolder('Folder name')">
             Add Folder
         </div>
         <div class="mx-2 is-clickable" (click)="showAddFile = true">
@@ -36,7 +36,7 @@
     </div>
 </div>
 <div class="list px-2">
-    <div class="folder-container is-flex is-align-items-center is-clickable my-1" *ngFor="let item of folderList; let i = index;" (click)="onDoubleClick(item)">
+    <div class="folder-container is-flex is-align-items-center is-clickable my-1" *ngFor="let item of folderList; let i = index;" (click)="clickFolder(item)">
         <div class="folder-img is-flex is-justify-content-center is-align-items-center">
             <img src="../../../../assets/img/folder.png" alt="">
         </div>
@@ -54,18 +54,55 @@
             </div>
         </div>
     </div>
-    <div class="file-container is-flex is-align-items-center is-clickable my-1" *ngFor="let item of fileList">
-        <div class="file-img is-flex is-justify-content-center is-align-items-center">
-            <img src="../../../../assets/img/unknown-file.png" alt="">
-        </div>
-        <div class="file-name px-2">
-            <div *ngIf="item.edit" class="edit">
-                <input type="text" value="file name">
+    <div class="file-container is-flex is-align-items-center is-justify-content-space-between my-1" *ngFor="let item of fileList; let i = index;">
+        <div class="file-left is-flex is-align-items-center">
+            <div class="file-img is-flex is-justify-content-center is-align-items-center">
+                <img src="../../../../assets/img/unknown-file.png" alt="">
             </div>
-            <div *ngIf="!item.edit" class="name">
-                {{item.name}}
+            <div class="file-name px-2">
+                <div *ngIf="item.edit" class="edit">
+                    <input #inputField 
+                    [(ngModel)]="item.name"
+                    (blur)="onFileBlur(i)" 
+                    type="text"
+                    (keydown.enter)="onFileBlur(i)"
+                    (focus)="selectText(inputField)">
+                </div>
+                <div *ngIf="!item.edit" class="name is-clickable" (click)="clickOnFile(item)">
+                    {{item.name}}
+                </div>
+            </div>
+        </div>
+        <div class="file-second is-flex is-align-items-center">
+            <div class="is-flex is-justify-content-center is-align-items-center file-type">
+                <p>{{item.fileType}}</p>
+                <!-- <img src="../../../../assets/img/unknown-file.png" alt=""> -->
+            </div>
+            <div class="file-action px-2 is-flex is-align-items-center">
+                <img class="mx-2 is-clickable" src="../../../../assets/img/edit.png" alt="" (click)="clickRename(item)">
+                <ng-container *ngIf="!item.isDownloading; else progressTemplate">
+                    <img class="mx-2 is-clickable" src="../../../../assets/img/download.png" alt="" (click)="downloadFile(item)">
+                </ng-container>
+                <ng-template #progressTemplate>
+                    <div class="progress-container">
+                        <svg class="progress-ring" width="18" height="18">
+                            <circle
+                            class="progress-ring__circle--bg"
+                            r="7"
+                            cx="7.5"
+                            cy="7.5"
+                          />
+                          <circle class="progress-ring__circle" stroke="black" stroke-width="1" fill="transparent" r="7" cx="7.5" cy="7.5" />
+                        </svg>
+                      </div>
+                </ng-template>
+                  
+                <img class="mx-2 is-clickable" src="../../../../assets/img/bin.png" alt="" (click)="deleteFile(item)">
             </div>
         </div>
     </div>
 </div>
-<app-add-file-popup *ngIf="showAddFile" (closePopup)="showAddFile = false"></app-add-file-popup>
+<div *ngIf="fileList?.length == 0 && folderList?.length == 0" class="is-flex w-100 is-align-items-center is-justify-content-center has-text-weight-bold is-size-3" style="height: 300px; color: rgba(0, 0, 0, 0.199);">
+    No File Here...
+</div>
+<app-add-file-popup *ngIf="showAddFile" (closePopup)="showAddFile = false" (saveFile)="saveFileNames($event)"></app-add-file-popup>

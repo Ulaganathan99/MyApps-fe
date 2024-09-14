@@ -14,8 +14,6 @@ export class Constants {
     FETCH_IMG: 'user/fetchImg',
 
     CLEAR_SOCKET: 'clearSocket',
-   
-
 
     ADD_CONTACT: 'contact/addContact',
     FETCH_CONTACT_INFO: 'contact/getContacts',
@@ -36,7 +34,16 @@ export class Constants {
     UPLOAD_VIDEOS : 'videos/uploadVideo',
 
     UPLOAD_FILE : 'drive/uploadFile',
-    FETCH_FILE : 'drive/fetchFile'
+    FETCH_FILE : 'drive/fetchFile',
+   
+
+    GET_SINGLE_PRESIGNED_URL: 's3/generate-single-presigned-url',
+    START_MULTIPART_UPLOAD: 's3/start-multipart-upload',
+    GET_MULTIPART_PRESIGNED_URL: 's3/generate-multipart-presigned-url',
+    COMPLETE_MULTIPART_UPLOAD: 's3/complete-multipart-upload',
+    ABORT_MULTIPART_UPLOAD: 's3/abortMultipartUpload',
+    DELETE_SINGLE_FILE: 's3/deleteSingleFile',
+    RENAME_FILE: 's3/renameFile'
     
   }
 
