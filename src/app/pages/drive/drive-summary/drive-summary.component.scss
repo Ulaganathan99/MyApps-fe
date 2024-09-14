@@ -31,14 +31,51 @@
             border-radius: 5px;
 
         }
+        .file-name{
+            .name:hover{
+                color: blue;
+            }
+        }
         .file-img{
             width: 40px;
             img{
                 width: 100%;
             }
         }
+        .file-type p{
+            width: 300px;
+            white-space: nowrap; /* Prevent the text from wrapping */
+            overflow: hidden; /* Hide the overflowed text */
+            text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+        }
+        .file-action{
+            img{
+                width: 15px;
+            }
+        }
     }
 
 }
-
+.progress-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+  .progress-ring__circle--bg {
+    stroke: #c2c2c2; /* Light grey color for the background (tube) */
+    stroke-width: 2;
+    fill: transparent;
+  }
+  
+  .progress-ring__circle {
+    stroke: #207178; /* The color of the progress */
+    stroke-width: 2;
+    transition: stroke-dashoffset 0.35s ease;
+  }
+
+

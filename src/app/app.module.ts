@@ -26,6 +26,7 @@ import { IndexComponent } from './pages/index/index.component';
 import { SignupComponent } from './pages/user/signup/signup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { UserService } from './services/user.service';
 import { SignupOtpVerificationComponent } from './pages/user/signup-otp-verification/signup-otp-verification.component';
@@ -69,6 +70,7 @@ import { VideoUploadComponent } from './pages/video-streaming/video-upload/video
 import { MyVideoComponent } from './pages/video-streaming/my-video/my-video.component';
 import { DriveSummaryComponent } from './pages/drive/drive-summary/drive-summary.component';
 import { AddFilePopupComponent } from './pages/drive/add-file-popup/add-file-popup.component';
+import { FileSizePipe } from './pipes/file-size.pipe';
 
 
 @NgModule({
@@ -118,7 +120,8 @@ import { AddFilePopupComponent } from './pages/drive/add-file-popup/add-file-pop
     VideoUploadComponent,
     MyVideoComponent,
     DriveSummaryComponent,
-    AddFilePopupComponent
+    AddFilePopupComponent,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
@@ -136,7 +139,8 @@ import { AddFilePopupComponent } from './pages/drive/add-file-popup/add-file-pop
     MatFormFieldModule,
     MatSliderModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule
     
 
 
